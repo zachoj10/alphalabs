@@ -64,12 +64,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CheckerBoardObj.cpp" />
-    <ClCompile Include="CheckerHeader.h" />
+    <ClCompile Include="Checker.h" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CheckerBoardHeader.h" />
+    <ClInclude Include="CheckerBoard.h" />
+    <ClInclude Include="GUI.h" />
+    <ClInclude Include="GUI_Ascii.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
