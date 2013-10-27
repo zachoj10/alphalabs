@@ -174,3 +174,4 @@ void addPlayers(){
 		strcpy(activePlayers[2], "\0");
 	}
 }
+
