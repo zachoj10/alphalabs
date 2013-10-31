@@ -7,6 +7,7 @@ namespace Checkers {
 			void Delete();
 			void Jump();
 			void KingMe();
+			CheckerObj *next;
 
 		private:
 			bool isKinged;

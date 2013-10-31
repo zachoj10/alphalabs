@@ -8,35 +8,39 @@ using namespace Checkers;
 // Forward Declarations
 int main();
 void PlayGame(int playerCount);
+CheckerObj *CreateNewPlayer();
+void ActivatePlayer(CheckerObj *currentPlayer);
 
 int main() {
 	// Initialize variables
 	int numberOfTurns = 0;
-	char menuSelectionBuffer;
+	char mainMenuSelectionBuffer;
 	int playerCount;
 
 	// Instantiate class objects
-	GUI_Ascii* guiObj = new GUI_Ascii();
+	GUI_Ascii *guiObj = new GUI_Ascii();
 
-	std::cout << "\n\nWelcome to Checkers by AlphaLabs\n";
+	guiObj->DisplayWelcome();
 
 	do {
-		guiObj->DisplayMenu();
-		std::cin.get(menuSelectionBuffer);
+		guiObj->DisplayMainMenu();
+		mainMenuSelectionBuffer = guiObj->HandleMainMenuResponse();
 		
 		// Handle main menu selection
-		switch (menuSelectionBuffer) {
+		switch (mainMenuSelectionBuffer) {
 			case 'p':
 				// Play a new game
-				std::cout << "\nWelcome to Your Game of Checkers\n";
-				std::cout << "How many players?\n";
 
-				// Retrieve player count and convert to integer
-				// TODO: Investigate buffer issue that does not allow user input
-				std::cin.get(menuSelectionBuffer);
-				playerCount = (int)menuSelectionBuffer;
+				// Get player count
+				guiObj->DisplayPlayerCountMenu();
+				playerCount = guiObj->HandlePlayerCountMenuResponse();
 
-				PlayGame(playerCount);
+				// Check player boundaries
+				if (2 < playerCount && 3 >  playerCount) {
+					guiObj->DisplayUserInputError();
+				} else {
+					PlayGame(playerCount);
+				} //if-else
 			break;
 
 			case 'q':
@@ -44,29 +48,39 @@ int main() {
 			break;
 
 			default:
-				std::cout << "Error: Please input a valid menu option...\n";
+				// Invalid input
+				guiObj->DisplayUserInputError();
 			break;
 		} //switch
 
-	} while ('q' != menuSelectionBuffer);
+	} while ('q' != mainMenuSelectionBuffer);
 } //main
 
 void PlayGame(int playerCount) {
 	// Initialize variables
 	int numberOfTurns = 0;
+	char key_pressed = ' ';
+	int x, y, i;
 
 	// Instantiate class objects
-	CheckerObj** playerList = new CheckerObj*[playerCount];
-	CheckerObj* currentPlayer;
-	CheckerBoardObj* checkerBoardObj = new CheckerBoardObj(playerCount);
+	CheckerObj playerList[3]; // TODO: Find workaround to instantiate array length via playerCount
+	CheckerObj *currentPlayer;
+
+	// Add Players
+	for (i = 0; i < playerCount - 1; i++) {
+		playerList[i].next = CreateNewPlayer();
+	} //for
+
+	CheckerBoardObj* checkerBoardObj = new CheckerBoardObj(playerList);
+
+	console_activate();
+	checkerBoardObj->DisplayBoard();
 
 	// Handle a full game until 1 or fewer players remain
 	while (sizeof(playerList) > 1) {
 		// Selects current player by modding remaining players with turn number; i.e., turn 4 in 3 player game will select array[1] (2nd player)
-		currentPlayer = playerList[numberOfTurns % sizeof(playerList)];
-
-		// TODO: Prompt user for an action on their turn
-		//ActivatePlayer(currentPlayer);
+		currentPlayer = &playerList[numberOfTurns % sizeof(playerList)];
+		ActivatePlayer(currentPlayer);
 	} //while
 
 	if (1 == sizeof(playerList)) {
@@ -75,3 +89,16 @@ void PlayGame(int playerCount) {
 		// Black's special power resulted in no one surviving; Game Over!
 	} //if-else
 } //PlayGame
+
+
+CheckerObj *CreateNewPlayer() {
+	// TODO: Add cases for three different color creations
+	enum {Black, Red, Green} checkerColors;
+
+	return new CheckerObj;
+} //CreateNewPlayer
+
+
+void ActivatePlayer(CheckerObj *currentPlayer) {
+	// TODO: Prompt user for an action on their turn
+} //ActivatePlayer
