@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "ConsoleUtil.h"
+#include "checkers\Checker.h"
 #include <iostream>
 
 using namespace std;
@@ -152,6 +153,18 @@ void movePiece(int initialX, int initialY, int finalX, int finalY){
 	pieces[finalY - 1][finalX - 1] = pieces[initialY - 1][initialX - 1];
 }
 
+void generateCheckers(bool black, bool red, bool green) {
+	if (black) {
+		Checkers::Black* blackChecker = new Checkers::Black[7]; 
+	}
+	if (red) {
+		//Add red pieces
+	}
+	if (green) {
+		//Add green pieces
+	}
+}
+
 void addPlayers(){
 	int numPlayers;
 	std::cout << "How many players are there?";
@@ -164,6 +177,7 @@ void addPlayers(){
 		std::cin >> activePlayers[1];
 		std::cout << "\nPlease enter the color for player 3: ";
 		std::cin >> activePlayers[2];
+		generateCheckers(true, true, true);
 	}
 	else {
 		std::cout << "The two color options are Black and Red";
@@ -172,6 +186,7 @@ void addPlayers(){
 		std::cout << "\nPlease enter the color for player 2: ";
 		std::cin >> activePlayers[1];
 		strcpy(activePlayers[2], "\0");
+		generateCheckers(true, true, false);
 	}
 }
 
