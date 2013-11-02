@@ -1,10 +1,12 @@
 #pragma once
 #include <stdlib.h>
-#include <string.h>
+#include <stdio.h>
 
 namespace Checkers {
 	class CheckerObj {
 		public:
+			typedef enum {black, red, green} checkerColors;
+
 			/*void Move(int destinationX, int destinationY, bool isJump)
 			{
 				currentX = destinationX;
@@ -21,6 +23,19 @@ namespace Checkers {
 			{s
                 //TODO
 			}*/
+			void createChecker(checkerColors color, int id) {
+				switch (color) {
+				case black:
+					Black *newChecker = new Black(id);
+					break;
+				case red:
+					Red *newChecker = new Red(id);
+					break;
+				case green:
+					Green *newChecker = new Green(id);
+					break;
+				}
+			}
 			void setID(int id) {
 				checkerID = id;
 			}
@@ -62,7 +77,7 @@ namespace Checkers {
 			kingMe(false);
 		}
 			; //constructor
-		bool Special() {
+		bool special() {
 			int boom = rand() % 2;
 			if (boom == 0) {
 				return true;
@@ -89,16 +104,25 @@ namespace Checkers {
 			setID(id);
 			specialUsed(false);
 			kingMe(false);
-		};
+		}
+		bool special() {
+			if (isSpecialUsed() != true) {
+				char use;
+				do {
+					std::cout << "\nDo you want to use your special? (y/n)";
+					std::cin >> use;
+					if (use == 'y') {
+						specialUsed(true);
+						return true;
+					} else if (use == 'n') {
+						return false;
+					} else {
+						std::cout << "\nEnter only y or n";
+					}
+				} while (use != 'y' && use != 'n');
+			}
+		}
+		;
 	};
 
 }
-/*Questions:
--How are we generating the checkers and placing them on the board. 
-	Black* blackChecker = new Black[7];
-		Creates an array of black checkers which can be referred to by blackChecker[0]
-		Can be displayed on board as B0, B1, B2, etc. "B" + 
--It seems that the logic for movement should be handled in the game driver, using the move() function to set the new location and
-	applying that to the game board.
-
-*/
