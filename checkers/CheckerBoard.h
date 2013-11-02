@@ -1,6 +1,7 @@
 #pragma once
 #include "Checker.h"
 #include "GUI_Ascii.h"
+#include <typeinfo>
 
 namespace Checkers {
 	class CheckerBoardObj {
@@ -38,6 +39,11 @@ namespace Checkers {
 				// TODO: Update this method to draw each current checker
 				guiObj->DisplayBoard();
 			} //DisplayBoard
+
+			void DisplayWinner(CheckerObj winner){
+				std::cout << "The winner is %s", typeid(winner).name();
+			}
+
 
 
 		//=============== Private Methods/Members ===============//

@@ -36,7 +36,7 @@ int main() {
 				playerCount = guiObj->HandlePlayerCountMenuResponse();
 
 				// Check player boundaries
-				if (2 < playerCount && 3 >  playerCount) {
+				if (2 > playerCount || 3 <  playerCount) {
 					guiObj->DisplayUserInputError();
 				} else {
 					PlayGame(playerCount);
@@ -63,7 +63,9 @@ void PlayGame(int playerCount) {
 	int x, y, i;
 
 	// Instantiate class objects
-	CheckerObj playerList[3]; // TODO: Find workaround to instantiate array length via playerCount
+	//CheckerObj playerList[3]; // TODO: Find workaround to instantiate array length via playerCount
+	//CheckerObj playerList[count];
+	CheckerObj* playerList = new CheckerObj[playerCount];
 	CheckerObj *currentPlayer;
 
 	// Add Players
@@ -85,6 +87,8 @@ void PlayGame(int playerCount) {
 
 	if (1 == sizeof(playerList)) {
 		// Last remaining player is the winner
+		CheckerObj winner = playerList[0];
+		checkerBoardObj->DisplayWinner(winner);
 	} else {
 		// Black's special power resulted in no one surviving; Game Over!
 	} //if-else
