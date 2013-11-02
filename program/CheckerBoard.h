@@ -35,15 +35,15 @@ namespace Checkers {
 				case green:
 					Green *newChecker = new Green(id);
 					break;
+				}
 			}
 
-			/* Moving to player class
-			void AddChecker(int destinationX, int destinationY) {
-				CheckerObj *newChecker = new CheckerObj();
-				checkerBoard[destinationX][destinationY] = newChecker;
+			
+			void AddChecker(int destinationX, int destinationY, Checkers::CheckerObj *checker) {
+				checkerBoard[destinationX][destinationY] = checker;
 			} //AddChecker
 
-
+			/*
 			void DeleteChecker(int originX, int originY) {
 				checkerBoard[originX][originY]->Delete();
 			} //RemoveChecker
