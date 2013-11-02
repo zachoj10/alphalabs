@@ -4,10 +4,16 @@
 
 namespace Checkers {
 	class CheckerObj {
+<<<<<<< HEAD
 			typedef enum {black, red, green} checkerColors;
 
 	
 			void Move(int destinationX, int destinationY, bool isJump)
+=======
+		public:
+			typedef enum {black, red, green} checkerColor;
+			/*void Move(int destinationX, int destinationY, bool isJump)
+>>>>>>> gareth
 			{
 				currentX = destinationX;
 				currentY = destinationY;
@@ -21,26 +27,52 @@ namespace Checkers {
 			}
 			void Jump(){
                 //TODO
+<<<<<<< HEAD
 			}
 
 			
 			void setID(int id) {
 				checkerID = id;
+=======
+			}*/
+
+			void createChecker(checkerColor color, int id) {
+				switch (color) {
+				case black:
+					Black *newChecker = new Black(id);
+					break;
+				case red:
+					Red *newChecker = new Red(id);
+					break;
+				case green:
+					Green *newChecker = new Green(id);
+					break;
+				}
+			}
+			void setID(int checkerID) {
+				this->checkerID = checkerID;
+>>>>>>> gareth
 			}
 			int getID() {
-				return checkerID;
+				return this->checkerID;
 			}
-			void kingMe(bool isKing)
+			checkerColor getColor() {
+				return this->color 
+			}
+			void setColor(checkerColor color) {
+				this->color = color;
+			}
+			void kingMe(bool kinged)
 			{
-				kinged = isKing;
+				this->kinged = kinged;
 			}
 			bool isKinged()
 			{
-			    return kinged;
+			    return this->kinged;
 			}
 			bool isSpecialUsed()
 			{
-			    return specialAbilityUsed;
+			    return this->specialAbilityUsed;
 			}
 			void specialUsed(bool isUsed)
 			{
@@ -52,8 +84,14 @@ namespace Checkers {
 			bool kinged;
 			bool specialAbilityUsed;
 			int checkerID;
+<<<<<<< HEAD
 			int currentX;
 			int currentY;
+=======
+			checkerColor color;
+			//int currentX;
+			//int currentY;
+>>>>>>> gareth
 	}; //CheckerObj
 
 	class Black : public CheckerObj
@@ -66,6 +104,7 @@ namespace Checkers {
 			this->setID(id);
 			this->specialUsed(false);
 			this->kingMe(false);
+			this->setColor(black);
 		}
 			; //constructor
 		bool special() {
@@ -76,7 +115,9 @@ namespace Checkers {
 			} else {
 				return false;
 			}
-		}	
+		}
+
+
 	};
 
 	class Red : public CheckerObj
@@ -89,6 +130,7 @@ namespace Checkers {
 			this->setID(id);
 			this->specialUsed(false);
 			this->kingMe(false);
+			this->setColor(red);
 		};
 	};
 
@@ -105,6 +147,7 @@ namespace Checkers {
 			this->setID(id);
 			this->specialUsed(false);
 			this->kingMe(false);
+			this->setColor(green);
 		}
 		bool special() {
 			if (this->isSpecialUsed() == false) {
