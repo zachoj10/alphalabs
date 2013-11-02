@@ -98,12 +98,8 @@ CheckerObj *CreateNewPlayer() {
 	// TODO: Add cases for three different color creations
 	typedef enum {Black, Red, Green} checkerColors;
 	checkerColors color = Black;
-<<<<<<< HEAD
 	
 	return new CheckerObj;
-=======
-
->>>>>>> refs/heads/zach
 } //CreateNewPlayer
 
 

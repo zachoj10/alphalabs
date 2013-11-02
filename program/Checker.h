@@ -5,7 +5,7 @@
 namespace Checkers {
 	class CheckerObj {
 		public:
-			/*void Move(int destinationX, int destinationY, bool isJump)
+			void Move(int destinationX, int destinationY, bool isJump)
 			{
 				currentX = destinationX;
 				currentY = destinationY;
@@ -18,9 +18,9 @@ namespace Checkers {
                 //TODO:Remove from linked list
 			}
 			void Jump()
-			{s
+			{
                 //TODO
-			}*/
+			}
 			void setID(int id) {
 				checkerID = id;
 			}
@@ -49,8 +49,8 @@ namespace Checkers {
 			bool kinged;
 			bool specialAbilityUsed;
 			int checkerID;
-			//int currentX;
-			//int currentY;
+			int currentX;
+			int currentY;
 	}; //CheckerObj
 
 	class Black : public CheckerObj

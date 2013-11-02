@@ -24,24 +24,20 @@ namespace Checkers {
 			} //MoveChecker
 			
 			
-			void createChecker(checkerColors color, int id) {
-				switch (color) {
-				case black:
-					Black *newChecker = new Black(id);
-					break;
-				case red:
-					Red *newChecker = new Red(id);
-					break;
-				case green:
-					Green *newChecker = new Green(id);
-					break;
-				}
-			}
 
 			
 			void AddChecker(int destinationX, int destinationY, Checkers::CheckerObj *checker) {
 				checkerBoard[destinationX][destinationY] = checker;
 			} //AddChecker
+
+			void AddPlayersCheckers(int xCords[], int yCords[], Checkers::CheckerObj *ptr){
+				int i;
+				Checkers::CheckerObj *temp = ptr;
+				for(i = 0; i < 7; i++){
+					AddChecker(xCords[i], yCords[i], temp);
+					temp = temp->next;
+				}
+			}
 
 			/*
 			void DeleteChecker(int originX, int originY) {
@@ -57,6 +53,25 @@ namespace Checkers {
 
 			void DisplayWinner(CheckerObj winner){
 				std::cout << "The winner is %s", typeid(winner).name();
+			}
+
+			void DisplayChecker(int x, int y, Checkers::CheckerObj checker){
+				COORD pos = {x , y};
+				checkerColor color = checker.getColor();
+				char checkerSymbol;
+				if(color == "Black"){
+					checkerSymbol  = 'B';
+				}
+				else if(color == "Green"){
+					checkerSymbol = 'G';
+				}
+				else {
+					checkerSymbol = 'R';
+				}
+
+				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+
+				printf("%c", checker);
 			}
 
 
