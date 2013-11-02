@@ -39,6 +39,11 @@ namespace Checkers {
 				guiObj->DisplayBoard();
 			} //DisplayBoard
 
+			void DisplayWinner(CheckerObj winner){
+				std::cout << "The winner is %s", typeid(winner).name();
+			}
+
+
 
 		//=============== Private Methods/Members ===============//
 		private:

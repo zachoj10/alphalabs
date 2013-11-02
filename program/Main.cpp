@@ -86,6 +86,8 @@ void PlayGame(int playerCount) {
 
 	if (1 == sizeof(playerList)) {
 		// Last remaining player is the winner
+		CheckerObj winner = playerList[0];
+		checkerBoardObj->DisplayWinner(winner);
 	} else {
 		// Black's special power resulted in no one surviving; Game Over!
 	} //if-else
