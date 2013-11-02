@@ -6,10 +6,8 @@ namespace Checkers {
 	class CheckerBoardObj {
 		//=============== Public Methods/Members ===============//
 		public: 
-<<<<<<< HEAD
-			typedef enum {black, red, green} checkerColors;
-=======
->>>>>>> gareth
+			typedef enum {black, red, green} checkerColor;
+
 			CheckerBoardObj(CheckerObj playerList[]) {
 				// TODO: Add constructor that specifies between 2 players (black vs red) and 3 players (black vs red vs green)
 				
@@ -35,14 +33,14 @@ namespace Checkers {
 					return false;
 				}
 			} //MoveChecker
-<<<<<<< HEAD
 			
 			
 
 			
 			void AddChecker(int destinationX, int destinationY, Checkers::CheckerObj *checker) {
 				checkerBoard[destinationX][destinationY] = checker;
-=======
+			}
+
 			/* Moving to player class
 			void AddChecker(int destinationX, int destinationY) {
 				CheckerObj *newChecker = new CheckerObj();
@@ -76,12 +74,12 @@ namespace Checkers {
 
 			void DisplayChecker(int x, int y, Checkers::CheckerObj checker){
 				COORD pos = {x , y};
-				checkerColor color = checker.getColor();
+				checkerColor color = checker.getColor;
 				char checkerSymbol;
-				if(color == "Black"){
+				if(color == black){
 					checkerSymbol  = 'B';
 				}
-				else if(color == "Green"){
+				else if(color == green){
 					checkerSymbol = 'G';
 				}
 				else {

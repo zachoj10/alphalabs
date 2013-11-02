@@ -3,15 +3,10 @@
 #include <stdio.h>
 
 namespace Checkers {
+	typedef enum {black, red, green} checkerColor;
 	class CheckerObj {
-<<<<<<< HEAD
-			typedef enum {black, red, green} checkerColors;
-
-	
-			void Move(int destinationX, int destinationY, bool isJump)
-=======
 		public:
-			typedef enum {black, red, green} checkerColor;
+			
 			/*void Move(int destinationX, int destinationY, bool isJump)
 >>>>>>> gareth
 			{
@@ -51,7 +46,7 @@ namespace Checkers {
 			}
 			void setID(int checkerID) {
 				this->checkerID = checkerID;
->>>>>>> gareth
+
 			}
 			int getID() {
 				return this->checkerID;
@@ -84,14 +79,14 @@ namespace Checkers {
 			bool kinged;
 			bool specialAbilityUsed;
 			int checkerID;
-<<<<<<< HEAD
+
 			int currentX;
 			int currentY;
-=======
+
 			checkerColor color;
 			//int currentX;
 			//int currentY;
->>>>>>> gareth
+
 	}; //CheckerObj
 
 	class Black : public CheckerObj
@@ -142,13 +137,7 @@ namespace Checkers {
 			specialUsed(false);
 			kingMe(false);
 		}
-		bool special() {
-			if (isSpecialUsed() != true) {
-			this->setID(id);
-			this->specialUsed(false);
-			this->kingMe(false);
-			this->setColor(green);
-		}
+		
 		bool special() {
 			if (this->isSpecialUsed() == false) {
 				char use;
@@ -163,14 +152,6 @@ namespace Checkers {
 					} else {
 						std::cout << "\nEnter only y or n";
 					}
-						this->specialUsed(true);
-						return true;
-					} else if (use == 'n') {
-						this->specialUsed(false);
-						return false;
-					} else {
-						std::cout << "\nEnter only y or n";
-					}				
 				} while (use != 'y' && use != 'n');
 			}
 		};
