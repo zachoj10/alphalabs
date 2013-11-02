@@ -5,7 +5,7 @@
 namespace Checkers {
 	class CheckerObj {
 		public:
-			typedef enum {black, red, green} checkerColors;
+			typedef enum {black, red, green} checkerColor;
 			/*void Move(int destinationX, int destinationY, bool isJump)
 			{
 				currentX = destinationX;
@@ -23,7 +23,7 @@ namespace Checkers {
                 //TODO
 			}*/
 
-			void createChecker(checkerColors color, int id) {
+			void createChecker(checkerColor color, int id) {
 				switch (color) {
 				case black:
 					Black *newChecker = new Black(id);
@@ -36,23 +36,29 @@ namespace Checkers {
 					break;
 				}
 			}
-			void setID(int id) {
-				checkerID = id;
+			void setID(int checkerID) {
+				this->checkerID = checkerID;
 			}
 			int getID() {
-				return checkerID;
+				return this->checkerID;
 			}
-			void kingMe(bool isKing)
+			checkerColor getColor() {
+				return this->color 
+			}
+			void setColor(checkerColor color) {
+				this->color = color;
+			}
+			void kingMe(bool kinged)
 			{
-				kinged = isKing;
+				this->kinged = kinged;
 			}
 			bool isKinged()
 			{
-			    return kinged;
+			    return this->kinged;
 			}
 			bool isSpecialUsed()
 			{
-			    return specialAbilityUsed;
+			    return this->specialAbilityUsed;
 			}
 			void specialUsed(bool isUsed)
 			{
@@ -64,6 +70,7 @@ namespace Checkers {
 			bool kinged;
 			bool specialAbilityUsed;
 			int checkerID;
+			checkerColor color;
 			//int currentX;
 			//int currentY;
 	}; //CheckerObj
@@ -75,6 +82,7 @@ namespace Checkers {
 			this->setID(id);
 			this->specialUsed(false);
 			this->kingMe(false);
+			this->setColor(black);
 		}
 			; //constructor
 		bool special() {
@@ -85,7 +93,9 @@ namespace Checkers {
 			} else {
 				return false;
 			}
-		}	
+		}
+
+
 	};
 
 	class Red : public CheckerObj
@@ -95,6 +105,7 @@ namespace Checkers {
 			this->setID(id);
 			this->specialUsed(false);
 			this->kingMe(false);
+			this->setColor(red);
 		};
 	};
 
@@ -105,6 +116,7 @@ namespace Checkers {
 			this->setID(id);
 			this->specialUsed(false);
 			this->kingMe(false);
+			this->setColor(green);
 		}
 		bool special() {
 			if (this->isSpecialUsed() == false) {

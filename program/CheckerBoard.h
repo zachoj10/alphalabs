@@ -6,26 +6,31 @@ namespace Checkers {
 	class CheckerBoardObj {
 		//=============== Public Methods/Members ===============//
 		public: 
-			
 			CheckerBoardObj(CheckerObj playerList[]) {
 				// TODO: Add constructor that specifies between 2 players (black vs red) and 3 players (black vs red vs green)
 				
 				// Instantiate class objects
 				this->guiObj = new GUI_Ascii();
 			} // __constructor
-
-
-			void MoveChecker(int originX, int originY, int destinationX, int destinationY) {
-				boolean isJump = false;
-				if(checkerBoard[destinationX][destinationY] != NULL){
-					isJump = true;
+			
+			bool MoveChecker(int originX, int originY, int destinationX, int destinationY) {
+				int jumpX = destinationX+(destinationX-originX);
+				int jumpY = destinationY+(destinationY-originY);
+				if(checkerBoard[destinationX][destinationY] == NULL){
+					checkerBoard[destinationX][destinationY] = checkerBoard[originX][originY];
+					checkerBoard[originX][originY] = NULL;
+					return true;
+				} else if (checkerBoard[destinationX][destinationY]->getColor != checkerBoard[originX][originY]->getColor) {
+					if (checkerBoard[jumpX][jumpY] == NULL) {
+						checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
+						checkerBoard[originX][originY] = NULL;
+						return true;
+					}
+				} else {
+					std::cout << "\nInvalid Move";
+					return false;
 				}
-				checkerBoard[originX][originY]->Move(destinationX, destinationY, isJump);
 			} //MoveChecker
-			
-			
-			
-
 			/* Moving to player class
 			void AddChecker(int destinationX, int destinationY) {
 				CheckerObj *newChecker = new CheckerObj();
@@ -37,7 +42,6 @@ namespace Checkers {
 				checkerBoard[originX][originY]->Delete();
 			} //RemoveChecker
 			*/
-
 
 			void DisplayBoard() {
 				// TODO: Update this method to draw each current checker
