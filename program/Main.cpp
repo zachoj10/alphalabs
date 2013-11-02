@@ -98,13 +98,6 @@ CheckerObj *CreateNewPlayer() {
 	// TODO: Add cases for three different color creations
 	typedef enum {Black, Red, Green} checkerColors;
 	checkerColors color = Black;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> gareth
-=======
->>>>>>> origin/zach
 	
 	return new CheckerObj;
 } //CreateNewPlayer
@@ -113,6 +106,5 @@ CheckerObj *CreateNewPlayer() {
 void ActivatePlayer(CheckerObj *currentPlayer) {
 	// TODO: Prompt user for an action on their turn
 		
-		
-
 } //ActivatePlayer
+

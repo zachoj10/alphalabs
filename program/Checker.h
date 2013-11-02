@@ -7,8 +7,7 @@ namespace Checkers {
 	class CheckerObj {
 		public:
 			
-			/*void Move(int destinationX, int destinationY, bool isJump)
->>>>>>> gareth
+			void Move(int destinationX, int destinationY, bool isJump)
 			{
 				currentX = destinationX;
 				currentY = destinationY;
@@ -22,28 +21,10 @@ namespace Checkers {
 			}
 			void Jump(){
                 //TODO
-<<<<<<< HEAD
 			}
 
 			
-			void setID(int id) {
-				checkerID = id;
-=======
-			}*/
-
-			void createChecker(checkerColor color, int id) {
-				switch (color) {
-				case black:
-					Black *newChecker = new Black(id);
-					break;
-				case red:
-					Red *newChecker = new Red(id);
-					break;
-				case green:
-					Green *newChecker = new Green(id);
-					break;
-				}
-			}
+			
 			void setID(int checkerID) {
 				this->checkerID = checkerID;
 
@@ -52,7 +33,7 @@ namespace Checkers {
 				return this->checkerID;
 			}
 			checkerColor getColor() {
-				return this->color 
+				return this->color;
 			}
 			void setColor(checkerColor color) {
 				this->color = color;

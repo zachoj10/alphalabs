@@ -22,7 +22,7 @@ namespace Checkers {
 					checkerBoard[destinationX][destinationY] = checkerBoard[originX][originY];
 					checkerBoard[originX][originY] = NULL;
 					return true;
-				} else if (checkerBoard[destinationX][destinationY]->getColor != checkerBoard[originX][originY]->getColor) {
+				} else if (checkerBoard[destinationX][destinationY]->getColor() != checkerBoard[originX][originY]->getColor()) {
 					if (checkerBoard[jumpX][jumpY] == NULL) {
 						checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
 						checkerBoard[originX][originY] = NULL;
@@ -41,12 +41,6 @@ namespace Checkers {
 				checkerBoard[destinationX][destinationY] = checker;
 			}
 
-			/* Moving to player class
-			void AddChecker(int destinationX, int destinationY) {
-				CheckerObj *newChecker = new CheckerObj();
-				checkerBoard[destinationX][destinationY] = newChecker;
->>>>>>> gareth
-			} //AddChecker
 
 			void AddPlayersCheckers(int xCords[], int yCords[], Checkers::CheckerObj *ptr){
 				int i;
@@ -74,7 +68,7 @@ namespace Checkers {
 
 			void DisplayChecker(int x, int y, Checkers::CheckerObj checker){
 				COORD pos = {x , y};
-				checkerColor color = checker.getColor;
+				Checkers::checkerColor color = checker.getColor();
 				char checkerSymbol;
 				if(color == black){
 					checkerSymbol  = 'B';

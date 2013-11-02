@@ -6,57 +6,57 @@
 namespace Players {
 	class PlayerObj {
 		public:
-			PlayerObj(enum checkerColors color, Checkers::CheckerObj *first){
+			PlayerObj(Checkers::checkerColor color, Checkers::CheckerObj *first){
 				 numCheckers = 0;
 				 pieceColor = color;
 				 head = first;
-				 highestID = 0;
-<<<<<<< HEAD
-			};
-=======
+				 nextID = 0;
 			}
->>>>>>> gareth
 			void Delete(int id){
 				Checkers::CheckerObj *temp = NULL;
 				int i;
 				for(i = 0; i < numCheckers; i++){
-<<<<<<< HEAD
-					if(head->next.getID() == id){
-=======
 					if(head->next->getID == id){
->>>>>>> gareth
 						temp = head->next;
 						head->next = head->next->next;
 						free(temp);
 					}
 				}
 			}
-<<<<<<< HEAD
 			void generatePieces(){
 				int i;
 				int newID;
 				Checkers::CheckerObj *temp = head;
-				head = Checkers::createChecker(pieceColor, nextID);
+				head = createChecker(pieceColor, nextID);
 				nextID++;
 				for(i = 0; i < 6; i++){
-					temp = Checkers::createChecker(pieceColor, nextID);
+					temp = createChecker(pieceColor, nextID);
 					temp->next = head;
 					head = temp;
 					nextID++;
 				}
 			}
-=======
->>>>>>> gareth
 
+			void createChecker(Checkers::checkerColor color, int id) {
+				Checkers::CheckerObj *newChecker;
+				switch (color) {
+				case Checkers::black:
+					Checkers::Black *newChecker = new Checkers::Black(id);
+					break;
+				case Checkers::red:
+					Checkers::Red *newChecker = new Checkers::Red(id);
+					break;
+				case Checkers::green:
+					Checkers::Green *newChecker = new Checkers::Green(id);
+					break;
+				}
+			}
 		private: 
 			int numCheckers;
-			checkerColors pieceColor;
+			Checkers::checkerColor pieceColor;
 			Checkers::CheckerObj *head;
-<<<<<<< HEAD
 			int nextID;
-	};
-=======
-			int highestID;
 	}
->>>>>>> gareth
 }
+
+
