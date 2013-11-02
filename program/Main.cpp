@@ -111,6 +111,5 @@ void ActivatePlayer(CheckerObj *currentPlayer) {
 	// TODO: Prompt user for an action on their turn
 		
 		
-		cout << "%s, it's your turn", *currentPlayer.checkerColors;
 
 } //ActivatePlayer
