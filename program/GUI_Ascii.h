@@ -3,7 +3,7 @@
 
 // MACROS (CONSTANT)
 #define LEVEL_WIDTH CONSOLE_WIDTH
-#define LEVEL_HEIGHT (CONSOLE_HEIGHT -1)
+#define LEVEL_HEIGHT (CONSOLE_HEIGHT - 1)
 
 namespace Checkers {
 	class GUI_Ascii {
