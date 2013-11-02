@@ -36,7 +36,7 @@ int main() {
 				playerCount = guiObj->HandlePlayerCountMenuResponse();
 
 				// Check player boundaries
-				if (2 < playerCount && 3 >  playerCount) {
+				if (2 > playerCount || 3 < playerCount) {
 					guiObj->DisplayUserInputError();
 				} else {
 					PlayGame(playerCount);
@@ -63,7 +63,8 @@ void PlayGame(int playerCount) {
 	int x, y, i;
 
 	// Instantiate class objects
-	CheckerObj playerList[3]; // TODO: Find workaround to instantiate array length via playerCount
+	//CheckerObj playerList[3]; // TODO: Find workaround to instantiate array length via playerCount
+	CheckerObj* playerList = new CheckerObj[playerCount];
 	CheckerObj *currentPlayer;
 
 	// Add Players
