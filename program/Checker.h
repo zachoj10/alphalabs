@@ -5,12 +5,16 @@
 namespace Checkers {
 	class CheckerObj {
 		public:
+<<<<<<< HEAD
 			typedef enum {black, red, green} checkerColors;
 <<<<<<< HEAD
 
 =======
 >>>>>>> gareth
 			/*void Move(int destinationX, int destinationY, bool isJump)
+=======
+			void Move(int destinationX, int destinationY, bool isJump)
+>>>>>>> origin/zach
 			{
 				currentX = destinationX;
 				currentY = destinationY;
@@ -23,8 +27,9 @@ namespace Checkers {
                 //TODO:Remove from linked list
 			}
 			void Jump()
-			{s
+			{
                 //TODO
+<<<<<<< HEAD
 			}*/
 <<<<<<< HEAD
 =======
@@ -42,6 +47,8 @@ namespace Checkers {
 					Green *newChecker = new Green(id);
 					break;
 				}
+=======
+>>>>>>> origin/zach
 			}
 			void setID(int id) {
 				checkerID = id;
@@ -71,8 +78,8 @@ namespace Checkers {
 			bool kinged;
 			bool specialAbilityUsed;
 			int checkerID;
-			//int currentX;
-			//int currentY;
+			int currentX;
+			int currentY;
 	}; //CheckerObj
 
 	class Black : public CheckerObj

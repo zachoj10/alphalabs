@@ -100,13 +100,13 @@ CheckerObj *CreateNewPlayer() {
 	checkerColors color = Black;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> gareth
+=======
+>>>>>>> origin/zach
 	
 	return new CheckerObj;
-=======
-
->>>>>>> refs/heads/zach
 } //CreateNewPlayer
 
 
