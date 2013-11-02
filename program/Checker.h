@@ -6,7 +6,10 @@ namespace Checkers {
 	class CheckerObj {
 		public:
 			typedef enum {black, red, green} checkerColors;
+<<<<<<< HEAD
 
+=======
+>>>>>>> gareth
 			/*void Move(int destinationX, int destinationY, bool isJump)
 			{
 				currentX = destinationX;
@@ -23,6 +26,10 @@ namespace Checkers {
 			{s
                 //TODO
 			}*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> gareth
 			void createChecker(checkerColors color, int id) {
 				switch (color) {
 				case black:
@@ -72,14 +79,21 @@ namespace Checkers {
 	{
 	public:
 		Black(int id){
+<<<<<<< HEAD
 			setID(id);
 			specialUsed(false);
 			kingMe(false);
+=======
+			this->setID(id);
+			this->specialUsed(false);
+			this->kingMe(false);
+>>>>>>> gareth
 		}
 			; //constructor
 		bool special() {
 			int boom = rand() % 2;
 			if (boom == 0) {
+				this->specialUsed(true);
 				return true;
 			} else {
 				return false;
@@ -91,9 +105,15 @@ namespace Checkers {
 	{
 	public:
 		Red(int id){
+<<<<<<< HEAD
 			setID(id);
 			specialUsed(false);
 			kingMe(false);
+=======
+			this->setID(id);
+			this->specialUsed(false);
+			this->kingMe(false);
+>>>>>>> gareth
 		};
 	};
 
@@ -101,17 +121,27 @@ namespace Checkers {
 	{
 	public:
 		Green(int id){
+<<<<<<< HEAD
 			setID(id);
 			specialUsed(false);
 			kingMe(false);
 		}
 		bool special() {
 			if (isSpecialUsed() != true) {
+=======
+			this->setID(id);
+			this->specialUsed(false);
+			this->kingMe(false);
+		}
+		bool special() {
+			if (this->isSpecialUsed() == false) {
+>>>>>>> gareth
 				char use;
 				do {
 					std::cout << "\nDo you want to use your special? (y/n)";
 					std::cin >> use;
 					if (use == 'y') {
+<<<<<<< HEAD
 						specialUsed(true);
 						return true;
 					} else if (use == 'n') {
@@ -119,6 +149,16 @@ namespace Checkers {
 					} else {
 						std::cout << "\nEnter only y or n";
 					}
+=======
+						this->specialUsed(true);
+						return true;
+					} else if (use == 'n') {
+						this->specialUsed(false);
+						return false;
+					} else {
+						std::cout << "\nEnter only y or n";
+					}				
+>>>>>>> gareth
 				} while (use != 'y' && use != 'n');
 			}
 		}

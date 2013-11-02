@@ -99,6 +99,9 @@ CheckerObj *CreateNewPlayer() {
 	typedef enum {Black, Red, Green} checkerColors;
 	checkerColors color = Black;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> gareth
 	
 	return new CheckerObj;
 =======

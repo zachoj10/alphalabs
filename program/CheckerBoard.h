@@ -6,6 +6,7 @@ namespace Checkers {
 	class CheckerBoardObj {
 		//=============== Public Methods/Members ===============//
 		public: 
+			
 			CheckerBoardObj(CheckerObj playerList[]) {
 				// TODO: Add constructor that specifies between 2 players (black vs red) and 3 players (black vs red vs green)
 				
@@ -23,6 +24,12 @@ namespace Checkers {
 			} //MoveChecker
 			*/
 			
+<<<<<<< HEAD
+=======
+			
+			
+
+>>>>>>> gareth
 			/* Moving to player class
 			void AddChecker(int destinationX, int destinationY) {
 				CheckerObj *newChecker = new CheckerObj();
