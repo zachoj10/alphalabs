@@ -37,17 +37,20 @@ namespace Players {
 				}
 			}
 
-			void createChecker(Checkers::checkerColor color, int id) {
+			Checkers::CheckerObj* createChecker(Checkers::checkerColor color, int id) {
 				Checkers::CheckerObj *newChecker;
 				switch (color) {
 				case Checkers::black:
 					Checkers::Black *newChecker = new Checkers::Black(id);
+					return newChecker;
 					break;
 				case Checkers::red:
 					Checkers::Red *newChecker = new Checkers::Red(id);
+					return newChecker;
 					break;
 				case Checkers::green:
 					Checkers::Green *newChecker = new Checkers::Green(id);
+					return newChecker;
 					break;
 				}
 			}
