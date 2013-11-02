@@ -1,5 +1,6 @@
 #pragma once
 #include <stdlib.h>
+#include <string.h>
 
 namespace Checkers {
 	class CheckerObj {
@@ -14,15 +15,21 @@ namespace Checkers {
 			}
 			void Delete()
 			{
-                //TODO:Remove from board and/or linked list
+                //TODO:Remove from linked list
 			}
-			void Jump()
-			{
+			/*void Jump()
+			{s
                 //TODO
+			}*/
+			void setID(char id[3]) {
+				strncpy(id, checkerID, 3);
 			}
-			void KingMe()
+			char* getID() {
+				return checkerID;
+			}
+			void KingMe(bool isKing)
 			{
-				kinged = true;
+				kinged = isKing;
 			}
 			bool isKinged()
 			{
@@ -32,15 +39,16 @@ namespace Checkers {
 			{
 			    return specialAbilityUsed;
 			}
-			void specialUsed()
+			void specialUsed(bool isUsed)
 			{
-				specialAbilityUsed = true;
+				specialAbilityUsed = isUsed;
 			}
 			CheckerObj *next;
 
 		private:
 			bool kinged;
 			bool specialAbilityUsed;
+			char checkerID[3];
 			int currentX;
 			int currentY;
 	}; //CheckerObj
@@ -49,8 +57,8 @@ namespace Checkers {
 	{
 	public:
 		bool Special() {
-			int boom = rand() % 10 + 1;
-			if (boom > 5) {
+			int boom = rand() % 2;
+			if (boom == 0) {
 				return true;
 			} else {
 				return false;
