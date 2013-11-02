@@ -5,7 +5,7 @@
 namespace Checkers {
 	class CheckerObj {
 		public:
-			void Move(int destinationX, int destinationY, bool isJump)
+			/*void Move(int destinationX, int destinationY, bool isJump)
 			{
 				currentX = destinationX;
 				currentY = destinationY;
@@ -17,17 +17,17 @@ namespace Checkers {
 			{
                 //TODO:Remove from linked list
 			}
-			/*void Jump()
+			void Jump()
 			{s
                 //TODO
 			}*/
-			void setID(char id[3]) {
-				strncpy(id, checkerID, 3);
+			void setID(int id) {
+				checkerID = id;
 			}
-			char* getID() {
+			int getID() {
 				return checkerID;
 			}
-			void KingMe(bool isKing)
+			void kingMe(bool isKing)
 			{
 				kinged = isKing;
 			}
@@ -48,14 +48,20 @@ namespace Checkers {
 		private:
 			bool kinged;
 			bool specialAbilityUsed;
-			char checkerID[3];
-			int currentX;
-			int currentY;
+			int checkerID;
+			//int currentX;
+			//int currentY;
 	}; //CheckerObj
 
 	class Black : public CheckerObj
 	{
 	public:
+		Black(int id){
+			setID(id);
+			specialUsed(false);
+			kingMe(false);
+		}
+			; //constructor
 		bool Special() {
 			int boom = rand() % 2;
 			if (boom == 0) {
@@ -64,6 +70,26 @@ namespace Checkers {
 				return false;
 			}
 		}	
+	};
+
+	class Red : public CheckerObj
+	{
+	public:
+		Red(int id){
+			setID(id);
+			specialUsed(false);
+			kingMe(false);
+		};
+	};
+
+	class Green : public CheckerObj
+	{
+	public:
+		Green(int id){
+			setID(id);
+			specialUsed(false);
+			kingMe(false);
+		};
 	};
 
 }
