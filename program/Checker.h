@@ -4,17 +4,10 @@
 
 namespace Checkers {
 	class CheckerObj {
-		public:
-<<<<<<< HEAD
 			typedef enum {black, red, green} checkerColors;
-<<<<<<< HEAD
 
-=======
->>>>>>> gareth
-			/*void Move(int destinationX, int destinationY, bool isJump)
-=======
+	
 			void Move(int destinationX, int destinationY, bool isJump)
->>>>>>> origin/zach
 			{
 				currentX = destinationX;
 				currentY = destinationY;
@@ -26,30 +19,11 @@ namespace Checkers {
 			{
                 //TODO:Remove from linked list
 			}
-			void Jump()
-			{
+			void Jump(){
                 //TODO
-<<<<<<< HEAD
-			}*/
-<<<<<<< HEAD
-=======
-
->>>>>>> gareth
-			void createChecker(checkerColors color, int id) {
-				switch (color) {
-				case black:
-					Black *newChecker = new Black(id);
-					break;
-				case red:
-					Red *newChecker = new Red(id);
-					break;
-				case green:
-					Green *newChecker = new Green(id);
-					break;
-				}
-=======
->>>>>>> origin/zach
 			}
+
+			
 			void setID(int id) {
 				checkerID = id;
 			}
@@ -86,15 +60,12 @@ namespace Checkers {
 	{
 	public:
 		Black(int id){
-<<<<<<< HEAD
 			setID(id);
 			specialUsed(false);
 			kingMe(false);
-=======
 			this->setID(id);
 			this->specialUsed(false);
 			this->kingMe(false);
->>>>>>> gareth
 		}
 			; //constructor
 		bool special() {
@@ -112,15 +83,12 @@ namespace Checkers {
 	{
 	public:
 		Red(int id){
-<<<<<<< HEAD
 			setID(id);
 			specialUsed(false);
 			kingMe(false);
-=======
 			this->setID(id);
 			this->specialUsed(false);
 			this->kingMe(false);
->>>>>>> gareth
 		};
 	};
 
@@ -128,27 +96,23 @@ namespace Checkers {
 	{
 	public:
 		Green(int id){
-<<<<<<< HEAD
 			setID(id);
 			specialUsed(false);
 			kingMe(false);
 		}
 		bool special() {
 			if (isSpecialUsed() != true) {
-=======
 			this->setID(id);
 			this->specialUsed(false);
 			this->kingMe(false);
 		}
 		bool special() {
 			if (this->isSpecialUsed() == false) {
->>>>>>> gareth
 				char use;
 				do {
 					std::cout << "\nDo you want to use your special? (y/n)";
 					std::cin >> use;
 					if (use == 'y') {
-<<<<<<< HEAD
 						specialUsed(true);
 						return true;
 					} else if (use == 'n') {
@@ -156,7 +120,6 @@ namespace Checkers {
 					} else {
 						std::cout << "\nEnter only y or n";
 					}
-=======
 						this->specialUsed(true);
 						return true;
 					} else if (use == 'n') {
@@ -165,11 +128,9 @@ namespace Checkers {
 					} else {
 						std::cout << "\nEnter only y or n";
 					}				
->>>>>>> gareth
 				} while (use != 'y' && use != 'n');
 			}
-		}
-		;
+		};
 	};
 
 }
