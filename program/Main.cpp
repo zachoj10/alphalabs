@@ -96,12 +96,16 @@ void PlayGame(int playerCount) {
 
 CheckerObj *CreateNewPlayer() {
 	// TODO: Add cases for three different color creations
-	enum {Black, Red, Green} checkerColors;
+	typedef enum {Black, Red, Green} checkerColors;
+	checkerColors color = Black;
 
-	return new CheckerObj;
 } //CreateNewPlayer
 
 
 void ActivatePlayer(CheckerObj *currentPlayer) {
 	// TODO: Prompt user for an action on their turn
+		
+		
+		cout << "%s, it's your turn", *currentPlayer.checkerColors;
+
 } //ActivatePlayer
