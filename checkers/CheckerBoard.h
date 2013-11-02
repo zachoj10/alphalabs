@@ -15,7 +15,11 @@ namespace Checkers {
 
 
 			void MoveChecker(int originX, int originY, int destinationX, int destinationY) {
-				checkerBoard[originX][originY]->Move(destinationX, destinationY);
+				boolean isJump = false;
+				if(checkerBoard[destinationX][destinationY] != NULL){
+					isJump = true;
+				}
+				checkerBoard[originX][originY]->Move(destinationX, destinationY, isJump);
 			} //MoveChecker
 			
 			
