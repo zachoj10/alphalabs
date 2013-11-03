@@ -54,6 +54,7 @@ namespace Players {
 					break;
 				}
 			}
+
 		private: 
 			int numCheckers;
 			Checkers::checkerColor pieceColor;

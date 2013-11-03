@@ -1,6 +1,7 @@
 #pragma once
 #include "Checker.h"
 #include "GUI_Ascii.h"
+#include "Player.h"
 
 namespace Checkers {
 	class CheckerBoardObj {
@@ -12,7 +13,7 @@ namespace Checkers {
 				// TODO: Add constructor that specifies between 2 players (black vs red) and 3 players (black vs red vs green)
 				
 				// Instantiate class objects
-				this->guiObj = new GUI_Ascii();
+				guiObj = new GUI_Ascii();
 			} // __constructor
 			
 			bool MoveChecker(int originX, int originY, int destinationX, int destinationY) {
@@ -24,8 +25,35 @@ namespace Checkers {
 					return true;
 				} else if (checkerBoard[destinationX][destinationY]->getColor() != checkerBoard[originX][originY]->getColor()) {
 					if (checkerBoard[jumpX][jumpY] == NULL) {
-						checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
-						checkerBoard[originX][originY] = NULL;
+						if (checkerBoard[destinationX][destinationY]->getColor() == red) {
+							if (checkerBoard[destinationX][destinationY]->isSpecialUsed() == true) {
+								checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
+								checkerBoard[originX][originY] = NULL;
+								delChecker(checkerBoard[destinationX][destinationY]);
+								checkerBoard[destinationX][destinationY] = NULL;
+							} else {
+								checkerBoard[destinationX][destinationY]->specialUsed(true);
+								checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
+								checkerBoard[originX][originY] = NULL;
+							}
+						} else if (checkerBoard[destinationX][destinationY]->getColor() == black) {
+							if (checkerBoard[destinationX][destinationY]->special() == true) {
+								delChecker(checkerBoard[originX][originY]);
+								delChecker(checkerBoard[destinationX][destinationY]);
+								checkerBoard[originX][originY] = NULL;
+							} else {
+								checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
+								delChecker(checkerBoard[destinationX][destinationY]);
+								checkerBoard[destinationX][destinationY] = NULL;
+								checkerBoard[originX][originY] = NULL;
+							}
+						} else {
+							checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
+							delChecker(checkerBoard[destinationX][destinationY]);
+							checkerBoard[destinationX][destinationY] = NULL;
+							checkerBoard[originX][originY] = NULL;
+						}
+
 						return true;
 					}
 				} else {
@@ -34,7 +62,23 @@ namespace Checkers {
 				}
 			} //MoveChecker
 			
-			
+			void delChecker(Players::PlayerObj *first, Checkers::CheckerObj *checker) {
+				int i;
+				Players::PlayerObj *temp = first;
+				if (temp->getHead->getID == checker->getID) {
+					//delete NODE
+				} else if (temp->getHead->next->getID == checker->getID) {
+					temp = temp->getHead->next;
+					first->getHead = temp->getHead->next->next;
+					free(temp);
+				} else {
+					for(i = 0; i < 7; i++){
+						temp = temp->next;
+						//Incomplete					
+							
+					}
+				}				
+			}
 
 			
 			void AddChecker(int destinationX, int destinationY, Checkers::CheckerObj *checker) {
@@ -89,7 +133,7 @@ namespace Checkers {
 
 		//=============== Private Methods/Members ===============//
 		private:
-			CheckerObj *checkerBoard[9][9];
+			Checkers::CheckerObj *checkerBoard[9][9];
 			GUI_Ascii *guiObj;
 			 
 	}; //CheckerBoardObj

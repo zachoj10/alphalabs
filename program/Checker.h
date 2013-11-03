@@ -6,6 +6,9 @@ namespace Checkers {
 	typedef enum {black, red, green} checkerColor;
 	class CheckerObj {
 		public:
+
+			bool special(){
+			}
 			
 			void Move(int destinationX, int destinationY, bool isJump)
 			{
@@ -81,8 +84,8 @@ namespace Checkers {
 			this->specialUsed(false);
 			this->kingMe(false);
 			this->setColor(black);
-		}
-			; //constructor
+		} //constructor
+		using CheckerObj::special;
 		bool special() {
 			int boom = rand() % 2;
 			if (boom == 0) {
@@ -118,7 +121,7 @@ namespace Checkers {
 			specialUsed(false);
 			kingMe(false);
 		}
-		
+		using CheckerObj::special;
 		bool special() {
 			if (this->isSpecialUsed() == false) {
 				char use;
