@@ -6,12 +6,15 @@
 namespace Players {
 	class PlayerObj {
 		public:
-			PlayerObj(Checkers::checkerColor color, Checkers::CheckerObj *first){
+			PlayerObj(){
+				numCheckers = 0;
+				nextID = 0;
+			};
+			PlayerObj(Checkers::checkerColor color){
 				 numCheckers = 0;
 				 pieceColor = color;
-				 head = first;
 				 nextID = 0;
-			}
+			};
 			void Delete(int id){
 				Checkers::CheckerObj *temp = NULL;
 				int i;
@@ -35,6 +38,18 @@ namespace Players {
 					head = temp;
 					nextID++;
 				}
+			}
+
+			void setNumCheckers(int num){
+				numCheckers = num;
+			}
+
+			int getNumCheckers(){
+				return numCheckers;
+			}
+
+			Checkers::CheckerObj* getHead(){
+				return head;
 			}
 
 			Checkers::CheckerObj* createChecker(Checkers::checkerColor color, int id) {

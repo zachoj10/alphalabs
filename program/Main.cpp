@@ -2,6 +2,7 @@
 #include <iostream>
 #include "CheckerBoard.h"
 #include "GUI_Ascii.h"
+#include "Player.h"
 
 using namespace Checkers;
 
@@ -61,16 +62,25 @@ void PlayGame(int playerCount) {
 	int numberOfTurns = 0;
 	char key_pressed = ' ';
 	int x, y, i;
+	int numPlayers = playerCount;
 
 	// Instantiate class objects
 	//CheckerObj playerList[3]; // TODO: Find workaround to instantiate array length via playerCount
-	CheckerObj* playerList = new CheckerObj[playerCount];
-	CheckerObj *currentPlayer;
+	//Players::PlayerObj playerList[playerCount] = new Players::PlayerObj;
+	Players::PlayerObj *playerList[3];
+	*playerList = new Players::PlayerObj[playerCount];
+	Players::PlayerObj *currentPlayer;
 
 	// Add Players
-	for (i = 0; i < playerCount - 1; i++) {
-		playerList[i].next = CreateNewPlayer();
-	} //for
+	if(playerCount == 2){
+		playerList[0] = new Players::PlayerObj(black);
+		playerList[1] = new Players::PlayerObj(red);
+	}
+	else{
+		playerList[0] = new Players::PlayerObj(black);
+		playerList[1] = new Players::PlayerObj(red);
+		playerList[2] = new Players::PlayerObj(green);
+	}
 
 	CheckerBoardObj* checkerBoardObj = new CheckerBoardObj(playerList);
 
@@ -78,16 +88,22 @@ void PlayGame(int playerCount) {
 	checkerBoardObj->DisplayBoard();
 
 	// Handle a full game until 1 or fewer players remain
-	while (sizeof(playerList) > 1) {
+	while (numPlayers > 1) {
 		// Selects current player by modding remaining players with turn number; i.e., turn 4 in 3 player game will select array[1] (2nd player)
-		currentPlayer = &playerList[numberOfTurns % sizeof(playerList)];
-		ActivatePlayer(currentPlayer);
+		for(i = 0; i < playerCount; i++){
+			if(playerList[i]->getNumCheckers == 0){
+				playerList[i] = NULL;
+				numPlayers = numPlayers - 1;
+			}
+
+		currentPlayer = playerList[numberOfTurns % sizeof(playerList)];
+		//ActivatePlayer(currentPlayer);
 	} //while
 
-	if (1 == sizeof(playerList)) {
+	if (1 == numPlayers) {
 		// Last remaining player is the winner
-		CheckerObj winner = playerList[0];
-		checkerBoardObj->DisplayWinner(winner);
+		//CheckerObj winner = playerList[0];
+		//checkerBoardObj->DisplayWinner(winner);
 	} else {
 		// Black's special power resulted in no one surviving; Game Over!
 	} //if-else
@@ -108,3 +124,12 @@ void ActivatePlayer(CheckerObj *currentPlayer) {
 		
 } //ActivatePlayer
 
+int DeletePlayer(Players::PlayerObj list[], int arrayLocation){
+	Players::PlayerObj player = list[
+	int numCheckers = player.getNumCheckers;
+	if(numCheckers == 0){
+
+
+	}
+
+}
