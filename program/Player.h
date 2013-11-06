@@ -1,22 +1,23 @@
 #pragma once
 #include "Checker.h"
 #include <stdlib.h>
+#include "CheckerBoard.h"
 
 
-namespace Players {
+namespace Checkers {
 	class PlayerObj {
 		public:
 			PlayerObj(){
 				numCheckers = 0;
 				nextID = 0;
 			};
-			PlayerObj(Checkers::checkerColor color){
+			PlayerObj(checkerColor color){
 				 numCheckers = 0;
 				 pieceColor = color;
 				 nextID = 0;
 			};
 			void Delete(int id){
-				Checkers::CheckerObj *temp = NULL;
+				CheckerObj *temp = NULL;
 				int i;
 				for(i = 0; i < numCheckers; i++){
 					if(head->next->getID == id){
@@ -26,10 +27,11 @@ namespace Players {
 					}
 				}
 			}
+
 			void generatePieces(){
 				int i;
 				int newID;
-				Checkers::CheckerObj *temp = head;
+				CheckerObj *temp = head;
 				head = createChecker(pieceColor, nextID);
 				nextID++;
 				for(i = 0; i < 6; i++){
@@ -48,32 +50,34 @@ namespace Players {
 				return numCheckers;
 			}
 
-			Checkers::CheckerObj* getHead(){
+			CheckerObj* getHead(){
 				return head;
 			}
 
-			Checkers::CheckerObj* createChecker(Checkers::checkerColor color, int id) {
-				Checkers::CheckerObj *newChecker;
+			CheckerObj* createChecker(checkerColor color, int id, int x, int y) {
+				CheckerObj *newChecker;
 				switch (color) {
-				case Checkers::black:
-					Checkers::Black *newChecker = new Checkers::Black(id);
+				case black:
+					Black *newChecker = new Black(id);
+					CheckerBoardObj::DisplayChecker(x, y, newChecker);
 					return newChecker;
 					break;
-				case Checkers::red:
-					Checkers::Red *newChecker = new Checkers::Red(id);
+				case red:
+					Red *newChecker = new Red(id);
 					return newChecker;
 					break;
-				case Checkers::green:
-					Checkers::Green *newChecker = new Checkers::Green(id);
+				case green:
+					Green *newChecker = new Green(id);
 					return newChecker;
 					break;
 				}
 			}
 
+			CheckerObj *head;
+
 		private: 
 			int numCheckers;
-			Checkers::checkerColor pieceColor;
-			Checkers::CheckerObj *head;
+			checkerColor pieceColor;
 			int nextID;
 	}
 }

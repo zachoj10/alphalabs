@@ -11,6 +11,10 @@ int main();
 void PlayGame(int playerCount);
 CheckerObj *CreateNewPlayer();
 void ActivatePlayer(CheckerObj *currentPlayer);
+typedef enum {black, red, green} checkerColor;
+typedef enum {SE, SW, NE, NW, N, S, E, W} checkerDirection;
+CheckerBoardObj* checkerBoardObj;
+
 
 int main() {
 	// Initialize variables
@@ -67,22 +71,22 @@ void PlayGame(int playerCount) {
 	// Instantiate class objects
 	//CheckerObj playerList[3]; // TODO: Find workaround to instantiate array length via playerCount
 	//Players::PlayerObj playerList[playerCount] = new Players::PlayerObj;
-	Players::PlayerObj *playerList[3];
-	*playerList = new Players::PlayerObj[playerCount];
-	Players::PlayerObj *currentPlayer;
+	PlayerObj *playerList[3];
+	*playerList = new PlayerObj[playerCount];
+	PlayerObj *currentPlayer;
 
 	// Add Players
 	if(playerCount == 2){
-		playerList[0] = new Players::PlayerObj(black);
-		playerList[1] = new Players::PlayerObj(red);
+		playerList[black] = new PlayerObj(black);
+		playerList[red] = new PlayerObj(red);
 	}
 	else{
-		playerList[0] = new Players::PlayerObj(black);
-		playerList[1] = new Players::PlayerObj(red);
-		playerList[2] = new Players::PlayerObj(green);
+		playerList[black] = new PlayerObj(black);
+		playerList[red] = new PlayerObj(red);
+		playerList[green] = new PlayerObj(green);
 	}
-
-	CheckerBoardObj* checkerBoardObj = new CheckerBoardObj(playerList);
+	
+	checkerBoardObj = new CheckerBoardObj(playerList);
 
 	console_activate();
 	checkerBoardObj->DisplayBoard();
@@ -119,13 +123,17 @@ CheckerObj *CreateNewPlayer() {
 } //CreateNewPlayer
 
 
-void ActivatePlayer(CheckerObj *currentPlayer) {
+void ActivatePlayer(PlayerObj player, CheckerBoardObj* cb) {
 	// TODO: Prompt user for an action on their turn
-		
+	CheckerObj obj;
+	int id, killID, orgX, orgY, destX, destY;
+	//GOOOOEY!?! Get orgX, orgY.
+	
+	killID = cb
 } //ActivatePlayer
 
-int DeletePlayer(Players::PlayerObj list[], int arrayLocation){
-	Players::PlayerObj player = list[
+int DeletePlayer(PlayerObj list[], int arrayLocation){
+	Players::PlayerObj player = list[]
 	int numCheckers = player.getNumCheckers;
 	if(numCheckers == 0){
 

@@ -7,18 +7,31 @@ namespace Checkers {
 	class CheckerBoardObj {
 		//=============== Public Methods/Members ===============//
 		public: 
-			typedef enum {black, red, green} checkerColor;
 
-			CheckerBoardObj(CheckerObj playerList[]) {
+			CheckerBoardObj(PlayerObj *playerList[]) {
 				// TODO: Add constructor that specifies between 2 players (black vs red) and 3 players (black vs red vs green)
 				
 				// Instantiate class objects
 				guiObj = new GUI_Ascii();
 			} // __constructor
+
+			int MoveChecker(int originX, int originY, int destinationX, int destinationY, bool isJump) {
+				int id;
+				int jumpX = destinationX-(destinationX-originX);
+				int jumpY = destinationY-(destinationY-originY);
+				checkerBoard[destinationX][destinationY] = checkerBoard[originX][originY];
+				if (isJump) {
+					id = checkerBoard[jumpX][jumpY]->getID;
+				} else {
+					id = 0;	
+				}
+				checkerBoard[originX][originY] = NULL;
+			} //Move Checker
 			
+			/*Use as reference for now
 			bool MoveChecker(int originX, int originY, int destinationX, int destinationY) {
-				int jumpX = destinationX+(destinationX-originX);
-				int jumpY = destinationY+(destinationY-originY);
+				int jumpX = destinationX-(destinationX-originX);
+				int jumpY = destinationY-(destinationY-originY);
 				if(checkerBoard[destinationX][destinationY] == NULL){
 					checkerBoard[destinationX][destinationY] = checkerBoard[originX][originY];
 					checkerBoard[originX][originY] = NULL;
@@ -31,6 +44,7 @@ namespace Checkers {
 								checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
 								checkerBoard[originX][originY] = NULL;
 								delChecker(, checkerBoard[destinationX][destinationY]);
+								delChecker(, checkerBoard[destinationX][destinationY]->getID);
 								checkerBoard[destinationX][destinationY] = NULL;
 							} else {
 								checkerBoard[destinationX][destinationY]->specialUsed(true);
@@ -40,18 +54,18 @@ namespace Checkers {
 						} else if (checkerBoard[destinationX][destinationY]->getColor() == black) {
 							//Black
 							if (checkerBoard[destinationX][destinationY]->special() == true) {
-								delChecker(checkerBoard[originX][originY]);
-								delChecker(checkerBoard[destinationX][destinationY]);
+								delChecker(checkerBoard[originX][originY]->getID);
+								delChecker(checkerBoard[destinationX][destinationY]->getID);
 								checkerBoard[originX][originY] = NULL;
 							} else {
 								checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
-								delChecker(checkerBoard[destinationX][destinationY]);
+								delChecker(,checkerBoard[destinationX][destinationY]->getID);
 								checkerBoard[destinationX][destinationY] = NULL;
 								checkerBoard[originX][originY] = NULL;
 							}
 						} else {
 							checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
-							delChecker(checkerBoard[destinationX][destinationY]);
+							delChecker(, checkerBoard[destinationX][destinationY]->getID);
 							checkerBoard[destinationX][destinationY] = NULL;
 							checkerBoard[originX][originY] = NULL;
 						}
@@ -63,8 +77,12 @@ namespace Checkers {
 					return false;
 				}
 			} //MoveChecker
+			*/
 			
-			void delChecker(Players::PlayerObj *head, int checkerID) {
+			
+
+			void delChecker(PlayerObj *head, int checkerID) {
+
 				Checkers::CheckerObj *temp;
 				Checkers::CheckerObj *current = head->head;
 				if (current->getID == NULL) {
@@ -117,23 +135,39 @@ namespace Checkers {
 				std::cout << "The winner is %s", typeid(winner).name();
 			}
 
-			void DisplayChecker(int x, int y, Checkers::CheckerObj checker){
-				COORD pos = {x , y};
-				Checkers::checkerColor color = checker.getColor();
-				char checkerSymbol;
-				if(color == black){
-					checkerSymbol  = 'B';
-				}
-				else if(color == green){
-					checkerSymbol = 'G';
-				}
-				else {
-					checkerSymbol = 'R';
-				}
+			void DisplayChecker(){
+				int x, y;
+				int realX, realY;
+				for(x = 0; x < 9; x ++){
+					for(y = 0; y < 9; y++){
+						realX = 2 + 3*x;
+						realY = 3 + 3*x;
+						COORD pos = {realX , realY};
+						CheckerObj currentChecker = checkerBoard[x][y];
+						checkerColor color = currentChecker.getColor();
+						bool kinged = currentChecker.isKinged();
+						char checkerSymbol[3] = "  ";
+						if(color == black){
+							checkerSymbol[0]  = 'B';
+						}
+						else if(color == green){
+							checkerSymbol[0] = 'G';
+						}
+						else if(color == red){
+							checkerSymbol[0] = 'R';
+						}
+						if(kinged == true){
+							checkerSymbol[1] = 'K';
+						}
+						else {
+							checkerSymbol[1] = ' ';
+						}
 
-				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+						SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 
-				printf("%c", checker);
+						printf("%c", checkerSymbol);
+					}
+				}
 			}
 
 
