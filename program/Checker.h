@@ -3,15 +3,19 @@
 #include <stdio.h>
 
 namespace Checkers {
-	typedef enum {black, red, green} checkerColor;
+	
+	
 	class CheckerObj {
 		public:
-
-			bool special(){
+			CheckerObj(int id){
+				checkerID = id;
+				specialAbilityUsed = false;
+				kinged = false;
 			}
+
+			bool special();
 			
-			void Move(int destinationX, int destinationY, bool isJump)
-			{
+			void Move(int destinationX, int destinationY, bool isJump) {
 				currentX = destinationX;
 				currentY = destinationY;
 				if (isJump) {
@@ -56,35 +60,29 @@ namespace Checkers {
 				specialAbilityUsed = isUsed;
 			}
 			CheckerObj *next;
-
-		private:
 			bool kinged;
 			bool specialAbilityUsed;
+			checkerDirection directions[8];
+			checkerColor color;
+		private:
+			
 			int checkerID;
-
 			int currentX;
 			int currentY;
-
-			checkerColor color;
-			//int currentX;
-			//int currentY;
+			
 
 	}; //CheckerObj
 
 	class Black : public CheckerObj
 	{
 	public:
-		Black(int id){
-			setID(id);
-			specialUsed(false);
-			kingMe(false);
-			this->setID(id);
-			this->specialUsed(false);
-			this->kingMe(false);
-			this->setColor(black);
+		Black(int id) : CheckerObj(id) {
+			color = black;
+			directions[0] = NE;
+			directions[1] = NW;
 		} //constructor
-		using CheckerObj::special;
-		bool special() {
+		
+		bool Black::special() {
 			int boom = rand() % 2;
 			if (boom == 0) {
 				this->specialUsed(true);
@@ -93,34 +91,39 @@ namespace Checkers {
 				return false;
 			}
 		}
-
+	private:
+		using CheckerObj::special;
+		using CheckerObj::directions;
+		using CheckerObj::kinged;
+		using CheckerObj::specialAbilityUsed;
 
 	};
 
 	class Red : public CheckerObj
 	{
 	public:
-		Red(int id){
-			setID(id);
-			specialUsed(false);
-			kingMe(false);
-			this->setID(id);
-			this->specialUsed(false);
-			this->kingMe(false);
-			this->setColor(red);
+		Red(int id) : CheckerObj(id) {
+			color = red;
+			directions[0] = SE;
+			directions[1] = SW;
 		};
+	private:
+		using CheckerObj::special;
+		using CheckerObj::directions;
+		using CheckerObj::kinged;
+		using CheckerObj::specialAbilityUsed;
 	};
+
 
 	class Green : public CheckerObj
 	{
 	public:
-		Green(int id){
-			setID(id);
-			specialUsed(false);
-			kingMe(false);
+		Green(int id): CheckerObj(id){
+			color = green;
+			directions[0] = NW;
+			directions[1] = SW;
 		}
-		using CheckerObj::special;
-		bool special() {
+		bool Green::special() {
 			if (this->isSpecialUsed() == false) {
 				char use;
 				do {
@@ -136,7 +139,12 @@ namespace Checkers {
 					}
 				} while (use != 'y' && use != 'n');
 			}
-		};
+		}
+	private:
+		using CheckerObj::special;
+		using CheckerObj::directions;
+		using CheckerObj::kinged;
+		using CheckerObj::specialAbilityUsed;
 	};
 
 }

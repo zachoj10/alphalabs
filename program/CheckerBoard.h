@@ -7,7 +7,6 @@ namespace Checkers {
 	class CheckerBoardObj {
 		//=============== Public Methods/Members ===============//
 		public: 
-			typedef enum {black, red, green} checkerColor;
 
 			CheckerBoardObj(CheckerObj playerList[]) {
 				// TODO: Add constructor that specifies between 2 players (black vs red) and 3 players (black vs red vs green)
@@ -30,7 +29,7 @@ namespace Checkers {
 							if (checkerBoard[destinationX][destinationY]->isSpecialUsed() == true) {
 								checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
 								checkerBoard[originX][originY] = NULL;
-								delChecker(, checkerBoard[destinationX][destinationY]);
+								delChecker(, checkerBoard[destinationX][destinationY]->getID);
 								checkerBoard[destinationX][destinationY] = NULL;
 							} else {
 								checkerBoard[destinationX][destinationY]->specialUsed(true);
@@ -40,18 +39,18 @@ namespace Checkers {
 						} else if (checkerBoard[destinationX][destinationY]->getColor() == black) {
 							//Black
 							if (checkerBoard[destinationX][destinationY]->special() == true) {
-								delChecker(checkerBoard[originX][originY]);
-								delChecker(checkerBoard[destinationX][destinationY]);
+								delChecker(checkerBoard[originX][originY]->getID);
+								delChecker(checkerBoard[destinationX][destinationY]->getID);
 								checkerBoard[originX][originY] = NULL;
 							} else {
 								checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
-								delChecker(checkerBoard[destinationX][destinationY]);
+								delChecker(,checkerBoard[destinationX][destinationY]->getID);
 								checkerBoard[destinationX][destinationY] = NULL;
 								checkerBoard[originX][originY] = NULL;
 							}
 						} else {
 							checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
-							delChecker(checkerBoard[destinationX][destinationY]);
+							delChecker(, checkerBoard[destinationX][destinationY]->getID);
 							checkerBoard[destinationX][destinationY] = NULL;
 							checkerBoard[originX][originY] = NULL;
 						}
@@ -156,7 +155,7 @@ namespace Checkers {
 
 		//=============== Private Methods/Members ===============//
 		private:
-			Checkers::CheckerObj checkerBoard[9][9];
+			Checkers::CheckerObj *checkerBoard[9][9];
 			GUI_Ascii *guiObj;
 			 
 	}; //CheckerBoardObj

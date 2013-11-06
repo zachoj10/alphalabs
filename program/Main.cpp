@@ -11,6 +11,8 @@ int main();
 void PlayGame(int playerCount);
 CheckerObj *CreateNewPlayer();
 void ActivatePlayer(CheckerObj *currentPlayer);
+typedef enum {black, red, green} checkerColor;
+typedef enum {SE, SW, NE, NW, N, S, E, W} checkerDirection; 
 
 int main() {
 	// Initialize variables
