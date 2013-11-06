@@ -4,14 +4,14 @@
 #include "CheckerBoard.h"
 
 
-namespace Players {
+namespace Checkers {
 	class PlayerObj {
 		public:
 			PlayerObj(){
 				numCheckers = 0;
 				nextID = 0;
 			};
-			PlayerObj(Checkers::checkerColor color){
+			PlayerObj(checkerColor color){
 				 numCheckers = 0;
 				 pieceColor = color;
 				 nextID = 0;

@@ -8,7 +8,7 @@ namespace Checkers {
 		//=============== Public Methods/Members ===============//
 		public: 
 
-			CheckerBoardObj(CheckerObj playerList[]) {
+			CheckerBoardObj(PlayerObj *playerList[]) {
 				// TODO: Add constructor that specifies between 2 players (black vs red) and 3 players (black vs red vs green)
 				
 				// Instantiate class objects
@@ -63,7 +63,7 @@ namespace Checkers {
 				}
 			} //MoveChecker
 			
-			void delChecker(Players::PlayerObj *head, int checkerID) {
+			void delChecker(PlayerObj *head, int checkerID) {
 				Checkers::CheckerObj *temp;
 				Checkers::CheckerObj *current = head->head;
 				if (current->getID == NULL) {
@@ -124,8 +124,8 @@ namespace Checkers {
 						realX = 2 + 3*x;
 						realY = 3 + 3*x;
 						COORD pos = {realX , realY};
-						Checkers:CheckerObj currentChecker = checkerBoard[x][y];
-						Checkers::checkerColor color = currentChecker.getColor();
+						CheckerObj currentChecker = checkerBoard[x][y];
+						checkerColor color = currentChecker.getColor();
 						bool kinged = currentChecker.isKinged();
 						char checkerSymbol[3] = "  ";
 						if(color == black){
