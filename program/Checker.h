@@ -26,8 +26,6 @@ namespace Checkers {
                 //TODO
 			}
 
-			
-			
 			void setID(int checkerID) {
 				this->checkerID = checkerID;
 

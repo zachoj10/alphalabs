@@ -26,10 +26,11 @@ namespace Checkers {
 				} else if (checkerBoard[destinationX][destinationY]->getColor() != checkerBoard[originX][originY]->getColor()) {
 					if (checkerBoard[jumpX][jumpY] == NULL) {
 						if (checkerBoard[destinationX][destinationY]->getColor() == red) {
+							//Red
 							if (checkerBoard[destinationX][destinationY]->isSpecialUsed() == true) {
 								checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
 								checkerBoard[originX][originY] = NULL;
-								delChecker(checkerBoard[destinationX][destinationY]);
+								delChecker(, checkerBoard[destinationX][destinationY]);
 								checkerBoard[destinationX][destinationY] = NULL;
 							} else {
 								checkerBoard[destinationX][destinationY]->specialUsed(true);
@@ -37,6 +38,7 @@ namespace Checkers {
 								checkerBoard[originX][originY] = NULL;
 							}
 						} else if (checkerBoard[destinationX][destinationY]->getColor() == black) {
+							//Black
 							if (checkerBoard[destinationX][destinationY]->special() == true) {
 								delChecker(checkerBoard[originX][originY]);
 								delChecker(checkerBoard[destinationX][destinationY]);
@@ -62,20 +64,25 @@ namespace Checkers {
 				}
 			} //MoveChecker
 			
-			void delChecker(Players::PlayerObj *first, Checkers::CheckerObj *checker) {
-				int i;
-				Players::PlayerObj *temp = first;
-				if (temp->getHead->getID == checker->getID) {
-					//delete NODE
-				} else if (temp->getHead->next->getID == checker->getID) {
-					temp = temp->getHead->next;
-					first->getHead = temp->getHead->next->next;
+			void delChecker(Players::PlayerObj *head, int checkerID) {
+				Checkers::CheckerObj *temp;
+				Checkers::CheckerObj *current = head->head;
+				if (current->getID == NULL) {
+					return;
+				} else if (current->getID == checkerID) {
+					temp = head->head;
+					head->head = head->head->next;
 					free(temp);
+					return;
 				} else {
-					for(i = 0; i < 7; i++){
+					temp = current->next;
+					while (temp->next != NULL) {
+						if (current->getID == checkerID) {	
+							current = temp->next;
+							free(temp);
+						}
+						current = temp;
 						temp = temp->next;
-						//Incomplete					
-							
 					}
 				}				
 			}
