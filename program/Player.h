@@ -1,6 +1,7 @@
 #pragma once
 #include "Checker.h"
 #include <stdlib.h>
+#include "CheckerBoard.h"
 
 
 namespace Players {
@@ -52,11 +53,12 @@ namespace Players {
 				return head;
 			}
 
-			Checkers::CheckerObj* createChecker(Checkers::checkerColor color, int id) {
+			Checkers::CheckerObj* createChecker(Checkers::checkerColor color, int id, int x, int y) {
 				Checkers::CheckerObj *newChecker;
 				switch (color) {
 				case Checkers::black:
 					Checkers::Black *newChecker = new Checkers::Black(id);
+					Checkers::CheckerBoardObj::DisplayChecker(x, y, newChecker);
 					return newChecker;
 					break;
 				case Checkers::red:
@@ -70,10 +72,11 @@ namespace Players {
 				}
 			}
 
+			Checkers::CheckerObj *head;
+
 		private: 
 			int numCheckers;
 			Checkers::checkerColor pieceColor;
-			Checkers::CheckerObj *head;
 			int nextID;
 	}
 }

@@ -110,30 +110,46 @@ namespace Checkers {
 				std::cout << "The winner is %s", typeid(winner).name();
 			}
 
-			void DisplayChecker(int x, int y, Checkers::CheckerObj checker){
-				COORD pos = {x , y};
-				Checkers::checkerColor color = checker.getColor();
-				char checkerSymbol;
-				if(color == black){
-					checkerSymbol  = 'B';
-				}
-				else if(color == green){
-					checkerSymbol = 'G';
-				}
-				else {
-					checkerSymbol = 'R';
-				}
+			void DisplayChecker(){
+				int x, y;
+				int realX, realY;
+				for(x = 0; x < 9; x ++){
+					for(y = 0; y < 9; y++){
+						realX = 2 + 3*x;
+						realY = 3 + 3*x;
+						COORD pos = {realX , realY};
+						Checkers:CheckerObj currentChecker = checkerBoard[x][y];
+						Checkers::checkerColor color = currentChecker.getColor();
+						bool kinged = currentChecker.isKinged();
+						char checkerSymbol[3] = "  ";
+						if(color == black){
+							checkerSymbol[0]  = 'B';
+						}
+						else if(color == green){
+							checkerSymbol[0] = 'G';
+						}
+						else if(color == red){
+							checkerSymbol[0] = 'R';
+						}
+						if(kinged == true){
+							checkerSymbol[1] = 'K';
+						}
+						else {
+							checkerSymbol[1] = ' ';
+						}
 
-				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+						SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 
-				printf("%c", checker);
+						printf("%c", checkerSymbol);
+					}
+				}
 			}
 
 
 
 		//=============== Private Methods/Members ===============//
 		private:
-			Checkers::CheckerObj *checkerBoard[9][9];
+			Checkers::CheckerObj checkerBoard[9][9];
 			GUI_Ascii *guiObj;
 			 
 	}; //CheckerBoardObj
