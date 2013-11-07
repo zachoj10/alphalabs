@@ -26,6 +26,7 @@ namespace Checkers {
 					id = 0;	
 				}
 				checkerBoard[originX][originY] = NULL;
+				return id;
 			} //Move Checker
 			
 			/*Use as reference for now
@@ -77,14 +78,14 @@ namespace Checkers {
 					return false;
 				}
 			} //MoveChecker
-			*/
+			
 			
 			
 
 			void delChecker(PlayerObj *head, int checkerID) {
 
-				Checkers::CheckerObj *temp;
-				Checkers::CheckerObj *current = head->head;
+				CheckerObj *temp;
+				CheckerObj *current = head->head;
 				if (current->getID == NULL) {
 					return;
 				} else if (current->getID == checkerID) {
@@ -104,7 +105,7 @@ namespace Checkers {
 					}
 				}				
 			}
-
+			*/
 			
 			void AddChecker(int destinationX, int destinationY, Checkers::CheckerObj *checker) {
 				checkerBoard[destinationX][destinationY] = checker;

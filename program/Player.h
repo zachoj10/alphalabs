@@ -16,14 +16,25 @@ namespace Checkers {
 				 pieceColor = color;
 				 nextID = 0;
 			};
-			void Delete(int id){
-				CheckerObj *temp = NULL;
-				int i;
-				for(i = 0; i < numCheckers; i++){
-					if(head->next->getID == id){
-						temp = head->next;
-						head->next = head->next->next;
-						free(temp);
+			void killChecker(int id){
+				CheckerObj *temp;
+				CheckerObj *current = head;
+				if (current->getID == NULL) {
+					return;
+				} else if (current->getID == id) {
+					temp = head;
+					head = head->next;
+					free(temp);
+					return;
+				} else {
+					temp = current->next;
+					while (temp->next != NULL) {
+						if (current->getID == id) {	
+							current = temp->next;
+							free(temp);
+						}
+						current = temp;
+						temp = temp->next;
 					}
 				}
 			}
