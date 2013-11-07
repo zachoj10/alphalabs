@@ -37,8 +37,8 @@ namespace Checkers {
 			int getID() {
 				return this->checkerID;
 			}
-			checkerColor getColor() {
-				return this->color;
+			enum checkerColor getColor() {
+				return color;
 			}
 			void setColor(checkerColor color) {
 				this->color = color;
@@ -59,11 +59,12 @@ namespace Checkers {
 			{
 				specialAbilityUsed = isUsed;
 			}
+
 			CheckerObj *next;
 			bool kinged;
 			bool specialAbilityUsed;
-			checkerDirection directions[8];
-			checkerColor color;
+			enum checkerDirection directions[8];
+			enum checkerColor color;
 		private:
 			
 			int checkerID;

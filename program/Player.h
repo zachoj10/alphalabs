@@ -3,8 +3,7 @@
 #include <stdlib.h>
 #include "CheckerBoard.h"
 
-
-namespace Checkers {
+namespace Checkers{
 	class PlayerObj {
 		public:
 			PlayerObj(){
@@ -17,10 +16,10 @@ namespace Checkers {
 				 nextID = 0;
 			};
 			void Delete(int id){
-				Checkers::CheckerObj *temp = NULL;
+				CheckerObj *temp = NULL;
 				int i;
 				for(i = 0; i < numCheckers; i++){
-					if(head->next->getID == id){
+					if(head->next->getID() == id){
 						temp = head->next;
 						head->next = head->next->next;
 						free(temp);
@@ -30,7 +29,7 @@ namespace Checkers {
 			void generatePieces(){
 				int i;
 				int newID;
-				Checkers::CheckerObj *temp = head;
+				CheckerObj *temp = head;
 				head = createChecker(pieceColor, nextID);
 				nextID++;
 				for(i = 0; i < 6; i++){
@@ -49,36 +48,33 @@ namespace Checkers {
 				return numCheckers;
 			}
 
-			Checkers::CheckerObj* getHead(){
+			CheckerObj* getHead(){
 				return head;
 			}
 
-			Checkers::CheckerObj* createChecker(Checkers::checkerColor color, int id, int x, int y) {
-				Checkers::CheckerObj *newChecker;
-				switch (color) {
-				case Checkers::black:
-					Checkers::Black *newChecker = new Checkers::Black(id);
-					Checkers::CheckerBoardObj::DisplayChecker(x, y, newChecker);
+			CheckerObj* createChecker(checkerColor color, int id) {
+				CheckerObj *newChecker;
+				if(color == black){
+					Black *newChecker = new Black(id);
 					return newChecker;
-					break;
-				case Checkers::red:
-					Checkers::Red *newChecker = new Checkers::Red(id);
+				}
+				else if(color == red){
+					Red *newChecker = new Red(id);
 					return newChecker;
-					break;
-				case Checkers::green:
-					Checkers::Green *newChecker = new Checkers::Green(id);
+				}
+				else if(color == green){
+					Green *newChecker = new Green(id);
 					return newChecker;
-					break;
 				}
 			}
 
-			Checkers::CheckerObj *head;
+			CheckerObj *head;
 
 		private: 
 			int numCheckers;
-			Checkers::checkerColor pieceColor;
+			checkerColor pieceColor;
 			int nextID;
-	}
+	};
+
+
 }
-
-

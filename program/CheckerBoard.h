@@ -3,7 +3,8 @@
 #include "GUI_Ascii.h"
 #include "Player.h"
 
-namespace Checkers {
+namespace Checkers{
+
 	class CheckerBoardObj {
 		//=============== Public Methods/Members ===============//
 		public: 
@@ -29,7 +30,7 @@ namespace Checkers {
 							if (checkerBoard[destinationX][destinationY]->isSpecialUsed() == true) {
 								checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
 								checkerBoard[originX][originY] = NULL;
-								delChecker(, checkerBoard[destinationX][destinationY]->getID);
+								delChecker(checkerBoard[destinationX][destinationY]->getID);
 								checkerBoard[destinationX][destinationY] = NULL;
 							} else {
 								checkerBoard[destinationX][destinationY]->specialUsed(true);
@@ -64,8 +65,8 @@ namespace Checkers {
 			} //MoveChecker
 			
 			void delChecker(PlayerObj *head, int checkerID) {
-				Checkers::CheckerObj *temp;
-				Checkers::CheckerObj *current = head->head;
+				CheckerObj *temp;
+				CheckerObj *current = head->head;
 				if (current->getID == NULL) {
 					return;
 				} else if (current->getID == checkerID) {
@@ -94,7 +95,7 @@ namespace Checkers {
 
 			void AddPlayersCheckers(int xCords[], int yCords[], Checkers::CheckerObj *ptr){
 				int i;
-				Checkers::CheckerObj *temp = ptr;
+				CheckerObj *temp = ptr;
 				for(i = 0; i < 7; i++){
 					AddChecker(xCords[i], yCords[i], temp);
 					temp = temp->next;
@@ -155,7 +156,7 @@ namespace Checkers {
 
 		//=============== Private Methods/Members ===============//
 		private:
-			Checkers::CheckerObj *checkerBoard[9][9];
+			CheckerObj *checkerBoard[9][9];
 			GUI_Ascii *guiObj;
 			 
 	}; //CheckerBoardObj
