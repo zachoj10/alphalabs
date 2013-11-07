@@ -15,6 +15,7 @@ namespace Checkers{
 				 pieceColor = color;
 				 nextID = 0;
 			};
+<<<<<<< HEAD
 			void Delete(int id){
 				CheckerObj *temp = NULL;
 				int i;
@@ -23,9 +24,31 @@ namespace Checkers{
 						temp = head->next;
 						head->next = head->next->next;
 						free(temp);
+=======
+			void killChecker(int id){
+				CheckerObj *temp;
+				CheckerObj *current = head;
+				if (current->getID == NULL) {
+					return;
+				} else if (current->getID == id) {
+					temp = head;
+					head = head->next;
+					free(temp);
+					return;
+				} else {
+					temp = current->next;
+					while (temp->next != NULL) {
+						if (current->getID == id) {	
+							current = temp->next;
+							free(temp);
+						}
+						current = temp;
+						temp = temp->next;
+>>>>>>> gareth
 					}
 				}
 			}
+
 			void generatePieces(){
 				int i;
 				int newID;
@@ -52,6 +75,7 @@ namespace Checkers{
 				return head;
 			}
 
+<<<<<<< HEAD
 			CheckerObj* createChecker(checkerColor color, int id) {
 				CheckerObj *newChecker;
 				if(color == black){
@@ -63,6 +87,21 @@ namespace Checkers{
 					return newChecker;
 				}
 				else if(color == green){
+=======
+			CheckerObj* createChecker(checkerColor color, int id, int x, int y) {
+				CheckerObj *newChecker;
+				switch (color) {
+				case black:
+					Black *newChecker = new Black(id);
+					CheckerBoardObj::DisplayChecker(x, y, newChecker);
+					return newChecker;
+					break;
+				case red:
+					Red *newChecker = new Red(id);
+					return newChecker;
+					break;
+				case green:
+>>>>>>> gareth
 					Green *newChecker = new Green(id);
 					return newChecker;
 				}

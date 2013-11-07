@@ -15,10 +15,25 @@ namespace Checkers{
 				// Instantiate class objects
 				guiObj = new GUI_Ascii();
 			} // __constructor
+
+			int MoveChecker(int originX, int originY, int destinationX, int destinationY, bool isJump) {
+				int id;
+				int jumpX = destinationX-(destinationX-originX);
+				int jumpY = destinationY-(destinationY-originY);
+				checkerBoard[destinationX][destinationY] = checkerBoard[originX][originY];
+				if (isJump) {
+					id = checkerBoard[jumpX][jumpY]->getID;
+				} else {
+					id = 0;	
+				}
+				checkerBoard[originX][originY] = NULL;
+				return id;
+			} //Move Checker
 			
+			/*Use as reference for now
 			bool MoveChecker(int originX, int originY, int destinationX, int destinationY) {
-				int jumpX = destinationX+(destinationX-originX);
-				int jumpY = destinationY+(destinationY-originY);
+				int jumpX = destinationX-(destinationX-originX);
+				int jumpY = destinationY-(destinationY-originY);
 				if(checkerBoard[destinationX][destinationY] == NULL){
 					checkerBoard[destinationX][destinationY] = checkerBoard[originX][originY];
 					checkerBoard[originX][originY] = NULL;
@@ -30,7 +45,12 @@ namespace Checkers{
 							if (checkerBoard[destinationX][destinationY]->isSpecialUsed() == true) {
 								checkerBoard[jumpX][jumpY] = checkerBoard[originX][originY];
 								checkerBoard[originX][originY] = NULL;
+<<<<<<< HEAD
 								delChecker(checkerBoard[destinationX][destinationY]->getID);
+=======
+								delChecker(, checkerBoard[destinationX][destinationY]);
+								delChecker(, checkerBoard[destinationX][destinationY]->getID);
+>>>>>>> gareth
 								checkerBoard[destinationX][destinationY] = NULL;
 							} else {
 								checkerBoard[destinationX][destinationY]->specialUsed(true);
@@ -64,7 +84,14 @@ namespace Checkers{
 				}
 			} //MoveChecker
 			
+			
+			
+
 			void delChecker(PlayerObj *head, int checkerID) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> gareth
 				CheckerObj *temp;
 				CheckerObj *current = head->head;
 				if (current->getID == NULL) {
@@ -86,7 +113,7 @@ namespace Checkers{
 					}
 				}				
 			}
-
+			*/
 			
 			void AddChecker(int destinationX, int destinationY, Checkers::CheckerObj *checker) {
 				checkerBoard[destinationX][destinationY] = checker;
