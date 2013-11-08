@@ -95,7 +95,7 @@ void PlayGame(int playerCount) {
 	while (numPlayers > 1) {
 		// Selects current player by modding remaining players with turn number; i.e., turn 4 in 3 player game will select array[1] (2nd player)
 		for(i = 0; i < playerCount; i++){
-			if(playerList[i]->getNumCheckers == 0){
+			if(playerList[i]->getNumCheckers() == 0){
 				playerList[i] = NULL;
 				numPlayers = numPlayers - 1;
 			}
@@ -126,7 +126,7 @@ void ActivatePlayer(PlayerObj player) {
 
 int DeletePlayer(PlayerObj list[], int arrayLocation){
 	PlayerObj player = list[0];//TODO:PLEASE FIX
-	int numCheckers = player.getNumCheckers;
+	int numCheckers = player.getNumCheckers();
 	if(numCheckers == 0){
 
 

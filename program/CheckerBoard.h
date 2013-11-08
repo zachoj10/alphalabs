@@ -116,7 +116,7 @@ namespace Checkers{
 			}
 			*/
 			
-			void AddChecker(int destinationX, int destinationY, CheckerObj *checker) {
+			void AddChecker(int destinationX, int destinationY, CheckerObj checker) {
 				checkerBoard[destinationX][destinationY] = checker;
 			}
 
@@ -125,7 +125,7 @@ namespace Checkers{
 				int i;
 				CheckerObj *temp = ptr;
 				for(i = 0; i < 7; i++){
-					AddChecker(xCords[i], yCords[i], temp);
+					AddChecker(xCords[i], yCords[i], *temp);
 					temp = temp->next;
 				}
 			}
@@ -189,3 +189,5 @@ namespace Checkers{
 			 
 	}; //CheckerBoardObj
 }
+
+//TODO: Fix global enum
