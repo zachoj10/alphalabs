@@ -11,7 +11,7 @@ int main();
 void PlayGame(int playerCount);
 CheckerObj *CreateNewPlayer();
 void ActivatePlayer(CheckerObj *currentPlayer);
-typedef enum {black, red, green} checkerColor;
+typedef enum {black = 0, red = 1, green = 2} checkerColor;
 typedef enum {SE, SW, NE, NW, N, S, E, W} checkerDirection;
 CheckerBoardObj* checkerBoardObj;
 
@@ -114,28 +114,18 @@ void PlayGame(int playerCount) {
 	} //if-else
 } //PlayGame
 
-
-CheckerObj *CreateNewPlayer() {
-	// TODO: Add cases for three different color creations
-	checkerColor color = black;
-	
-	return new CheckerObj;
-} //CreateNewPlayer
-
-
-void ActivatePlayer(PlayerObj player, CheckerBoardObj* cb) {
+void ActivatePlayer(PlayerObj player) {
 	// TODO: Prompt user for an action on their turn. Takes in the player whose turn it is, and the checker board that is in use.
-	CheckerObj* obj;
 	int id, killID, origX, origY, destX, destY;
 	bool isJump;
 	//GOOOOEY!?! Get origX, origY, destX, destY, isJump
-	killID = cb->MoveChecker(origX, origY, destX, destY, isJump);
+	killID = checkerBoardObj->MoveChecker(origX, origY, destX, destY, isJump);
 	//Check Specials
 	player.killChecker(killID);
 } //ActivatePlayer
 
 int DeletePlayer(PlayerObj list[], int arrayLocation){
-	PlayerObj player = list[
+	PlayerObj player = list[0];//TODO:PLEASE FIX
 	int numCheckers = player.getNumCheckers;
 	if(numCheckers == 0){
 

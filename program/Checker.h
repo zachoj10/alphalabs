@@ -7,6 +7,9 @@ namespace Checkers {
 	
 	class CheckerObj {
 		public:
+			typedef enum {black, red, green} checkerColor;
+			typedef enum {SE, SW, NE, NW, N, S, E, W} checkerDirection;
+			CheckerObj(){}
 			CheckerObj(int id){
 				checkerID = id;
 				specialAbilityUsed = false;
@@ -37,7 +40,7 @@ namespace Checkers {
 			int getID() {
 				return this->checkerID;
 			}
-			enum checkerColor getColor() {
+			checkerColor getColor() {
 				return color;
 			}
 			void setColor(checkerColor color) {
@@ -63,8 +66,8 @@ namespace Checkers {
 			CheckerObj *next;
 			bool kinged;
 			bool specialAbilityUsed;
-			enum checkerDirection directions[8];
-			enum checkerColor color;
+			checkerDirection directions[8];
+			checkerColor color;
 		private:
 			
 			int checkerID;

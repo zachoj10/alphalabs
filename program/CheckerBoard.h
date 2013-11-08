@@ -8,7 +8,8 @@ namespace Checkers{
 	class CheckerBoardObj {
 		//=============== Public Methods/Members ===============//
 		public: 
-
+			typedef enum {black, red, green} checkerColor;
+			typedef enum {SE, SW, NE, NW, N, S, E, W} checkerDirection;
 			CheckerBoardObj(PlayerObj *playerList[]) {
 				// TODO: Add constructor that specifies between 2 players (black vs red) and 3 players (black vs red vs green)
 				
@@ -22,7 +23,7 @@ namespace Checkers{
 				int jumpY = destinationY-(destinationY-originY);
 				checkerBoard[destinationX][destinationY] = checkerBoard[originX][originY];
 				if (isJump) {
-					id = checkerBoard[jumpX][jumpY]->getID;
+					id = checkerBoard[jumpX][jumpY].getID();
 				} else {
 					id = 0;	
 				}
@@ -115,12 +116,12 @@ namespace Checkers{
 			}
 			*/
 			
-			void AddChecker(int destinationX, int destinationY, Checkers::CheckerObj *checker) {
+			void AddChecker(int destinationX, int destinationY, CheckerObj *checker) {
 				checkerBoard[destinationX][destinationY] = checker;
 			}
 
 
-			void AddPlayersCheckers(int xCords[], int yCords[], Checkers::CheckerObj *ptr){
+			void AddPlayersCheckers(int xCords[], int yCords[], CheckerObj *ptr){
 				int i;
 				CheckerObj *temp = ptr;
 				for(i = 0; i < 7; i++){
@@ -183,7 +184,7 @@ namespace Checkers{
 
 		//=============== Private Methods/Members ===============//
 		private:
-			CheckerObj *checkerBoard[9][9];
+			CheckerObj checkerBoard[9][9];
 			GUI_Ascii *guiObj;
 			 
 	}; //CheckerBoardObj
