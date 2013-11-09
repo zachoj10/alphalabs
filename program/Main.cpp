@@ -147,16 +147,25 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 	
 	//GOOOOEY!?! Get origX, origY, destX, destY, isJump
 
-	guiObj->DisplayPlayerMoveMenu();
-	guiObj->HandlePlayerMoveMenuResponse();
-
 	// TODO: Replace dummy values with returns from gui prompt
 	origin_X = CordX;
 	origin_Y = CordY;
 	destination_X = 3;
 	destination_Y = 4;
-
+	int *options = checkerBoardObj->checkerMoveOptions(origin_X, origin_Y);
+	int moveOptions[3][8];
+	int k, j;
+	int l = 0;
+	for (k = 0; k < 2; k++) {
+		for (j = 0; j < 7; j++) {
+			moveOptions[j][k] = options[l];
+			l++;
+		}
+	}
+	guiObj->DisplayPlayerMoveMenu();
+	guiObj->HandlePlayerMoveMenuResponse();
 	// TODO: Add a condition to distinguish between moves and jumps
+
 	if (true) {
 		// Jump another checker
 		killCheckerId = checkerBoardObj->JumpChecker(origin_X, origin_Y, destination_X, destination_Y);
