@@ -78,21 +78,20 @@ namespace Checkers {
 			}
 
 			CheckerObj* CreateChecker() {
-				// TODO: If this is necessary, then change to a switch statement with error handling for default case
-				//			If this is unecessary, have the subclasses override the parent with their own appropriate colors
-
-				if (pieceColor == black){
+				switch (pieceColor) {
+				case black:
 					return new Black(nextID);
-				}
-				else if(pieceColor == red){
+					break;
+				case red:
 					return new Red(nextID);
-				}
-				else if(pieceColor == green){
+					break;
+				case green:
 					return new Green(nextID);	
+					break;
+				default:
+					//TODO: Handle this default case somehow; possible with an exception handler 
+					break;
 				}
-
-				// TOOD: Handle this default case somehow; possible with an exception handler
-				else return new Black(nextID);
 			} //CreateChecker
 
 

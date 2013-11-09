@@ -42,9 +42,13 @@ namespace Checkers {
 			void setColor(checkerColor color) {
 				this->color = color;
 			}
-			void kingMe(bool kinged)
+			void kingMe()
 			{
-				this->kinged = kinged;
+				int i;
+				for (i = 0; i < 8; i++) {
+					directions[i] = dArray[i];
+				}
+				this->kinged = true;
 			}
 			bool isKinged()
 			{
@@ -57,6 +61,10 @@ namespace Checkers {
 			void specialUsed(bool isUsed)
 			{
 				specialAbilityUsed = isUsed;
+			}
+
+			checkerDirection getDirection(int i) {
+				return this->directions[i];
 			}
 
 			CheckerObj *next;

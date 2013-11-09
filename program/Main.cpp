@@ -125,6 +125,7 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 	bool isJump;
 	
 	//GOOOOEY!?! Get origX, origY, destX, destY, isJump
+
 	guiObj->DisplayPlayerMoveMenu();
 	guiObj->HandlePlayerMoveMenuResponse();
 
