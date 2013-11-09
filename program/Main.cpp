@@ -15,6 +15,7 @@ int ActivatePlayer(PlayerObj *currentPlayer);
 CheckerObj *CreateNewPlayer();
 CheckerBoardObj* checkerBoardObj;
 GUI_Ascii *guiObj;
+void StartGame(int players, PlayerObj list[]);
 
 
 int main() {
@@ -25,6 +26,12 @@ int main() {
 
 	// Instantiate class objects
 	guiObj = new GUI_Ascii();
+	SMALL_RECT windowSize = {0, 0, 79, 40};
+
+	SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowSize);
+
+	SetConsoleTitle("Checkers by AlphaLabs");
+
 
 	guiObj->DisplayWelcome();
 
@@ -87,9 +94,10 @@ void PlayGame(int playerCount) {
 	} //if-else
 	
 	checkerBoardObj = new CheckerBoardObj(playerList);
-
+	StartGame(numPlayers, playerList);
 	console_activate();
 	checkerBoardObj->DisplayBoard();
+	checkerBoardObj->DisplayChecker();
 
 	// Handle a full game until 1 or fewer players remain
 	while (numPlayers > 1) {
@@ -119,7 +127,19 @@ void PlayGame(int playerCount) {
 
 
 int ActivatePlayer(PlayerObj *currentPlayer) {
+	int CordX, CordY;
+	int* pieceToMove;
+	checkerColor playerColor = currentPlayer->getColor();
+	checkerColor pieceColor;
 	// TODO: Prompt user for an action on their turn. Takes in the player whose turn it is, and the checker board that is in use.
+	//Prompt Player For action on their turn 
+	
+	pieceToMove = guiObj -> PieceCoordMenu();
+	CordX = pieceToMove[0];
+	CordY = pieceToMove[1];
+
+	//pieceColor = checkerBoard[CordX-1][CordY-1] -> getColor();
+
 	int id, killCheckerId = NULL;
 	int origin_X, origin_Y, destination_X, destination_Y;
 	bool isJump;
@@ -129,8 +149,8 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 	guiObj->HandlePlayerMoveMenuResponse();
 
 	// TODO: Replace dummy values with returns from gui prompt
-	origin_X = 1;
-	origin_Y = 2;
+	origin_X = CordX;
+	origin_Y = CordY;
 	destination_X = 3;
 	destination_Y = 4;
 
@@ -159,3 +179,28 @@ int DeletePlayer(PlayerObj list[], int arrayLocation){
 	// TODO: Replace dummy return value with actual return
 	return 0;
 } //DeletePlayer
+
+void StartGame(int players, PlayerObj list[]){
+	CheckerObj *temp;
+	int BlackXCoords[7] = {1, 2, 3, 4, 5, 6, 7};
+	int BlackYCoords[7] = {8, 7, 8, 7, 8, 7, 8};
+	int RedXCoords[7] = {1, 2, 3, 4, 5, 6, 7};
+	int RedYCoords[7] = {0, 1, 0, 1, 0, 1, 0};
+	int GreenXCoords[7] = {8, 7, 8, 7, 8, 7, 8};
+	int GreenYCoords[7] = {1, 2, 3, 4, 5, 6, 7};
+	if(players == 2){
+		temp = list[black].getHead();
+		checkerBoardObj->AddPlayersCheckers(BlackXCoords, BlackYCoords, temp);
+		temp = list[red].getHead();
+		checkerBoardObj->AddPlayersCheckers(RedXCoords, RedYCoords, temp);
+	}
+	else {
+		temp = list[black].getHead();
+		checkerBoardObj->AddPlayersCheckers(BlackXCoords, BlackYCoords, temp);
+		temp = list[red].getHead();
+		checkerBoardObj->AddPlayersCheckers(RedXCoords, RedYCoords, temp);
+		temp = list[green].getHead();
+		checkerBoardObj->AddPlayersCheckers(GreenXCoords, GreenYCoords, temp);
+	}
+
+}

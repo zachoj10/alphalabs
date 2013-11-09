@@ -57,11 +57,12 @@ namespace Checkers {
 				CheckerObj *temp = head;
 				head = CreateChecker();
 				nextID++;
-				for(i = 0; i < 6; i++){
+				for(i = 0; i < 7; i++){
 					temp = CreateChecker();
 					temp->next = head;
 					head = temp;
 					nextID++;
+					numCheckers++;
 				}
 			}
 
@@ -94,6 +95,10 @@ namespace Checkers {
 				// TOOD: Handle this default case somehow; possible with an exception handler
 				else return new Black(nextID);
 			} //CreateChecker
+
+			checkerColor getColor(){
+				return pieceColor;
+			}
 
 
 			CheckerObj *head;

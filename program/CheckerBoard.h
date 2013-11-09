@@ -132,6 +132,10 @@ namespace Checkers{
 				CheckerObj *temp = ptr;
 				for(i = 0; i < 7; i++){
 					AddChecker(xCords[i], yCords[i], *temp);
+					COORD pos = {0, 30};
+					SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+					//std::cout << xCords[i];
+					//std::cout << yCords[i];
 					temp = temp->next;
 				}
 			}
@@ -148,7 +152,9 @@ namespace Checkers{
 			} //DisplayBoard
 
 			void DisplayWinner(CheckerObj winner){
-				std::cout << "The winner is %s", typeid(winner).name();
+				// TODO: Get and display winner color
+				char str[50] = "The winner is %s";
+				guiObj->DisplayString(0, 20, str);
 			}
 
 			void DisplayChecker(){
@@ -156,13 +162,12 @@ namespace Checkers{
 				int realX, realY;
 				for(x = 0; x < 9; x ++){
 					for(y = 0; y < 9; y++){
-						realX = 2 + 3*x;
-						realY = 3 + 3*x;
-						COORD pos = {realX , realY};
+						realX = 2 + (x * 4);
+						realY = 3 + (y * 2);
 						CheckerObj currentChecker = checkerBoard[x][y];
 						checkerColor color = currentChecker.getColor();
 						bool kinged = currentChecker.isKinged();
-						char checkerSymbol[3] = "  ";
+						char checkerSymbol[2] = {' ', ' '};
 						if(color == black){
 							checkerSymbol[0]  = 'B';
 						}
@@ -172,19 +177,31 @@ namespace Checkers{
 						else if(color == red){
 							checkerSymbol[0] = 'R';
 						}
+						else {
+							checkerSymbol[0] = '_';
+						}
 						if(kinged == true){
 							checkerSymbol[1] = 'K';
 						}
 						else {
-							checkerSymbol[1] = ' ';
+							checkerSymbol[1] = '_';
 						}
 
-						SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+						
 
-						printf("%c", checkerSymbol);
+						guiObj -> DisplayChar(realX, realY, checkerSymbol[0]);
+						guiObj -> DisplayChar((realX + 1), realY, checkerSymbol[1]);
 					}
 				}
 			}
+
+			void GetCheckerColor(int x, int y){
+				// TODO: Change this so that it returns the color of the object
+				//checkerColor result = checkerBoard[x][y] -> getColor();
+				//return result;
+
+			}
+
 
 
 		//=============== Private Methods/Members ===============//
