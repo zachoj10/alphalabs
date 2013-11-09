@@ -13,6 +13,7 @@ namespace Checkers{
 				
 				// Instantiate class objects
 				guiObj = new GUI_Ascii();
+				memset((void *) checkerBoard, 0, sizeof(checkerBoard));
 			} //__constructor
 
 			int* checkerMoveOptions(int x, int y) {
@@ -30,7 +31,7 @@ namespace Checkers{
 							moves[1][i] = y+modY;
 							moves[2][i] = 0;
 						} else {
-							if (checkerBoard[x+modX][y+modY]->GetColor() != checkerBoard[x][y]->GetColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
+							if (checkerBoard[x+modX][y+modY]->getColor() != checkerBoard[x][y]->getColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
 								moves[0][i] = x+2*modX; 
 								moves[1][i] = y+2*modY;
 								moves[2][i] = 1;
@@ -45,7 +46,7 @@ namespace Checkers{
 							moves[1][i] = y+modY;
 							moves[2][i] = 0;
 						} else {
-							if (checkerBoard[x+modX][y+modY]->GetColor() != checkerBoard[x][y]->GetColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
+							if (checkerBoard[x+modX][y+modY]->getColor() != checkerBoard[x][y]->getColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
 								moves[0][i] = x+2*modX; 
 								moves[1][i] = y+2*modY;
 								moves[2][i] = 1;
@@ -60,7 +61,7 @@ namespace Checkers{
 							moves[1][i] = y+modY;
 							moves[2][i] = 0;
 						} else {
-							if (checkerBoard[x+modX][y+modY]->GetColor() != checkerBoard[x][y]->GetColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
+							if (checkerBoard[x+modX][y+modY]->getColor() != checkerBoard[x][y]->getColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
 								moves[0][i] = x+2*modX; 
 								moves[1][i] = y+2*modY;
 								moves[2][i] = 1;
@@ -75,7 +76,7 @@ namespace Checkers{
 							moves[1][i] = y+modY;
 							moves[2][i] = 0;
 						} else {
-							if (checkerBoard[x+modX][y+modY]->GetColor() != checkerBoard[x][y]->GetColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
+							if (checkerBoard[x+modX][y+modY]->getColor() != checkerBoard[x][y]->getColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
 								moves[0][i] = x+2*modX; 
 								moves[1][i] = y+2*modY;
 								moves[2][i] = 1;
@@ -90,7 +91,7 @@ namespace Checkers{
 							moves[1][i] = y+modY;
 							moves[2][i] = 0;
 						} else {
-							if (checkerBoard[x+modX][y+modY]->GetColor() != checkerBoard[x][y]->GetColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
+							if (checkerBoard[x+modX][y+modY]->getColor() != checkerBoard[x][y]->getColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
 								moves[0][i] = x+2*modX; 
 								moves[1][i] = y+2*modY;
 								moves[2][i] = 1;
@@ -105,7 +106,7 @@ namespace Checkers{
 							moves[1][i] = y+modY;
 							moves[2][i] = 0;
 						} else {
-							if (checkerBoard[x+modX][y+modY]->GetColor() != checkerBoard[x][y]->GetColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
+							if (checkerBoard[x+modX][y+modY]->getColor() != checkerBoard[x][y]->getColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
 								moves[0][i] = x+2*modX; 
 								moves[1][i] = y+2*modY;
 								moves[2][i] = 1;
@@ -120,7 +121,7 @@ namespace Checkers{
 							moves[1][i] = y+modY;
 							moves[2][i] = 0;
 						} else {
-							if (checkerBoard[x+modX][y+modY]->GetColor() != checkerBoard[x][y]->GetColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
+							if (checkerBoard[x+modX][y+modY]->getColor() != checkerBoard[x][y]->getColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
 								moves[0][i] = x+2*modX; 
 								moves[1][i] = y+2*modY;
 								moves[2][i] = 1;
@@ -135,7 +136,7 @@ namespace Checkers{
 							moves[1][i] = y+modY;
 							moves[2][i] = 0;
 						} else {
-							if (checkerBoard[x+modX][y+modY]->GetColor() != checkerBoard[x][y]->GetColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
+							if (checkerBoard[x+modX][y+modY]->getColor() != checkerBoard[x][y]->getColor() && checkerBoard[x+2*modX][y+2*modY] == NULL) {
 								moves[0][i] = x+2*modX; 
 								moves[1][i] = y+2*modY;
 								moves[2][i] = 1;
@@ -272,7 +273,7 @@ namespace Checkers{
 				int i;
 				CheckerObj *temp = ptr;
 				for(i = 0; i < 7; i++){
-					AddChecker(xCords[i], yCords[i], temp);
+					AddChecker(xCords[i], yCords[i], ptr);
 
 
 					COORD pos = {0, 30};
@@ -300,7 +301,11 @@ namespace Checkers{
 						realX = 2 + (x * 4);
 						realY = 3 + (y * 2);
 						COORD pos = {realX , realY};
+						
 						CheckerObj *currentChecker = checkerBoard[x][y];
+						if(!currentChecker){
+							continue;
+						}
 						checkerColor color = currentChecker->getColor();
 						bool kinged = currentChecker->kinged;
 						char checkerSymbol[2] = {' ', ' '};
@@ -324,8 +329,6 @@ namespace Checkers{
 							checkerSymbol[1] = '_';
 						}
 
-						
-
 						guiObj -> DisplayChar(realX, realY, checkerSymbol[0]);
 						guiObj -> DisplayChar((realX + 1), realY, checkerSymbol[1]);
 					}
@@ -339,11 +342,23 @@ namespace Checkers{
 
 			}
 
+			void setBoardNull(){
+				int i, j;
+				for(i = 0; i < 8; i ++){
+					for(j = 0; j < 8; j++){
+						checkerBoard[i][j] = NULL;
+					}
+				}
+			}
+
 
 
 		//=============== Private Methods/Members ===============//
 		private:
 			CheckerObj *checkerBoard[9][9];
+
+			//checkerBoard = new CheckerObj*[9][9];
+			//CheckerObj *checkerBoard[9][9];
 			GUI_Ascii *guiObj;
 			 
 	}; //CheckerBoardObj

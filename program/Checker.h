@@ -39,7 +39,7 @@ namespace Checkers {
 			} //GetID
 
 
-			checkerColor GetColor() {
+			checkerColor getColor() {
 				return this->color;
 			} //GetColor
 
@@ -75,9 +75,6 @@ namespace Checkers {
 				return this->directions[i];
 			}
 
-			checkerColor getColor(){
-				return color;
-			}
 
 			CheckerObj *next;
 			bool kinged;
