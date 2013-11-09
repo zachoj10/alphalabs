@@ -120,7 +120,6 @@ namespace Checkers{
 				return menuSelectionBuffer;
 			} //HandlePlayerMoveMenuResponse
 
-<<<<<<< HEAD
 			void DisplayChar(int x, int y, char c){
 				COORD pos = {x, y};
 				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
@@ -140,7 +139,6 @@ namespace Checkers{
 				return result;
 			}
 
-=======
 
 			void DisplayGreenPlayerSpecialMenu() {
 				std::cout << "\nDo you want to use your special? (y/n) --> ";
@@ -155,6 +153,5 @@ namespace Checkers{
 				std::cin >> menuSelectionBuffer;
 				return menuSelectionBuffer;
 			} //HandleGreenPlayerSpecialMenuResponse
->>>>>>> b2d217fde2f6c2dad4ca7fa21448a9716939121b
 	}; //GUI_Ascii
 }

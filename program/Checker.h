@@ -75,6 +75,10 @@ namespace Checkers {
 				return this->directions[i];
 			}
 
+			checkerColor getColor(){
+				return color;
+			}
+
 			CheckerObj *next;
 			bool kinged;
 			bool specialAbilityAvailable;

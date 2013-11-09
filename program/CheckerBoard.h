@@ -291,15 +291,10 @@ namespace Checkers{
 						realY = 3 + (y * 2);
 						COORD pos = {realX , realY};
 						CheckerObj *currentChecker = checkerBoard[x][y];
-<<<<<<< HEAD
 						checkerColor color = currentChecker->getColor();
 						bool kinged = currentChecker->kinged;
 						char checkerSymbol[2] = {' ', ' '};
-=======
-						checkerColor color = currentChecker->GetColor();
-						bool kinged = currentChecker->IsKinged();
-						char checkerSymbol[3] = "  ";
->>>>>>> b2d217fde2f6c2dad4ca7fa21448a9716939121b
+
 						if(color == black){
 							checkerSymbol[0]  = 'B';
 						}

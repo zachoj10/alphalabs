@@ -14,11 +14,8 @@ void PlayGame(int playerCount);
 int ActivatePlayer(PlayerObj *currentPlayer);
 CheckerObj *CreateNewPlayer();
 CheckerBoardObj* checkerBoardObj;
-<<<<<<< HEAD
-GUI_Ascii *guiObj;
 void StartGame(int players, PlayerObj list[]);
-=======
->>>>>>> b2d217fde2f6c2dad4ca7fa21448a9716939121b
+
 
 
 int main() {
@@ -27,9 +24,8 @@ int main() {
 	char mainMenuSelectionBuffer;
 	int playerCount;
 
-<<<<<<< HEAD
+
 	// Instantiate class objects
-	guiObj = new GUI_Ascii();
 	SMALL_RECT windowSize = {0, 0, 79, 40};
 
 	SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowSize);
@@ -37,8 +33,7 @@ int main() {
 	SetConsoleTitle("Checkers by AlphaLabs");
 
 
-=======
->>>>>>> b2d217fde2f6c2dad4ca7fa21448a9716939121b
+
 	guiObj->DisplayWelcome();
 
 	do {
