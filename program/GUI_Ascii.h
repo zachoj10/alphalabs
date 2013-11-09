@@ -101,5 +101,20 @@ namespace Checkers {
 				std::cin >> menuSelectionBuffer;
 				return menuSelectionBuffer;
 			} //HandlePlayerMoveMenuResponse
+
+
+			void DisplayGreenPlayerSpecialMenu() {
+				std::cout << "\nDo you want to use your special? (y/n) --> ";
+			} //DisplayGreenPlayerSpecialMenu
+
+
+			char HandleGreenPlayerSpecialMenuResponse() {
+				char menuSelectionBuffer;
+
+				// Retrieve green player special menu action
+				std::cin.ignore();
+				std::cin >> menuSelectionBuffer;
+				return menuSelectionBuffer;
+			} //HandleGreenPlayerSpecialMenuResponse
 	}; //GUI_Ascii
 }

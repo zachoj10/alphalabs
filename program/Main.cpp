@@ -14,7 +14,6 @@ void PlayGame(int playerCount);
 int ActivatePlayer(PlayerObj *currentPlayer);
 CheckerObj *CreateNewPlayer();
 CheckerBoardObj* checkerBoardObj;
-GUI_Ascii *guiObj;
 
 
 int main() {
@@ -22,9 +21,6 @@ int main() {
 	int numberOfTurns = 0;
 	char mainMenuSelectionBuffer;
 	int playerCount;
-
-	// Instantiate class objects
-	guiObj = new GUI_Ascii();
 
 	guiObj->DisplayWelcome();
 
