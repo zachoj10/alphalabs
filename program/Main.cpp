@@ -153,7 +153,13 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 	origin_Y = CordY;
 	destination_X = 3;
 	destination_Y = 4;
+	try{
 	int *options = checkerBoardObj->checkerMoveOptions(origin_X, origin_Y);
+	}catch(int e){
+		if (e == UnknownDirection) {
+			std::cerr<<("Unknown Direction Error");
+		}
+	}
 	int moveOptions[3][8];
 	int k, j;
 	int l = 0;

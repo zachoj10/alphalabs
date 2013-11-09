@@ -52,19 +52,26 @@ namespace Checkers {
 			} //KillChecker
 
 			void generatePieces(){
-				int i;
-				int newID;
-				CheckerObj *temp = head;
-				head = CreateChecker();
-				nextID++;
-				for(i = 0; i < 7; i++){
-					temp = CreateChecker();
-					temp->next = head;
-					head = temp;
+				try {
+					int i;
+					int newID;
+					CheckerObj *temp = head;
+				
+					head = CreateChecker();
 					nextID++;
-					numCheckers++;
-				}
-			}
+					for(i = 0; i < 7; i++){
+						temp = CreateChecker();
+						temp->next = head;
+						head = temp;
+						nextID++;
+						numCheckers++;
+					}//for
+				} catch (int e) {
+					if (e == UnknownColor) {
+						std::cerr<<"Unknown Color Error";	
+					}//if
+				}//try-catch
+			}//GeneratePieces
 
 			void setNumCheckers(int num){
 				numCheckers = num;
@@ -82,19 +89,16 @@ namespace Checkers {
 				switch (pieceColor) {
 					case black:
 						return new BlackCheckerObj(nextID);
-					break;
-
+						break;
 					case red:
 						return new RedCheckerObj(nextID);
-					break;
-
+						break;
 					case green:
 						return new GreenCheckerObj(nextID);	
-					break;
-
+						break;
 					default:
-						//TODO: Handle this default case somehow; possible with an exception handler 
-					break;
+						throw UnknownColor;
+						break;
 				} //switch
 			} //CreateChecker
 

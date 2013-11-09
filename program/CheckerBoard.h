@@ -144,6 +144,7 @@ namespace Checkers{
 						}
 						break;
 					default:
+						throw UnknownDirection;
 						break; //TODO: Error handling - not a direction.
 					}
 					i++;
