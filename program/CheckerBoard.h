@@ -15,7 +15,7 @@ namespace Checkers{
 				guiObj = new GUI_Ascii();
 			} //__constructor
 
-			void checkerMoveOptions(int x, int y) {
+			int* checkerMoveOptions(int x, int y) {
 				//TODO: Error Handling for out of bounds.
 				checkerDirection directions[8];
 				int i, modX, modY;
@@ -147,6 +147,16 @@ namespace Checkers{
 					}
 					i++;
 				}
+				int j, k;
+				int l = 0;
+				int movesReturn[24];
+				for (j = 0; j < 2; j++) {
+					for (k = 0; k < 7; k++) {
+						movesReturn[l] = moves[j][k];
+						l++;
+					}
+				}
+				return movesReturn;
 			}// checkerMoveOptions
 
 			// TODO: Confirm that these operate correctly
