@@ -30,9 +30,9 @@ namespace Checkers {
 				CheckerObj *temp;
 				CheckerObj *current = head;
 
-				if (current->getID() == NULL) {
+				if (current->GetID() == NULL) {
 					return;
-				} else if (current->getID() == id) {
+				} else if (current->GetID() == id) {
 					temp = head;
 					head = head->next;
 					free(temp);
@@ -40,7 +40,7 @@ namespace Checkers {
 				} else {
 					temp = current->next;
 					while (temp->next != NULL) {
-						if (current->getID() == id) {	
+						if (current->GetID() == id) {	
 							current = temp->next;
 							free(temp);
 						} //if
@@ -80,19 +80,22 @@ namespace Checkers {
 
 			CheckerObj* CreateChecker() {
 				switch (pieceColor) {
-				case black:
-					return new Black(nextID);
+					case black:
+						return new BlackCheckerObj(nextID);
 					break;
-				case red:
-					return new Red(nextID);
+
+					case red:
+						return new RedCheckerObj(nextID);
 					break;
-				case green:
-					return new Green(nextID);	
+
+					case green:
+						return new GreenCheckerObj(nextID);	
 					break;
-				default:
-					//TODO: Handle this default case somehow; possible with an exception handler 
+
+					default:
+						//TODO: Handle this default case somehow; possible with an exception handler 
 					break;
-				}
+				} //switch
 			} //CreateChecker
 
 			checkerColor getColor(){

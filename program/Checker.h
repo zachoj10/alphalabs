@@ -4,64 +4,72 @@
 
 namespace Checkers {
 	class CheckerObj {
+		//=============== Public Methods/Members ===============//
 		public:
-			CheckerObj(){}
-			CheckerObj(int id){
+			CheckerObj(int id = 0) {
 				checkerID = id;
-				specialAbilityUsed = false;
+				specialAbilityAvailable = true;
 				kinged = false;
-			}
+			} //__constructor
 
-			bool special();
+
+			~CheckerObj() {
+
+			} //__destructor
 			
-			void Move(int destinationX, int destinationY, bool isJump) {
+			
+			void Move(int destinationX, int destinationY) {
 				currentX = destinationX;
 				currentY = destinationY;
-				if (isJump) {
-					//Do stuff
-				}
 			}
-			void Delete()
-			{
+			
+			
+			void Delete() {
                 //TODO:Remove from linked list
 			}
-			void Jump(){
+
+
+			void Jump() {
                 //TODO
 			}
 
-			void setID(int checkerID) {
-				this->checkerID = checkerID;
 
-			}
-			int getID() {
+			int GetID() {
 				return this->checkerID;
-			}
-			checkerColor getColor() {
-				return color;
-			}
-			void setColor(checkerColor color) {
-				this->color = color;
-			}
-			void kingMe()
-			{
+			} //GetID
+
+
+			checkerColor GetColor() {
+				return this->color;
+			} //GetColor
+
+
+			void KingMe() {
 				int i;
+				
+				// Allow king to move in all directions
 				for (i = 0; i < 8; i++) {
 					directions[i] = dArray[i];
-				}
+				} //for
+
 				this->kinged = true;
-			}
-			bool isKinged()
-			{
+			} //KingMe
+
+
+			bool IsKinged() {
 			    return this->kinged;
-			}
-			bool isSpecialUsed()
-			{
-			    return this->specialAbilityUsed;
-			}
-			void specialUsed(bool isUsed)
-			{
-				specialAbilityUsed = isUsed;
-			}
+			} //IsKinged
+
+
+			bool IsSpecialAvailable() {
+			    return this->specialAbilityAvailable;
+			} //IsSpecialAvailable
+
+
+			void UseSpecial() {
+				specialAbilityAvailable = false;
+			} //SpecialUsed
+
 
 			checkerDirection getDirection(int i) {
 				return this->directions[i];
@@ -69,90 +77,136 @@ namespace Checkers {
 
 			CheckerObj *next;
 			bool kinged;
-			bool specialAbilityUsed;
+			bool specialAbilityAvailable;
 			checkerDirection directions[8];
 			checkerColor color;
-		private:
-			
+
+		
+		//=============== Protected Methods/Members ===============//
+		protected:	
 			int checkerID;
 			int currentX;
 			int currentY;
-			
-
 	}; //CheckerObj
 
-	class Black : public CheckerObj
-	{
-	public:
-		Black(int id) : CheckerObj(id) {
-			color = black;
-			directions[0] = NE;
-			directions[1] = NW;
-		} //constructor
-		
-		bool Black::special() {
-			int boom = rand() % 2;
-			if (boom == 0) {
-				this->specialUsed(true);
-				return true;
-			} else {
-				return false;
-			}
-		}
-	private:
-		using CheckerObj::special;
-		using CheckerObj::directions;
-		using CheckerObj::kinged;
-		using CheckerObj::specialAbilityUsed;
 
-	};
-
-	class Red : public CheckerObj
-	{
-	public:
-		Red(int id) : CheckerObj(id) {
-			color = red;
-			directions[0] = SE;
-			directions[1] = SW;
-		};
-	private:
-		using CheckerObj::special;
-		using CheckerObj::directions;
-		using CheckerObj::kinged;
-		using CheckerObj::specialAbilityUsed;
-	};
+	class BlackCheckerObj : public CheckerObj	{
+		//=============== Public Methods/Members ===============//
+		public:
+			BlackCheckerObj(int id) : CheckerObj(id) {
+				this->color = black;
+				this->directions[0] = NE;
+				this->directions[1] = NW;
+			} //__constructor
 
 
-	class Green : public CheckerObj
-	{
-	public:
-		Green(int id): CheckerObj(id){
-			color = green;
-			directions[0] = NW;
-			directions[1] = SW;
-		}
-		bool Green::special() {
-			if (this->isSpecialUsed() == false) {
-				char use;
-				do {
-					std::cout << "\nDo you want to use your special? (y/n)";
-					std::cin >> use;
-					if (use == 'y') {
-						specialUsed(true);
-						return true;
-					} else if (use == 'n') {
-						return false;
-					} else {
-						std::cout << "\nEnter only y or n";
-					}
-				} while (use != 'y' && use != 'n');
-			}
-		}
-	private:
-		using CheckerObj::special;
-		using CheckerObj::directions;
-		using CheckerObj::kinged;
-		using CheckerObj::specialAbilityUsed;
-	};
+			~BlackCheckerObj() {
 
+			} //__destructor
+
+
+			bool UseSpecial() {
+				// Call parent method
+				CheckerObj::UseSpecial();
+
+				// Give 50% chance to self-destruct
+				int boom = rand() % 2;
+
+				if (1 == boom) {
+					return true;
+				} else {
+					return false;
+				} //if-else
+			} //UseSpecial
+
+
+			checkerColor Delete() {
+				// Always try to use self-destruct special power
+				bool success = this->UseSpecial();
+
+				// Blow up the other checker
+				if (true == success) {
+					return black;
+				} else {
+					// Otherwise, return dummy value and do nothing
+					return NUM_OF_COLORS;
+				} //if-else
+			} //Delete
+	}; //BlackCheckerObj
+
+
+	class RedCheckerObj : public CheckerObj {
+		//=============== Public Methods/Members ===============//
+		public:
+			RedCheckerObj(int id) : CheckerObj(id) {
+				color = red;
+				directions[0] = SE;
+				directions[1] = SW;
+			} //__constructor
+
+
+			~RedCheckerObj() {
+
+			} //__constructor
+
+
+			checkerColor Delete() {
+				if (this->IsSpecialAvailable()) {
+					// Always try to use special sheild power if it is available
+					this->UseSpecial();
+
+					return red;
+				} else {
+					// Otherwise, return dummy value and accept our fate...
+					return NUM_OF_COLORS;
+				} //if-else
+			} //Delete
+	}; //RedCheckerObj
+
+
+	class GreenCheckerObj : public CheckerObj	{
+		//=============== Public Methods/Members ===============//
+		public:
+			GreenCheckerObj(int id): CheckerObj(id) {
+				color = green;
+				directions[0] = NW;
+				directions[1] = SW;
+			} //__constructor
+
+
+			~GreenCheckerObj() {
+				// TODO: Add memory cleanup if neccessary
+			} //__destructor
+
+
+			checkerColor Move() {
+				char useSpecial;
+
+				// Prompt user to use special power if it is available
+				if (this->IsSpecialAvailable()) {
+					do {
+						guiObj->DisplayGreenPlayerSpecialMenu();
+						useSpecial = guiObj->HandleGreenPlayerSpecialMenuResponse();
+
+						switch (useSpecial) {
+							case 'y':
+								this->UseSpecial();
+								return green;
+							break;
+
+							case 'n':
+								// Do nothing
+							break;
+
+							default:
+								guiObj->DisplayUserInputError();
+							break;
+						} //switch
+					} while ('n' != useSpecial);
+				} //if
+
+				// Otherwise, return dummy value and do nothing
+				return NUM_OF_COLORS;
+			} //Move
+	}; //GreenCheckerObj
 }
