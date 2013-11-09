@@ -153,5 +153,41 @@ namespace Checkers{
 				std::cin >> menuSelectionBuffer;
 				return menuSelectionBuffer;
 			} //HandleGreenPlayerSpecialMenuResponse
+
+			void DisplayMoveOptions(int options[]){
+				int moveOptions[3][8];
+				int k, j;
+				int l = 0;
+				int optionNumber = 1;
+				int i = 0;
+				char option;
+				int x = 1, y = 25;
+				for (k = 0; k < 3; k++) {
+					for (j = 0; j < 8; j++) {
+						moveOptions[j][k] = options[l];
+						l++;
+					}
+				}
+
+				COORD pos = {x , y};
+				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+
+				std::cout << sizeof(options);
+				std::cout << optionNumber << ". Move to " << options[0] << "," << options[1];
+				/*while(moveOptions[j][k] < 0 || moveOptions[j][k] > 9){
+					if(moveOptions[2][i] == 1){
+						std::cout << optionNumber << ". Jump to " << moveOptions[0][i] << "," << moveOptions[1][i];
+					}
+					else{
+					//else if(moveOptions[2][i] == 0){
+						std::cout << optionNumber << ". Move to " << moveOptions[0][i] << "," << moveOptions[1][i];
+					}
+					i++;
+					optionNumber++;
+					y = y++;
+					COORD pos = {x , y};
+					SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+				}*/
+			}
 	}; //GUI_Ascii
 }
