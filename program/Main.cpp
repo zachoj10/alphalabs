@@ -132,7 +132,6 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 	int* pieceToMove;
 	checkerColor playerColor = currentPlayer->getColor();
 	checkerColor pieceColor;
-	int moveOptions[8][8];
 	// TODO: Prompt user for an action on their turn. Takes in the player whose turn it is, and the checker board that is in use.
 	//Prompt Player For action on their turn 
 	
