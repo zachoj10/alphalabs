@@ -85,5 +85,21 @@ namespace Checkers {
 				std::cin >> playerCount;
 				return playerCount;
 			} //HandlePlayerCountMenuResponse
+
+
+			void DisplayPlayerMoveMenu() {
+				// TODO: Prompt user for which checker to move
+			} //DisplayPlayerMoveMenu
+
+
+			// TODO: Adjust return type as needed depending on how the menu is implemented
+			char HandlePlayerMoveMenuResponse() {
+				char menuSelectionBuffer;
+
+				// Retrieve player move menu action
+				std::cin.ignore();
+				std::cin >> menuSelectionBuffer;
+				return menuSelectionBuffer;
+			} //HandlePlayerMoveMenuResponse
 	}; //GUI_Ascii
 }

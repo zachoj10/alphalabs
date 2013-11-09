@@ -1,5 +1,7 @@
+#pragma once
 #include <stdio.h>
 #include <iostream>
+#include "Global.h"
 #include "CheckerBoard.h"
 #include "GUI_Ascii.h"
 #include "Player.h"
@@ -9,11 +11,10 @@ using namespace Checkers;
 // Forward Declarations
 int main();
 void PlayGame(int playerCount);
+int ActivatePlayer(PlayerObj *currentPlayer);
 CheckerObj *CreateNewPlayer();
-void ActivatePlayer(CheckerObj *currentPlayer);
-typedef enum {black = 0, red = 1, green = 2} checkerColor;
-typedef enum {SE, SW, NE, NW, N, S, E, W} checkerDirection;
 CheckerBoardObj* checkerBoardObj;
+GUI_Ascii *guiObj;
 
 
 int main() {
@@ -23,7 +24,7 @@ int main() {
 	int playerCount;
 
 	// Instantiate class objects
-	GUI_Ascii *guiObj = new GUI_Ascii();
+	guiObj = new GUI_Ascii();
 
 	guiObj->DisplayWelcome();
 
@@ -71,20 +72,19 @@ void PlayGame(int playerCount) {
 	// Instantiate class objects
 	//CheckerObj playerList[3]; // TODO: Find workaround to instantiate array length via playerCount
 	//Players::PlayerObj playerList[playerCount] = new Players::PlayerObj;
-	PlayerObj *playerList[3];
-	*playerList = new PlayerObj[playerCount];
 	PlayerObj *currentPlayer;
+	PlayerObj *playerList;
+	playerList = new PlayerObj[playerCount];
 
 	// Add Players
-	if(playerCount == 2){
-		playerList[black] = new PlayerObj(black);
-		playerList[red] = new PlayerObj(red);
-	}
-	else{
-		playerList[black] = new PlayerObj(black);
-		playerList[red] = new PlayerObj(red);
-		playerList[green] = new PlayerObj(green);
-	}
+	if (playerCount == 2) {
+		new (&playerList[black]) PlayerObj(black);
+		new (&playerList[red]) PlayerObj(red);
+	} else {
+		new (&playerList[black]) PlayerObj(black);
+		new (&playerList[red]) PlayerObj(red);
+		new (&playerList[green]) PlayerObj(green);
+	} //if-else
 	
 	checkerBoardObj = new CheckerBoardObj(playerList);
 
@@ -94,15 +94,18 @@ void PlayGame(int playerCount) {
 	// Handle a full game until 1 or fewer players remain
 	while (numPlayers > 1) {
 		// Selects current player by modding remaining players with turn number; i.e., turn 4 in 3 player game will select array[1] (2nd player)
-		for(i = 0; i < playerCount; i++){
-			if(playerList[i]->getNumCheckers() == 0){
-				playerList[i] = NULL;
+		for (i = 0; i < playerCount; i++) {
+			// Delete player from active list
+			if (0 == playerList[i].getNumCheckers()) {
+				playerList[i].~PlayerObj();
 				numPlayers = numPlayers - 1;
-			}
-		}
+			} //if
+		} //for
 
-		currentPlayer = playerList[numberOfTurns % sizeof(playerList)];
-		//ActivatePlayer(currentPlayer);
+		// TODO: Check the sizeof part to make sure it is returning array size and not memory size 
+		//			Also, evaluate if the currentPlayer variable is necessary. If not, remove it.
+		currentPlayer = &playerList[numberOfTurns % sizeof(playerList)];
+		ActivatePlayer(currentPlayer);
 	} //while
 
 	if (1 == numPlayers) {
@@ -114,22 +117,45 @@ void PlayGame(int playerCount) {
 	} //if-else
 } //PlayGame
 
-void ActivatePlayer(PlayerObj player) {
+
+int ActivatePlayer(PlayerObj *currentPlayer) {
 	// TODO: Prompt user for an action on their turn. Takes in the player whose turn it is, and the checker board that is in use.
-	int id, killID, origX, origY, destX, destY;
+	int id, killCheckerId = NULL;
+	int origin_X, origin_Y, destination_X, destination_Y;
 	bool isJump;
+	
 	//GOOOOEY!?! Get origX, origY, destX, destY, isJump
-	killID = checkerBoardObj->MoveChecker(origX, origY, destX, destY, isJump);
-	//Check Specials
-	player.killChecker(killID);
+	guiObj->DisplayPlayerMoveMenu();
+	guiObj->HandlePlayerMoveMenuResponse();
+
+	// TODO: Replace dummy values with returns from gui prompt
+	origin_X = 1;
+	origin_Y = 2;
+	destination_X = 3;
+	destination_Y = 4;
+
+	// TODO: Add a condition to distinguish between moves and jumps
+	if (true) {
+		// Jump another checker
+		killCheckerId = checkerBoardObj->JumpChecker(origin_X, origin_Y, destination_X, destination_Y);
+	} else {
+		// Move checker to a blank space
+		checkerBoardObj->MoveChecker(origin_X, origin_Y, destination_X, destination_Y);
+	} //if-else
+
+	return killCheckerId;
 } //ActivatePlayer
 
+
+// TODO: Discern what this function should be doing
 int DeletePlayer(PlayerObj list[], int arrayLocation){
-	PlayerObj player = list[0];//TODO:PLEASE FIX
+	PlayerObj player = list[0]; //TODO:PLEASE FIX
 	int numCheckers = player.getNumCheckers();
-	if(numCheckers == 0){
 
+	if (numCheckers == 0) {
 
-	}
+	} //if
 
-}
+	// TODO: Replace dummy return value with actual return
+	return 0;
+} //DeletePlayer

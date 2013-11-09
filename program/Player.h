@@ -1,27 +1,35 @@
 #pragma once
-#include "Checker.h"
 #include <stdlib.h>
+#include "Checker.h"
 #include "CheckerBoard.h"
 
-namespace Checkers{
+namespace Checkers {
 	class PlayerObj {
+		//=============== Public Methods/Members ===============//
 		public:
-			typedef enum {black, red, green} checkerColor;
-			typedef enum {SE, SW, NE, NW, N, S, E, W} checkerDirection;
 			PlayerObj(){
 				numCheckers = 0;
 				nextID = 0;
 			};
-			PlayerObj(checkerColor color){
+
+
+			PlayerObj(checkerColor color) {
 				 numCheckers = 0;
 				 pieceColor = color;
 				 nextID = 0;
 				 generatePieces();
-			};
+			};  //__constructor
 
-			void killChecker(int id){
+
+			~PlayerObj() {
+				// TODO: Add memory freeing commands
+			} //__destructor
+
+
+			void KillChecker(int id) {
 				CheckerObj *temp;
 				CheckerObj *current = head;
+
 				if (current->getID() == NULL) {
 					return;
 				} else if (current->getID() == id) {
@@ -35,21 +43,22 @@ namespace Checkers{
 						if (current->getID() == id) {	
 							current = temp->next;
 							free(temp);
-						}
+						} //if
+
 						current = temp;
 						temp = temp->next;
-					}
-				}
-			}
+					} //while
+				} //if-elseif-else
+			} //KillChecker
 
 			void generatePieces(){
 				int i;
 				int newID;
 				CheckerObj *temp = head;
-				head = createChecker();
+				head = CreateChecker();
 				nextID++;
 				for(i = 0; i < 6; i++){
-					temp = createChecker();
+					temp = CreateChecker();
 					temp->next = head;
 					head = temp;
 					nextID++;
@@ -68,8 +77,11 @@ namespace Checkers{
 				return head;
 			}
 
-			CheckerObj* createChecker() {
-				if(pieceColor == black){
+			CheckerObj* CreateChecker() {
+				// TODO: If this is necessary, then change to a switch statement with error handling for default case
+				//			If this is unecessary, have the subclasses override the parent with their own appropriate colors
+
+				if (pieceColor == black){
 					return new Black(nextID);
 				}
 				else if(pieceColor == red){
@@ -78,16 +90,20 @@ namespace Checkers{
 				else if(pieceColor == green){
 					return new Green(nextID);	
 				}
-			}
+
+				// TOOD: Handle this default case somehow; possible with an exception handler
+				else return new Black(nextID);
+			} //CreateChecker
+
+
 			CheckerObj *head;
 
+		//=============== Private Methods/Members ===============//
 		private: 
 			int numCheckers;
 			checkerColor pieceColor;
 			int nextID;
-	};
-
-
+	}; //PlayerObj
 }
 
 /*

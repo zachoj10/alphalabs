@@ -4,32 +4,38 @@
 #include "Player.h"
 
 namespace Checkers{
-
 	class CheckerBoardObj {
 		//=============== Public Methods/Members ===============//
 		public: 
-			typedef enum {black, red, green} checkerColor;
-			typedef enum {SE, SW, NE, NW, N, S, E, W} checkerDirection;
-			CheckerBoardObj(PlayerObj *playerList[]) {
+			CheckerBoardObj(PlayerObj playerList[]) {
 				// TODO: Add constructor that specifies between 2 players (black vs red) and 3 players (black vs red vs green)
 				
 				// Instantiate class objects
 				guiObj = new GUI_Ascii();
-			} // __constructor
+			} //__constructor
 
-			int MoveChecker(int originX, int originY, int destinationX, int destinationY, bool isJump) {
+
+			// TODO: Confirm that these operate correctly
+			void MoveChecker(int originX, int originY, int destinationX, int destinationY) {
+				int jumpX = destinationX-(destinationX-originX);
+				int jumpY = destinationY-(destinationY-originY);
+
+				checkerBoard[destinationX][destinationY] = checkerBoard[originX][originY];
+				checkerBoard[originX][originY] = NULL;
+			} //MoveChecker
+
+			// TODO: Confirm that these operate correctly
+			int JumpChecker(int originX, int originY, int destinationX, int destinationY) {
 				int id;
 				int jumpX = destinationX-(destinationX-originX);
 				int jumpY = destinationY-(destinationY-originY);
+
 				checkerBoard[destinationX][destinationY] = checkerBoard[originX][originY];
-				if (isJump) {
-					id = checkerBoard[jumpX][jumpY].getID();
-				} else {
-					id = 0;	
-				}
+				id = checkerBoard[jumpX][jumpY].getID();
 				checkerBoard[originX][originY] = NULL;
+
 				return id;
-			} //Move Checker
+			} //JumpChecker
 			
 			/*Use as reference for now
 			bool MoveChecker(int originX, int originY, int destinationX, int destinationY) {
@@ -181,7 +187,6 @@ namespace Checkers{
 			}
 
 
-
 		//=============== Private Methods/Members ===============//
 		private:
 			CheckerObj checkerBoard[9][9];
@@ -189,5 +194,3 @@ namespace Checkers{
 			 
 	}; //CheckerBoardObj
 }
-
-//TODO: Fix global enum

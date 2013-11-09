@@ -3,12 +3,8 @@
 #include <stdio.h>
 
 namespace Checkers {
-	
-	
 	class CheckerObj {
 		public:
-			typedef enum {black, red, green} checkerColor;
-			typedef enum {SE, SW, NE, NW, N, S, E, W} checkerDirection;
 			CheckerObj(){}
 			CheckerObj(int id){
 				checkerID = id;
