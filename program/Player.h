@@ -57,11 +57,12 @@ namespace Checkers {
 				CheckerObj *temp = head;
 				head = CreateChecker();
 				nextID++;
-				for(i = 0; i < 6; i++){
+				for(i = 0; i < 7; i++){
 					temp = CreateChecker();
 					temp->next = head;
 					head = temp;
 					nextID++;
+					numCheckers++;
 				}
 			}
 
@@ -93,6 +94,10 @@ namespace Checkers {
 					break;
 				}
 			} //CreateChecker
+
+			checkerColor getColor(){
+				return pieceColor;
+			}
 
 
 			CheckerObj *head;

@@ -5,7 +5,7 @@
 #define LEVEL_WIDTH CONSOLE_WIDTH
 #define LEVEL_HEIGHT (CONSOLE_HEIGHT - 1)
 
-namespace Checkers {
+namespace Checkers{
 	class GUI_Ascii {
 		//=============== Public Methods/Members ===============//
 		public:
@@ -91,6 +91,24 @@ namespace Checkers {
 				// TODO: Prompt user for which checker to move
 			} //DisplayPlayerMoveMenu
 
+			int* PieceCoordMenu(){
+				int CordX, CordY;
+				int result[2];
+				DisplayString(0, 20, "What is the X Coordinate of the piece you want to move?");
+				do {
+					CordX = GetIntInput();
+				}
+				while(CordX < 1 || CordX > 9); 
+				result[0] = CordX;
+				DisplayString(0, 21, "\nWhat is the Y Coordinate of the piece you want to move?");
+				do {
+					CordY = GetIntInput();
+				}
+				while(CordY < 1 || CordY > 9); 
+				result[1] = CordY;
+				return result;
+			}
+
 
 			// TODO: Adjust return type as needed depending on how the menu is implemented
 			char HandlePlayerMoveMenuResponse() {
@@ -101,5 +119,25 @@ namespace Checkers {
 				std::cin >> menuSelectionBuffer;
 				return menuSelectionBuffer;
 			} //HandlePlayerMoveMenuResponse
+
+			void DisplayChar(int x, int y, char c){
+				COORD pos = {x, y};
+				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+				std::cout << c;
+			}
+
+			void DisplayString(int x, int y, const char* str){
+				COORD pos = {x , y};
+				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+
+				std::cout << str;
+			}
+
+			int GetIntInput(){
+				int result;
+				std::cin >> result;
+				return result;
+			}
+
 	}; //GUI_Ascii
 }

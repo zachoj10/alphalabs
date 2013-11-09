@@ -50,7 +50,7 @@ void dump_key_buffer()
 void console_activate()
 {
 	fflush(stdout);
-	printf("Hello World!");
+
 }
 
 void console_deactivate()
