@@ -30,7 +30,7 @@ int main() {
 
 	SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowSize);
 
-	SetConsoleTitle("Checkers by AlphaLabs");
+	//SetConsoleTitle("Checkers by AlphaLabs");
 
 
 
@@ -153,9 +153,22 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 	origin_Y = CordY;
 	destination_X = 3;
 	destination_Y = 4;
-	int *options = checkerBoardObj->checkerMoveOptions(origin_X - 1, origin_Y - 1);
-	guiObj->DisplayMoveOptions(options);
-
+	try{
+		int *options = checkerBoardObj->checkerMoveOptions(origin_X - 1, origin_Y - 1);
+		int moveOptions[3][8];
+		int k, j;
+		int l = 0;
+		for (k = 0; k < 2; k++) {
+			for (j = 0; j < 7; j++) {
+				moveOptions[j][k] = options[l];
+				l++;
+			}
+		}
+	}catch(int e){
+		if (e == UnknownDirection) {
+			std::cerr<<("Unknown Direction Error");
+		}
+	}
 	guiObj->DisplayPlayerMoveMenu();
 	guiObj->HandlePlayerMoveMenuResponse();
 	// TODO: Add a condition to distinguish between moves and jumps
