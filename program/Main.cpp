@@ -11,7 +11,7 @@ using namespace Checkers;
 // Forward Declarations
 int main();
 void PlayGame(int playerCount);
-int ActivatePlayer(PlayerObj *currentPlayer);
+void ActivatePlayer(PlayerObj *currentPlayer);
 CheckerObj *CreateNewPlayer();
 CheckerBoardObj* checkerBoardObj;
 void StartGame(int players, PlayerObj list[]);
@@ -100,7 +100,7 @@ void PlayGame(int playerCount) {
 		// Selects current player by modding remaining players with turn number; i.e., turn 4 in 3 player game will select array[1] (2nd player)
 		for (i = 0; i < playerCount; i++) {
 			// Delete player from active list
-			if (0 == playerList[i].GetNumCheckers()) {
+			if (0 == playerList[i].getNumCheckers()) {
 				playerList[i].~PlayerObj();
 				numPlayers = numPlayers - 1;
 			} //if
@@ -125,15 +125,15 @@ void PlayGame(int playerCount) {
 } //PlayGame
 
 
-int ActivatePlayer(PlayerObj *currentPlayer) {
+void ActivatePlayer(PlayerObj *currentPlayer) {
 	int CordX, CordY;
 	int *pieceToMove;
 	int numberOfOptions = 0, checkerOptions[14];
-	checkerColor playerColor = currentPlayer->GetColor();
+	checkerColor playerColor = currentPlayer->getColor();
 	CheckerObj *currentChecker = currentPlayer->GetHead();
 	
 	// Collect all checker options
-	if (1 == currentPlayer->GetNumCheckers()) {
+	if (1 == currentPlayer->getNumCheckers()) {
 		// Handle case of single checker
 		checkerOptions[numberOfOptions] = currentChecker->GetID();
 		numberOfOptions++;
@@ -160,7 +160,8 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 	//moveOptions[0][0] = checkerMoveOptions(CordX, CordY);
 	
 
-	int id, killCheckerId = NULL;
+	int id;
+	int killCheckerId[2];
 	int origin_X, origin_Y, destination_X, destination_Y;
 	bool isJump;
 	
@@ -190,25 +191,34 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 	} //try-catch
 
 	guiObj->DisplayPlayerMoveMenu();
-	guiObj->HandlePlayerMoveMenuResponse();
+	guiObj->HandlePlayerMoveMenuResponse() ;
 	// TODO: Add a condition to distinguish between moves and jumps
 
 	if (true) {
 		// Jump another checker
-		killCheckerId = checkerBoardObj->JumpChecker(origin_X, origin_Y, destination_X, destination_Y);
+		int i = 0;
+		
+		int *kills = checkerBoardObj->JumpChecker(origin_X, origin_Y, destination_X, destination_Y);
+		while(i < 2){
+			if(kills[i] != -1){
+				currentPlayer->KillChecker(kills[i]);
+			}
+			i++;
+		}
 	} else {
 		// Move checker to a blank space
-		checkerBoardObj->MoveChecker(origin_X, origin_Y, destination_X, destination_Y);
+		if(checkerBoardObj->MoveChecker(origin_X, origin_Y, destination_X, destination_Y)){
+			currentPlayer->AddPieceToList();
+			checkerBoardObj->AddChecker(origin_X, origin_Y, currentPlayer->GetHead()); 
+		}
 	} //if-else
-
-	return killCheckerId;
 } //ActivatePlayer
 
 
 // TODO: Discern what this function should be doing
 int DeletePlayer(PlayerObj list[], int arrayLocation){
 	PlayerObj player = list[0]; //TODO:PLEASE FIX
-	int numCheckers = player.GetNumCheckers();
+	int numCheckers = player.getNumCheckers();
 
 	if (numCheckers == 0) {
 
@@ -242,3 +252,4 @@ void StartGame(int players, PlayerObj list[]){
 	}
 
 }
+

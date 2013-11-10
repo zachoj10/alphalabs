@@ -189,22 +189,59 @@ namespace Checkers{
 			}// checkerMoveOptions
 
 			// TODO: Confirm that these operate correctly
-			void MoveChecker(int originX, int originY, int destinationX, int destinationY) {
+			bool MoveChecker(int originX, int originY, int destinationX, int destinationY) {
+				bool result = false;
+				if(checkerBoard[originY][originX]->getColor() == green && checkerBoard[originY][originX]->Move()){
+					result = true;
+				}
 				checkerBoard[destinationX][destinationY] = checkerBoard[originX][originY];
 				checkerBoard[originX][originY] = NULL;
+				return result;
 			} //MoveChecker
 
 			// TODO: Confirm that these operate correctly
-			int JumpChecker(int originX, int originY, int destinationX, int destinationY) {
+			int* JumpChecker(int originX, int originY, int destinationX, int destinationY) {
 				int id;
 				int killX = destinationX-((destinationX-originX)/2);
 				int killY = destinationY-((destinationY-originY)/2);
+				int result[2];
+
+				//Special Checking
+				if(checkerBoard[killY][killX]->getColor() == black){
+					result[0] = checkerBoard[killY][killX]->GetID();
+					if(checkerBoard[killY][killX]->Delete()){
+						if(checkerBoard[originY][originX]->getColor() == red && checkerBoard[originY][originX]->IsSpecialAvailable() == true){
+							checkerBoard[originX][originY]->UseSpecial();
+							result[1] = -1;
+						}
+						else{
+							result[1] = checkerBoard[originY][originX]->GetID();
+							checkerBoard[originY][originX] = NULL;
+						}
+						checkerBoard[killY][killX] = NULL;
+					}
+				}
+				else if(checkerBoard[killY][killX]->getColor() == red){
+					if(checkerBoard[killY][killX]->Delete()){
+						result[0] = checkerBoard[killY][killX]->GetID();
+						result[1] = -1;
+						checkerBoard[killY][killX] = NULL;
+					}
+					else{
+						result[0] = -1;
+						result[1] = -1;
+					}
+				}
+				else if(checkerBoard[killY][killX]->getColor() == green){
+					result[0] = checkerBoard[killY][killX]->GetID();
+					result[1] = -1;
+					checkerBoard[killY][killX] = NULL;
+				}
 
 				checkerBoard[destinationX][destinationY] = checkerBoard[originX][originY];
-				id = checkerBoard[killX][killY]->GetID();
 				checkerBoard[originX][originY] = NULL;
 
-				return id;
+				return result;
 			} //JumpChecker
 			
 			/*Use as reference for now
