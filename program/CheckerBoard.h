@@ -20,169 +20,182 @@ namespace Checkers{
 			} //__destructor
 
 
-			int* checkerMoveOptions(int x, int y) {
+			int * checkerMoveOptions(int x, int y) {
 				//TODO: Error Handling for out of bounds.
 				checkerDirection directions[8];
 				int i = 0, modX, modY;
 				int moves[8][3];
 				int numDirections = 2;
-				if(checkerBoard[y][x]->IsKinged()){
-					numDirections = 8;
-				}
-				checkerColor color = checkerBoard[y][x]->getColor();
-				CheckerObj *nextChecker;
-				checkerColor nextColor;
-				while (i < numDirections) {
-					switch (checkerBoard[y][x]->getDirection(i)) {
-					case NE:
-						modX = 1;
-						modY = -1;
-						if (checkerBoard[y+modY][x+modX] == NULL) {
-							moves[i][0] = y+modY; 
-							moves[i][1] = x+modX;
-							moves[i][2] = 0;
-						} 
-						else {
-							nextChecker = checkerBoard[y+modY][x+modX];
-							nextColor = nextChecker->getColor();
-							if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
-								moves[i][0] = y+2*modY; 
-								moves[i][1] = x+2*modX;
-								moves[i][2] = 1;
-							}
-						}
-						break;
-					case NW:
-						modX = -1;
-						modY = -1;
-						if (checkerBoard[y+modY][x+modX] == NULL) {
-							moves[i][0] = y+modY; 
-							moves[i][1] = x+modX;
-							moves[i][2] = 0;
-						} else {
-							nextChecker = checkerBoard[y+modY][x+modX];
-							nextColor = nextChecker->getColor();
-							if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
-								moves[i][0] = y+2*modY; 
-								moves[i][1] = x+2*modX;
-								moves[i][2] = 1;
-							}
-						}
-						break;
-					case SE:
-						modX = 1;
-						modY = 1;
-						if (checkerBoard[y+modY][x+modX] == NULL) {
-							moves[i][0] = y+modY; 
-							moves[i][1] = x+modX;
-							moves[i][2] = 0;
-						} else {
-							nextChecker = checkerBoard[y+modY][x+modX];
-							nextColor = nextChecker->getColor();
-							if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {								moves[i][0] = y+2*modY; 
-								moves[i][1] = x+2*modX;
-								moves[i][2] = 1;
-							}
-						}
-						break;
-					case SW:
-						modX = -1;
-						modY = 1;
-						if (checkerBoard[y+modY][x+modX] == NULL) {
-							moves[i][0] = y+modY; 
-							moves[i][1] = x+modX;
-							moves[i][2] = 0;
-						} else {
-							nextChecker = checkerBoard[y+modY][x+modX];
-							nextColor = nextChecker->getColor();
-							if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
-								moves[i][0] = y+2*modY; 
-								moves[i][1] = x+2*modX;
-								moves[i][2] = 1;
-							}
-						}
-						break;
-					case N:
-						modX = 0;
-						modY = -1;
-						if (checkerBoard[y+modY][x+modX] == NULL) {
-							moves[i][0] = y+modY; 
-							moves[i][1] = x+modX;
-							moves[i][2] = 0;
-						} else {
-							nextChecker = checkerBoard[y+modY][x+modX];
-							nextColor = nextChecker->getColor();
-							if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
-								moves[i][0] = y+2*modY; 
-								moves[i][1] = x+2*modX;
-								moves[i][2] = 1;
-							}
-						}
-						break;
-					case S:
-						modX = 0;
-						modY = 1;
-						if (checkerBoard[y+modY][x+modX] == NULL) {
-							moves[i][0] = y+modY; 
-							moves[i][1] = x+modX;
-							moves[i][2] = 0;
-						} else {
-							nextChecker = checkerBoard[y+modY][x+modX];
-							nextColor = nextChecker->getColor();
-							if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
-								moves[i][0] = y+2*modY; 
-								moves[i][1] = x+2*modX;
-								moves[i][2] = 1;
-							}
-						}
-						break;
-					case E:
-						modX = 1;
-						modY = 0;
-						if (checkerBoard[y+modY][x+modX] == NULL) {
-							moves[i][0] = y+modY; 
-							moves[i][1] = x+modX;
-							moves[i][2] = 0;
-						} else {
-							nextChecker = checkerBoard[y+modY][x+modX];
-							nextColor = nextChecker->getColor();
-							if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
-								moves[i][0] = y+2*modY; 
-								moves[i][1] = x+2*modX;
-								moves[i][2] = 1;
-							}
-						}
-						break;
-					case W:
-						modX = -1;
-						modY = 0;
-						if (checkerBoard[y+modY][x+modX] == NULL) {
-							moves[i][0] = y+modY; 
-							moves[i][1] = x+modX;
-							moves[i][2] = 0;
-						} else {
-							nextChecker = checkerBoard[y+modY][x+modX];
-							nextColor = nextChecker->getColor();
-							if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
-								moves[i][0] = y+2*modY; 
-								moves[i][1] = x+2*modX;
-								moves[i][2] = 1;
-							}
-						}
-						break;
-					default:
-						throw UnknownDirection;
-						break; //TODO: Error handling - not a direction.
+
+				checkerColor color;
+
+				if(checkerBoard[y][x] != NULL){
+					if(checkerBoard[y][x]->IsKinged()){
+						numDirections = 8;
 					}
-					i++;
+					color = checkerBoard[y][x]->getColor();
+					
+				
+					CheckerObj *nextChecker;
+					checkerColor nextColor;
+					while (i < numDirections) {
+						checkerDirection direction = checkerBoard[y][x]->getDirection(i);
+						switch (direction) {
+						case NE:
+							modX = 1;
+							modY = -1;
+							if (checkerBoard[y+modY][x+modX] == NULL) {
+								moves[i][0] = y+modY; 
+								moves[i][1] = x+modX;
+								moves[i][2] = 0;
+							} 
+							else {
+								nextChecker = checkerBoard[y+modY][x+modX];
+								nextColor = nextChecker->getColor();
+								if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
+									moves[i][0] = y+2*modY; 
+									moves[i][1] = x+2*modX;
+									moves[i][2] = 1;
+								}
+							}
+							break;
+						case NW:
+							modX = -1;
+							modY = -1;
+							if (checkerBoard[y+modY][x+modX] == NULL) {
+								moves[i][0] = y+modY; 
+								moves[i][1] = x+modX;
+								moves[i][2] = 0;
+							} else {
+								nextChecker = checkerBoard[y+modY][x+modX];
+								nextColor = nextChecker->getColor();
+								if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
+									moves[i][0] = y+2*modY; 
+									moves[i][1] = x+2*modX;
+									moves[i][2] = 1;
+								}
+							}
+							break;
+						case SE:
+							modX = 1;
+							modY = 1;
+							if (checkerBoard[y+modY][x+modX] == NULL) {
+								moves[i][0] = y+modY; 
+								moves[i][1] = x+modX;
+								moves[i][2] = 0;
+							} else {
+								nextChecker = checkerBoard[y+modY][x+modX];
+								nextColor = nextChecker->getColor();
+								if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {								moves[i][0] = y+2*modY; 
+									moves[i][1] = x+2*modX;
+									moves[i][2] = 1;
+								}
+							}
+							break;
+						case SW:
+							modX = -1;
+							modY = 1;
+							if (checkerBoard[y+modY][x+modX] == NULL) {
+								moves[i][0] = y+modY; 
+								moves[i][1] = x+modX;
+								moves[i][2] = 0;
+							} else {
+								nextChecker = checkerBoard[y+modY][x+modX];
+								nextColor = nextChecker->getColor();
+								if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
+									moves[i][0] = y+2*modY; 
+									moves[i][1] = x+2*modX;
+									moves[i][2] = 1;
+								}
+							}
+							break;
+						case N:
+							modX = 0;
+							modY = -1;
+							if (checkerBoard[y+modY][x+modX] == NULL) {
+								moves[i][0] = y+modY; 
+								moves[i][1] = x+modX;
+								moves[i][2] = 0;
+							} else {
+								nextChecker = checkerBoard[y+modY][x+modX];
+								nextColor = nextChecker->getColor();
+								if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
+									moves[i][0] = y+2*modY; 
+									moves[i][1] = x+2*modX;
+									moves[i][2] = 1;
+								}
+							}
+							break;
+						case S:
+							modX = 0;
+							modY = 1;
+							if (checkerBoard[y+modY][x+modX] == NULL) {
+								moves[i][0] = y+modY; 
+								moves[i][1] = x+modX;
+								moves[i][2] = 0;
+							} else {
+								nextChecker = checkerBoard[y+modY][x+modX];
+								nextColor = nextChecker->getColor();
+								if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
+									moves[i][0] = y+2*modY; 
+									moves[i][1] = x+2*modX;
+									moves[i][2] = 1;
+								}
+							}
+							break;
+						case E:
+							modX = 1;
+							modY = 0;
+							if (checkerBoard[y+modY][x+modX] == NULL) {
+								moves[i][0] = y+modY; 
+								moves[i][1] = x+modX;
+								moves[i][2] = 0;
+							} else {
+								nextChecker = checkerBoard[y+modY][x+modX];
+								nextColor = nextChecker->getColor();
+								if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
+									moves[i][0] = y+2*modY; 
+									moves[i][1] = x+2*modX;
+									moves[i][2] = 1;
+								}
+							}
+							break;
+						case W:
+							modX = -1;
+							modY = 0;
+							if (checkerBoard[y+modY][x+modX] == NULL) {
+								moves[i][0] = y+modY; 
+								moves[i][1] = x+modX;
+								moves[i][2] = 0;
+							} else {
+								nextChecker = checkerBoard[y+modY][x+modX];
+								nextColor = nextChecker->getColor();
+								if ((nextColor != color) && checkerBoard[y+2*modY][x+2*modX] == NULL) {
+									moves[i][0] = y+2*modY; 
+									moves[i][1] = x+2*modX;
+									moves[i][2] = 1;
+								}
+							}
+							break;
+						default:
+							throw UnknownDirection;
+							break; //TODO: Error handling - not a direction.
+						}
+						i++;
+					}
 				}
 				int j, k;
 				int l = 0;
 				int movesReturn[24];
-				for (j = 0; j < 3; j++) {
-					for (k = 0; k < 8; k++) {
+				for (j = 0; j < 8; j++) {
+					for (k = 0; k < 3; k++) {
+						if(moves[j][0] > 0 && moves[j][0] < 9) {
 							movesReturn[l] = moves[j][k];
 							l++;
+						} else {
+							movesReturn[l] = -1;
+							l++;
+						}
 					}
 				}
 				return movesReturn;
@@ -338,12 +351,15 @@ namespace Checkers{
 				int i;
 				CheckerObj *temp = ptr;
 				for(i = 0; i < 7; i++){
-					AddChecker(xCords[i], yCords[i], ptr);
+					AddChecker(xCords[i], yCords[i], temp);
+					if(temp->next != NULL){
+						temp = temp->next;
+					}
 
 
 					COORD pos = {0, 30};
 					SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-					temp = temp->next;
+					//temp = temp->next;
 				}
 			}
 
@@ -363,7 +379,7 @@ namespace Checkers{
 				int realX, realY;
 				for(x = 0; x < 9; x ++){
 					for(y = 0; y < 9; y++){
-						realX = 2 + (x * 4);
+						realX = 2 + (x * 6);
 						realY = 3 + (y * 2);
 						COORD pos = {realX , realY};
 						
@@ -374,7 +390,7 @@ namespace Checkers{
 						checkerColor color = currentChecker->getColor();
 						bool kinged = currentChecker->IsKinged();
 						bool special = currentChecker->IsSpecialAvailable();
-						char checkerSymbol[2] = {' ', ' '};
+						char checkerSymbol[4] = {' ', ' ', ' ', ' '};
 
 						if(color == black && special == true){
 							checkerSymbol[0]  = 'B';
@@ -403,9 +419,11 @@ namespace Checkers{
 						else {
 							checkerSymbol[1] = '_';
 						}
+						checkerSymbol[2] = currentChecker->GetID();
 
 						guiObj -> DisplayChar(realX, realY, checkerSymbol[0]);
 						guiObj -> DisplayChar((realX + 1), realY, checkerSymbol[1]);
+						guiObj -> DisplayInt((realX + 2), realY, currentChecker->GetID());
 					}
 				}
 			}
@@ -424,6 +442,27 @@ namespace Checkers{
 						checkerBoard[i][j] = NULL;
 					}
 				}
+			}
+
+			int * convertToCoords(int id){
+				int x, y, j, k;
+				for(j = 0; j < 9; j++){
+					for(k = 0; k < 9; k++){
+						if(checkerBoard[j][k] != NULL){
+							int currentID = checkerBoard[j][k]->GetID();
+							if(currentID == id){
+								y = j;
+								x = k;
+								break;
+							}
+						}
+					}
+				}
+
+				int coords[2];
+				coords[0] = y;
+				coords[1] = x;
+				return coords;
 			}
 
 

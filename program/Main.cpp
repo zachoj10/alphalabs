@@ -147,18 +147,13 @@ void ActivatePlayer(PlayerObj *currentPlayer) {
 	} //if-else
 
 	// Display all checker options
-	guiObj->DisplayPlayerCheckerOptionsMenu(checkerOptions, numberOfOptions);
-
-
-	// TODO: Change this to prompt for one of the integer options provided
-	//			Take that ID and send it to Gareth's method in checkerboard class as CheckerObj
-	//Prompt Player For action on their turn
-	pieceToMove = guiObj->PieceCoordMenu();
-	CordX = pieceToMove[0];
-	CordY = pieceToMove[1];
-
-	//moveOptions[0][0] = checkerMoveOptions(CordX, CordY);
 	
+	guiObj->DisplayPlayerCheckerOptionsMenu(checkerOptions, numberOfOptions);
+	int moveOption = guiObj->HandlePlayerCheckerOptions(checkerOptions);
+	int *coords = checkerBoardObj->convertToCoords(moveOption);
+
+	
+
 
 	int id;
 	int killCheckerId[2];
@@ -168,33 +163,38 @@ void ActivatePlayer(PlayerObj *currentPlayer) {
 	//GOOOOEY!?! Get origX, origY, destX, destY, isJump
 
 	// TODO: Replace dummy values with returns from gui prompt
-	origin_X = CordX;
-	origin_Y = CordY;
-	destination_X = 3;
-	destination_Y = 4;
+	origin_X = coords[1];
+	origin_Y = coords[0];
 
-	try {
-		int *options = checkerBoardObj->checkerMoveOptions(origin_X - 1, origin_Y - 1);
-		int moveOptions[3][8];
-		int k, j;
-		int l = 0;
-		for (k = 0; k < 2; k++) {
-			for (j = 0; j < 7; j++) {
-				moveOptions[j][k] = options[l];
-				l++;
-			} //for
-		} //for
-	} catch(int e){
+
+	
+		int *moveLocation;
+	//try {
+		int i;
+		int *options = checkerBoardObj->checkerMoveOptions(origin_X, origin_Y);
+		
+		int moveStuff[24];
+		for(i = 0; i < 25; i++){
+			moveStuff[i] = options[i];
+		}
+		guiObj->DisplayMoveOptions(moveStuff);
+		moveLocation = guiObj->HandlePlayerMoveOptions(moveStuff);
+		std::cout << moveLocation[0];
+	/*} catch(int e){
 		if (e == UnknownDirection) {
 			std::cerr<<("Unknown Direction Error");
 		} //if
-	} //try-catch
+	} //try-catch*/
+
+	destination_X = moveLocation[1];
+	destination_Y = moveLocation[0];
+
+	
 
 	guiObj->DisplayPlayerMoveMenu();
 	guiObj->HandlePlayerMoveMenuResponse() ;
-	// TODO: Add a condition to distinguish between moves and jumps
-
-	if (true) {
+	std::cout << moveLocation[0];
+	if (moveLocation[2] == 1) {
 		// Jump another checker
 		int i = 0;
 		
@@ -212,6 +212,7 @@ void ActivatePlayer(PlayerObj *currentPlayer) {
 			checkerBoardObj->AddChecker(origin_X, origin_Y, currentPlayer->GetHead()); 
 		}
 	} //if-else
+	checkerBoardObj->DisplayChecker();
 } //ActivatePlayer
 
 
