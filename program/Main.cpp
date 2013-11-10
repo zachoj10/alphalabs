@@ -148,6 +148,7 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerC
 	int numberOfOptions = 0, checkerOptions[14];
 	checkerColor playerColor = currentPlayer->getColor();
 	CheckerObj *currentChecker = currentPlayer->GetHead();
+
 	
 	// Collect all checker options
 	if (1 == currentPlayer->getNumCheckers()) {
@@ -216,16 +217,22 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerC
 		int piecesToKill[4];
 		int *kills = checkerBoardObj->JumpChecker(origin_X, origin_Y, destination_X, destination_Y);
 		counter = 0 ;
-		for(counter = 0; counter < 3; counter += 2){
-			piecesToKill[0] = kills[0];
-			piecesToKill[1] = kills[1];
-			piecesToKill[2] = kills[2];
-			piecesToKill[3] = kills[3];
 
+		PlayerObj tempPlayerList[3];
+		tempPlayerList[0] = playerList[0];
+		tempPlayerList[1] = playerList[1];
+		tempPlayerList[2] = playerList[2];
+		piecesToKill[0] = kills[0];
+		piecesToKill[1] = kills[1];
+		piecesToKill[2] = kills[2];
+		piecesToKill[3] = kills[3];
+		for(counter = 0; counter < 3; counter += 2){
 			if(piecesToKill[counter] != -1){
-				playerList[black].KillChecker(piecesToKill[counter]);
-				playerList[red].KillChecker(piecesToKill[counter]);
-				playerList[green].KillChecker(piecesToKill[counter]);
+				int color = piecesToKill[counter + 1] + 1;
+				int id = piecesToKill[counter];
+				tempPlayerList[color].KillChecker(id);
+				//playerList[red].KillChecker(piecesToKill[counter]);
+				//playerList[green].KillChecker(piecesToKill[counter]);
 				//counter = (counter + 2);
 			}
 		}
