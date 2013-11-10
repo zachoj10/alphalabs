@@ -155,6 +155,7 @@ namespace Checkers{
 			} //HandleGreenPlayerSpecialMenuResponse
 
 			void DisplayMoveOptions(int options[]){
+				//int realOptions[24] = options;
 				int moveOptions[3][8];
 				int k, j;
 				int l = 0;

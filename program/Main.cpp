@@ -153,6 +153,7 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 	origin_Y = CordY;
 	destination_X = 3;
 	destination_Y = 4;
+
 	try{
 		int *options = checkerBoardObj->checkerMoveOptions(origin_X - 1, origin_Y - 1);
 		int moveOptions[3][8];
@@ -169,6 +170,7 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 			std::cerr<<("Unknown Direction Error");
 		}
 	}
+
 	guiObj->DisplayPlayerMoveMenu();
 	guiObj->HandlePlayerMoveMenuResponse();
 	// TODO: Add a condition to distinguish between moves and jumps
