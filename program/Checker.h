@@ -10,6 +10,7 @@ namespace Checkers {
 				checkerID = id;
 				specialAbilityAvailable = true;
 				kinged = false;
+				next = NULL;
 			} //__constructor
 
 
@@ -18,14 +19,19 @@ namespace Checkers {
 			} //__destructor
 			
 			
-			void Move(int destinationX, int destinationY) {
+			/*void Move(int destinationX, int destinationY) {
 				currentX = destinationX;
 				currentY = destinationY;
+			}*/
+
+			bool Move(){
+				return false;
 			}
 			
 			
-			void Delete() {
+			bool Delete() {
                 //TODO:Remove from linked list
+				return false;
 			}
 
 
@@ -121,16 +127,15 @@ namespace Checkers {
 			} //UseSpecial
 
 
-			checkerColor Delete() {
+			bool Delete() {
 				// Always try to use self-destruct special power
-				bool success = this->UseSpecial();
 
 				// Blow up the other checker
-				if (true == success) {
-					return black;
+				if (UseSpecial()) {
+					return true;
 				} else {
 					// Otherwise, return dummy value and do nothing
-					return NUM_OF_COLORS;
+					return false;
 				} //if-else
 			} //Delete
 	}; //BlackCheckerObj
@@ -151,15 +156,14 @@ namespace Checkers {
 			} //__constructor
 
 
-			checkerColor Delete() {
+			bool Delete() {
 				if (this->IsSpecialAvailable()) {
 					// Always try to use special sheild power if it is available
 					this->UseSpecial();
-
-					return red;
+					return false;
 				} else {
 					// Otherwise, return dummy value and accept our fate...
-					return NUM_OF_COLORS;
+					return true;
 				} //if-else
 			} //Delete
 	}; //RedCheckerObj
@@ -180,9 +184,8 @@ namespace Checkers {
 			} //__destructor
 
 
-			checkerColor Move() {
+			bool Move() {
 				char useSpecial;
-
 				// Prompt user to use special power if it is available
 				if (this->IsSpecialAvailable()) {
 					do {
@@ -192,22 +195,23 @@ namespace Checkers {
 						switch (useSpecial) {
 							case 'y':
 								this->UseSpecial();
-								return green;
-							break;
+								return true;
+								break;
 
 							case 'n':
 								// Do nothing
-							break;
+								return false;
+								break;
 
 							default:
 								guiObj->DisplayUserInputError();
 							break;
 						} //switch
-					} while ('n' != useSpecial);
+					} while ('n' != useSpecial || 'y' != useSpecial);
 				} //if
 
 				// Otherwise, return dummy value and do nothing
-				return NUM_OF_COLORS;
+				return false;
 			} //Move
 	}; //GreenCheckerObj
 }

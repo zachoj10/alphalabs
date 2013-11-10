@@ -4,19 +4,19 @@
 #include "CheckerBoard.h"
 
 namespace Checkers {
+	//static int nextID = 0;
 	class PlayerObj {
+		
 		//=============== Public Methods/Members ===============//
 		public:
 			PlayerObj(){
 				numCheckers = 0;
-				nextID = 0;
 			};
 
 
 			PlayerObj(checkerColor color) {
 				 numCheckers = 0;
 				 pieceColor = color;
-				 nextID = 0;
 				 generatePieces();
 			};  //__constructor
 
@@ -30,7 +30,7 @@ namespace Checkers {
 				CheckerObj *temp;
 				CheckerObj *current = head;
 
-				if (current->GetID() == NULL) {
+				if (current == NULL) {
 					return;
 				} else if (current->GetID() == id) {
 					temp = head;
@@ -54,16 +54,15 @@ namespace Checkers {
 			void generatePieces(){
 				try {
 					int i;
-					int newID;
 					CheckerObj *temp = head;
 				
 					head = CreateChecker();
-					nextID++;
+					//nextID++;
 					for(i = 0; i < 7; i++){
 						temp = CreateChecker();
 						temp->next = head;
 						head = temp;
-						nextID++;
+						//nextID++;
 						numCheckers++;
 					}//for
 				} catch (int e) {
@@ -77,6 +76,14 @@ namespace Checkers {
 				numCheckers = num;
 			}
 
+			static int getNextID(){
+				int result;
+				static int nextID = 0;
+				result = nextID;
+				nextID++;
+				return result;
+			}
+
 			int getNumCheckers(){
 				return numCheckers;
 			}
@@ -88,19 +95,29 @@ namespace Checkers {
 			CheckerObj* CreateChecker() {
 				switch (pieceColor) {
 					case black:
-						return new BlackCheckerObj(nextID);
+						return new BlackCheckerObj(getNextID());
 						break;
 					case red:
-						return new RedCheckerObj(nextID);
+						return new RedCheckerObj(getNextID());
 						break;
 					case green:
-						return new GreenCheckerObj(nextID);	
+						return new GreenCheckerObj(getNextID());	
 						break;
 					default:
 						throw UnknownColor;
 						break;
 				} //switch
 			} //CreateChecker
+
+			void AddPieceToList(){
+				int i;
+				CheckerObj *temp = head;
+				//nextID++;
+
+				temp = CreateChecker();
+				temp->next = head;
+				head = temp;
+			}
 
 			checkerColor getColor(){
 				return pieceColor;
@@ -113,7 +130,6 @@ namespace Checkers {
 		private: 
 			int numCheckers;
 			checkerColor pieceColor;
-			int nextID;
 	}; //PlayerObj
 }
 

@@ -11,7 +11,7 @@ using namespace Checkers;
 // Forward Declarations
 int main();
 void PlayGame(int playerCount);
-int ActivatePlayer(PlayerObj *currentPlayer);
+void ActivatePlayer(PlayerObj *currentPlayer);
 CheckerObj *CreateNewPlayer();
 CheckerBoardObj* checkerBoardObj;
 void StartGame(int players, PlayerObj list[]);
@@ -127,7 +127,7 @@ void PlayGame(int playerCount) {
 } //PlayGame
 
 
-int ActivatePlayer(PlayerObj *currentPlayer) {
+void ActivatePlayer(PlayerObj *currentPlayer) {
 	int CordX, CordY;
 	int* pieceToMove;
 	checkerColor playerColor = currentPlayer->getColor();
@@ -142,7 +142,8 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 	//moveOptions[0][0] = checkerMoveOptions(CordX, CordY);
 	
 
-	int id, killCheckerId = NULL;
+	int id;
+	int killCheckerId[2];
 	int origin_X, origin_Y, destination_X, destination_Y;
 	bool isJump;
 	
@@ -172,18 +173,27 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 	}
 
 	guiObj->DisplayPlayerMoveMenu();
-	guiObj->HandlePlayerMoveMenuResponse();
+	guiObj->HandlePlayerMoveMenuResponse() ;
 	// TODO: Add a condition to distinguish between moves and jumps
 
 	if (true) {
 		// Jump another checker
-		killCheckerId = checkerBoardObj->JumpChecker(origin_X, origin_Y, destination_X, destination_Y);
+		int i = 0;
+		
+		int *kills = checkerBoardObj->JumpChecker(origin_X, origin_Y, destination_X, destination_Y);
+		while(i < 2){
+			if(kills[i] != -1){
+				currentPlayer->KillChecker(kills[i]);
+			}
+			i++;
+		}
 	} else {
 		// Move checker to a blank space
-		checkerBoardObj->MoveChecker(origin_X, origin_Y, destination_X, destination_Y);
+		if(checkerBoardObj->MoveChecker(origin_X, origin_Y, destination_X, destination_Y)){
+			currentPlayer->AddPieceToList();
+			checkerBoardObj->AddChecker(origin_X, origin_Y, currentPlayer->getHead()); 
+		}
 	} //if-else
-
-	return killCheckerId;
 } //ActivatePlayer
 
 
@@ -224,3 +234,4 @@ void StartGame(int players, PlayerObj list[]){
 	}
 
 }
+
