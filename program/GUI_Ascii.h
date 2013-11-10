@@ -185,17 +185,18 @@ namespace Checkers{
 				//std::cout << sizeof(options);
 				//std::cout << optionNumber << ". Move to " << options[0] << "," << options[1];
 
-				for(j = 0; j < 24; j+=2){
+				j = 0;
+				for(j = 0; j < 24; j+=3){
 					//if(moveOptions[j][0] != -858993460){
-					if(options[j] != -1) {
-						if(options[j + 2] == 1){
-							std::cout << optionNumber << ". Jump to " << options[j-1] << "," << options[j];
+					if(options[j] > -1) {
+						if(options[(j + 2)] == 1){
+							std::cout << optionNumber << ". Jump to " << (options[(j + 1)] + 1)<< "," << (options[j] + 1);
 						}
 						else{
 						//else if(moveOptions[2][i] == 0){
-							std::cout << optionNumber << ". Move to " << options[j-1] << "," << options[j];
+							std::cout << optionNumber << ". Move to " << (options[(j + 1)] + 1)<< "," << (options[j] + 1);
 						}
-						j++;
+						//j++;
 						optionNumber++;
 						y = y++;
 						COORD pos = {0 , y};
@@ -242,14 +243,27 @@ namespace Checkers{
 
 			int * HandlePlayerMoveOptions(int moveOptions[]) {
 				int checkerSelectionBuffer;
+				int i, count = 0;
 				
 				//Retrieve checker seletion
 				std::cin.ignore();
 				std::cin >> checkerSelectionBuffer;
+				checkerSelectionBuffer = checkerSelectionBuffer;
 				int optionSelected[3];
-				optionSelected[0] = moveOptions[3 * checkerSelectionBuffer];
-				optionSelected[1] = moveOptions[3 * checkerSelectionBuffer + 1];
-				optionSelected[2] = moveOptions[3 * checkerSelectionBuffer + 2];
+				for(i = 0; i < 24; i = i + 3){
+					if(moveOptions[i] != -1){
+						++count;
+					}
+					if(count == checkerSelectionBuffer){
+						optionSelected[0] = moveOptions[i];
+						optionSelected[1] = moveOptions[i + 1];
+						optionSelected[2] = moveOptions[i + 2];
+						break;
+					}
+
+				}
+
+				
 
 				return optionSelected;
 			} 

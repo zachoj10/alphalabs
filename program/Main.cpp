@@ -11,7 +11,7 @@ using namespace Checkers;
 // Forward Declarations
 int main();
 void PlayGame(int playerCount);
-void ActivatePlayer(PlayerObj *currentPlayer);
+void ActivatePlayer(PlayerObj *currentPlayer,  PlayerObj *playerList);
 CheckerObj *CreateNewPlayer();
 CheckerBoardObj* checkerBoardObj;
 void StartGame(int players, PlayerObj list[]);
@@ -110,7 +110,8 @@ void PlayGame(int playerCount) {
 				continue;
 			} //if
 
-			ActivatePlayer(currentPlayer);
+			ActivatePlayer(currentPlayer, playerList);
+			checkerBoardObj->DisplayChecker();
 			numberOfTurns++;
 		} //if
 	} //while
@@ -143,7 +144,7 @@ void PlayGame(int playerCount) {
 } //PlayGame
 
 
-void ActivatePlayer(PlayerObj *currentPlayer) {
+void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList) {
 	int CordX, CordY;
 	int *pieceToMove;
 	int numberOfOptions = 0, checkerOptions[14];
@@ -165,67 +166,78 @@ void ActivatePlayer(PlayerObj *currentPlayer) {
 	} //if-else
 
 	// Display all checker options
-	
+	int origin_X, origin_Y, destination_X, destination_Y;
 	guiObj->DisplayPlayerCheckerOptionsMenu(checkerOptions, numberOfOptions);
 	int moveOption = guiObj->HandlePlayerCheckerOptions(checkerOptions);
 	int *coords = checkerBoardObj->convertToCoords(moveOption);
-
+	origin_Y = coords[0];
+	origin_X = coords[1];
 
 
 
 	int id;
 	int killCheckerId[2];
-	int origin_X, origin_Y, destination_X, destination_Y;
-	bool isJump;
+	
+	bool isJump = false;
 	
 	//GOOOOEY!?! Get origX, origY, destX, destY, isJump
-
-	// TODO: Replace dummy values with returns from gui prompt
-	origin_X = coords[1];
-	origin_Y = coords[0];
 
 
 	
 		int *moveLocation;
-	//try {
+
+	try {
 		int i;
 		int *options = checkerBoardObj->checkerMoveOptions(origin_X, origin_Y);
-		
+
 		int moveStuff[24];
+		int moveDestination[3];
 		for(i = 0; i < 25; i++){
 			moveStuff[i] = options[i];
 		}
 		guiObj->DisplayMoveOptions(moveStuff);
 		moveLocation = guiObj->HandlePlayerMoveOptions(moveStuff);
-		std::cout << moveLocation[0];
-	/*} catch(int e){
+		for(i = 0; i < 3; i++){
+			moveDestination[i] = moveLocation[i];
+		}
+		destination_X = moveDestination[1];
+		destination_Y = moveDestination[0];
+		std::cout << moveDestination[2];
+		if(moveDestination[2] == 1){
+			std::cout << moveDestination[2];
+			isJump = true;
+		}
+	} catch(int e){
 		if (e == UnknownDirection) {
 			std::cerr<<("Unknown Direction Error");
 		} //if
 	} //try-catch*/
 
-	destination_X = moveLocation[1];
-	destination_Y = moveLocation[0];
-
 	
 
-	guiObj->DisplayPlayerMoveMenu();
-	guiObj->HandlePlayerMoveMenuResponse() ;
-	std::cout << moveLocation[0];
-	if (moveLocation[2] == 1) {
+
+	//guiObj->DisplayPlayerMoveMenu();
+	//guiObj->HandlePlayerMoveMenuResponse() ;
+	//std::cout << moveLocation[0];
+	if(isJump){
 		// Jump another checker
 		int i = 0;
 		
+		int piecesToKill[2];
 		int *kills = checkerBoardObj->JumpChecker(origin_X, origin_Y, destination_X, destination_Y);
 		while(i < 2){
+			//piecesToKill[0] = kills[0];
+			//piecesToKill[1] = kills[1];
+
 			if(kills[i] != -1){
-				currentPlayer->KillChecker(kills[i]);
+				playerList[(i+1)].KillChecker(kills[i]);
 			}
-			i++;
+			i = i + 2;
 		}
 	} else {
 		// Move checker to a blank space
-		if (checkerBoardObj->MoveChecker(origin_X, origin_Y, destination_X, destination_Y)) {
+		bool greenSpecial = checkerBoardObj->MoveChecker(origin_X, origin_Y, destination_X, destination_Y);
+		if (greenSpecial) {
 			// Activate Green's special power
 			currentPlayer->AddPieceToList();
 			checkerBoardObj->AddChecker(origin_X, origin_Y, currentPlayer->GetHead()); 

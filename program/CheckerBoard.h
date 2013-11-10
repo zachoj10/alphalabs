@@ -203,31 +203,36 @@ namespace Checkers{
 			// TODO: Confirm that these operate correctly
 			bool MoveChecker(int originX, int originY, int destinationX, int destinationY) {
 				bool result = false;
-				if(checkerBoard[originY][originX]->getColor() == green && checkerBoard[originY][originX]->Move()){
+				checkerColor color = checkerBoard[originY][originX]->getColor();
+				bool useSpecial = checkerBoard[originY][originX]->Move();
+				if(color == green && useSpecial){
 					result = true;
 				}
-				checkerBoard[destinationX][destinationY] = checkerBoard[originX][originY];
-				checkerBoard[originX][originY] = NULL;
+				checkerBoard[destinationY][destinationX] = checkerBoard[originY][originX];
+				checkerBoard[originY][originX] = NULL;
 				return result;
 			} //MoveChecker
 
 			// TODO: Confirm that these operate correctly
-			int* JumpChecker(int originX, int originY, int destinationX, int destinationY) {
+			int * JumpChecker(int originX, int originY, int destinationX, int destinationY) {
 				int id;
 				int killX = destinationX-((destinationX-originX)/2);
 				int killY = destinationY-((destinationY-originY)/2);
-				int result[2];
+				int result[4];
 
 				//Special Checking
 				if(checkerBoard[killY][killX]->getColor() == black){
 					result[0] = checkerBoard[killY][killX]->GetID();
+					result[1] = checkerBoard[killY][killX]->getColor();
 					if (checkerBoard[killY][killX]->Delete()){
 						if(checkerBoard[originY][originX]->getColor() == red && checkerBoard[originY][originX]->IsSpecialAvailable() == true){
 							checkerBoard[originX][originY]->UseSpecial();
-							result[1] = -1;
+							result[2] = -1;
+							result[3] = -1;
 						}
 						else{
-							result[1] = checkerBoard[originY][originX]->GetID();
+							result[2] = checkerBoard[originY][originX]->GetID();
+							result[3] = checkerBoard[originY][originX]->getColor();
 							checkerBoard[originY][originX] = NULL;
 						}
 						checkerBoard[killY][killX] = NULL;
@@ -236,22 +241,28 @@ namespace Checkers{
 				else if(checkerBoard[killY][killX]->getColor() == red){
 					if(checkerBoard[killY][killX]->Delete()){
 						result[0] = checkerBoard[killY][killX]->GetID();
-						result[1] = -1;
+						result[1] = checkerBoard[killY][killX]->getColor();
+						result[2] = -1;
+						result[3] = -1;
 						checkerBoard[killY][killX] = NULL;
 					}
 					else{
 						result[0] = -1;
 						result[1] = -1;
+						result[2] = -1;
+						result[3] = -1;
 					}
 				}
 				else if(checkerBoard[killY][killX]->getColor() == green){
 					result[0] = checkerBoard[killY][killX]->GetID();
-					result[1] = -1;
+					result[1] = checkerBoard[killY][killX]->getColor();
+					result[2] = -1;
+					result[3] = -1;
 					checkerBoard[killY][killX] = NULL;
 				}
 
-				checkerBoard[destinationX][destinationY] = checkerBoard[originX][originY];
-				checkerBoard[originX][originY] = NULL;
+				checkerBoard[destinationY][destinationX] = checkerBoard[originY][originX];
+				checkerBoard[originY][originX] = NULL;
 
 				return result;
 			} //JumpChecker
@@ -378,12 +389,17 @@ namespace Checkers{
 						
 						CheckerObj *currentChecker = checkerBoard[y][x];
 						if(!currentChecker){
+							char checkerSymbol[4] = {'_', '_', '_', '_'};
+							guiObj -> DisplayChar(realX, realY, checkerSymbol[0]);
+							guiObj -> DisplayChar((realX + 1), realY, checkerSymbol[1]);
+							guiObj -> DisplayChar((realX + 2), realY, checkerSymbol[2]);
+							guiObj -> DisplayChar((realX + 3), realY, checkerSymbol[3]);
 							continue;
 						}
 						checkerColor color = currentChecker->getColor();
 						bool kinged = currentChecker->IsKinged();
 						bool special = currentChecker->IsSpecialAvailable();
-						char checkerSymbol[4] = {' ', ' ', ' ', ' '};
+						char checkerSymbol[4] = {'_', '_', '_', '_'};
 
 						if(color == black && special == true){
 							checkerSymbol[0]  = 'B';
@@ -413,6 +429,7 @@ namespace Checkers{
 							checkerSymbol[1] = '_';
 						}
 						checkerSymbol[2] = currentChecker->GetID();
+
 
 						guiObj -> DisplayChar(realX, realY, checkerSymbol[0]);
 						guiObj -> DisplayChar((realX + 1), realY, checkerSymbol[1]);
