@@ -8,13 +8,17 @@ namespace Checkers{
 	class CheckerBoardObj {
 		//=============== Public Methods/Members ===============//
 		public: 
-			CheckerBoardObj(PlayerObj playerList[]) {
-				// TODO: Add constructor that specifies between 2 players (black vs red) and 3 players (black vs red vs green)
-				
+			CheckerBoardObj() {		
 				// Instantiate class objects
 				guiObj = new GUI_Ascii();
 				memset((void *) checkerBoard, 0, sizeof(checkerBoard));
 			} //__constructor
+
+
+			~CheckerBoardObj() {
+				// TODO: Add memory freeing commands
+			} //__destructor
+
 
 			int* checkerMoveOptions(int x, int y) {
 				//TODO: Error Handling for out of bounds.

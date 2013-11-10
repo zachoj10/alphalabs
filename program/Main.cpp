@@ -24,15 +24,10 @@ int main() {
 	char mainMenuSelectionBuffer;
 	int playerCount;
 
-
-	// Instantiate class objects
+	// Initialize console settings
 	SMALL_RECT windowSize = {0, 0, 79, 40};
-
 	SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowSize);
-
 	//SetConsoleTitle("Checkers by AlphaLabs");
-
-
 
 	guiObj->DisplayWelcome();
 
@@ -70,6 +65,7 @@ int main() {
 	} while ('q' != mainMenuSelectionBuffer);
 } //main
 
+
 void PlayGame(int playerCount) {
 	// Initialize variables
 	int numberOfTurns = 0;
@@ -78,8 +74,6 @@ void PlayGame(int playerCount) {
 	int numPlayers = playerCount;
 
 	// Instantiate class objects
-	//CheckerObj playerList[3]; // TODO: Find workaround to instantiate array length via playerCount
-	//Players::PlayerObj playerList[playerCount] = new Players::PlayerObj;
 	PlayerObj *currentPlayer;
 	PlayerObj *playerList;
 	playerList = new PlayerObj[playerCount];
@@ -94,7 +88,8 @@ void PlayGame(int playerCount) {
 		new (&playerList[green]) PlayerObj(green);
 	} //if-else
 	
-	checkerBoardObj = new CheckerBoardObj(playerList);
+	// Prepare game elements
+	checkerBoardObj = new CheckerBoardObj();
 	StartGame(numPlayers, playerList);
 	console_activate();
 	checkerBoardObj->DisplayBoard();
@@ -105,7 +100,7 @@ void PlayGame(int playerCount) {
 		// Selects current player by modding remaining players with turn number; i.e., turn 4 in 3 player game will select array[1] (2nd player)
 		for (i = 0; i < playerCount; i++) {
 			// Delete player from active list
-			if (0 == playerList[i].getNumCheckers()) {
+			if (0 == playerList[i].GetNumCheckers()) {
 				playerList[i].~PlayerObj();
 				numPlayers = numPlayers - 1;
 			} //if
@@ -116,6 +111,9 @@ void PlayGame(int playerCount) {
 		currentPlayer = & playerList[numberOfTurns % sizeof(playerList)];
 		ActivatePlayer(currentPlayer);
 	} //while
+
+	// Final player check to handle black's special power. Bring out 'yer dead!
+	// TODO: check all player's for death
 
 	if (1 == numPlayers) {
 		// Last remaining player is the winner
@@ -129,13 +127,33 @@ void PlayGame(int playerCount) {
 
 int ActivatePlayer(PlayerObj *currentPlayer) {
 	int CordX, CordY;
-	int* pieceToMove;
-	checkerColor playerColor = currentPlayer->getColor();
-	checkerColor pieceColor;
-	// TODO: Prompt user for an action on their turn. Takes in the player whose turn it is, and the checker board that is in use.
-	//Prompt Player For action on their turn 
+	int *pieceToMove;
+	int numberOfOptions = 0, checkerOptions[14];
+	checkerColor playerColor = currentPlayer->GetColor();
+	CheckerObj *currentChecker = currentPlayer->GetHead();
 	
-	pieceToMove = guiObj -> PieceCoordMenu();
+	// Collect all checker options
+	if (1 == currentPlayer->GetNumCheckers()) {
+		// Handle case of single checker
+		checkerOptions[numberOfOptions] = currentChecker->GetID();
+		numberOfOptions++;
+	} else {
+		// Handle case of multiple checkers
+		while (NULL != currentChecker->next) {
+			checkerOptions[numberOfOptions] = currentChecker->GetID();
+			numberOfOptions++;
+			currentChecker = currentChecker->next;
+		} //while
+	} //if-else
+
+	// Display all checker options
+	guiObj->DisplayPlayerCheckerOptionsMenu(checkerOptions, numberOfOptions);
+
+
+	// TODO: Change this to prompt for one of the integer options provided
+	//			Take that ID and send it to Gareth's method in checkerboard class as CheckerObj
+	//Prompt Player For action on their turn
+	pieceToMove = guiObj->PieceCoordMenu();
 	CordX = pieceToMove[0];
 	CordY = pieceToMove[1];
 
@@ -154,7 +172,7 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 	destination_X = 3;
 	destination_Y = 4;
 
-	try{
+	try {
 		int *options = checkerBoardObj->checkerMoveOptions(origin_X - 1, origin_Y - 1);
 		int moveOptions[3][8];
 		int k, j;
@@ -163,13 +181,13 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 			for (j = 0; j < 7; j++) {
 				moveOptions[j][k] = options[l];
 				l++;
-			}
-		}
-	}catch(int e){
+			} //for
+		} //for
+	} catch(int e){
 		if (e == UnknownDirection) {
 			std::cerr<<("Unknown Direction Error");
-		}
-	}
+		} //if
+	} //try-catch
 
 	guiObj->DisplayPlayerMoveMenu();
 	guiObj->HandlePlayerMoveMenuResponse();
@@ -190,7 +208,7 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 // TODO: Discern what this function should be doing
 int DeletePlayer(PlayerObj list[], int arrayLocation){
 	PlayerObj player = list[0]; //TODO:PLEASE FIX
-	int numCheckers = player.getNumCheckers();
+	int numCheckers = player.GetNumCheckers();
 
 	if (numCheckers == 0) {
 
@@ -209,17 +227,17 @@ void StartGame(int players, PlayerObj list[]){
 	int GreenXCoords[7] = {8, 7, 8, 7, 8, 7, 8};
 	int GreenYCoords[7] = {1, 2, 3, 4, 5, 6, 7};
 	if(players == 2){
-		temp = list[black].getHead();
+		temp = list[black].GetHead();
 		checkerBoardObj->AddPlayersCheckers(BlackXCoords, BlackYCoords, temp);
-		temp = list[red].getHead();
+		temp = list[red].GetHead();
 		checkerBoardObj->AddPlayersCheckers(RedXCoords, RedYCoords, temp);
 	}
 	else {
-		temp = list[black].getHead();
+		temp = list[black].GetHead();
 		checkerBoardObj->AddPlayersCheckers(BlackXCoords, BlackYCoords, temp);
-		temp = list[red].getHead();
+		temp = list[red].GetHead();
 		checkerBoardObj->AddPlayersCheckers(RedXCoords, RedYCoords, temp);
-		temp = list[green].getHead();
+		temp = list[green].GetHead();
 		checkerBoardObj->AddPlayersCheckers(GreenXCoords, GreenYCoords, temp);
 	}
 

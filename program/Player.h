@@ -73,15 +73,15 @@ namespace Checkers {
 				}//try-catch
 			}//GeneratePieces
 
-			void setNumCheckers(int num){
+			void SetNumCheckers(int num){
 				numCheckers = num;
 			}
 
-			int getNumCheckers(){
+			int GetNumCheckers(){
 				return numCheckers;
 			}
 
-			CheckerObj* getHead(){
+			CheckerObj* GetHead(){
 				return head;
 			}
 
@@ -102,7 +102,7 @@ namespace Checkers {
 				} //switch
 			} //CreateChecker
 
-			checkerColor getColor(){
+			checkerColor GetColor(){
 				return pieceColor;
 			}
 

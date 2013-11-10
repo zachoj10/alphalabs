@@ -1,4 +1,5 @@
 #pragma once
+#include <sstream>
 #include "ConsoleUtil.h"
 
 // MACROS (CONSTANT)
@@ -154,6 +155,7 @@ namespace Checkers{
 				return menuSelectionBuffer;
 			} //HandleGreenPlayerSpecialMenuResponse
 
+
 			void DisplayMoveOptions(int options[]){
 				//int realOptions[24] = options;
 				int moveOptions[3][8];
@@ -192,6 +194,24 @@ namespace Checkers{
 			}
 
 
-			
+			void DisplayPlayerCheckerOptionsMenu(int checkerOptions[], int numberOfOptions) {
+				int i;
+				char *displayPointer;
+				std::string outputString;
+
+				DisplayString(0, 21, "Which checker would you like to move?");
+
+				for (i = 0; i < numberOfOptions; i++) {
+					// Format the option display string
+					std::stringstream streamBuffer;
+					streamBuffer << i + 1 << ") " << checkerOptions[i];
+					outputString = streamBuffer.str();
+					displayPointer = (char*)outputString.c_str();
+
+					DisplayString(0, 22 + i, displayPointer);
+				} //for
+
+				DisplayString(0, 23 + i, "--> ");
+			} //DisplayPlayerCheckerOptionsMenu
 	}; //GUI_Ascii
 }

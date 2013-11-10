@@ -14,7 +14,7 @@ namespace Checkers {
 
 
 			~CheckerObj() {
-
+				// TODO: Add memory freeing commands
 			} //__destructor
 			
 			
