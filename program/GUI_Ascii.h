@@ -190,5 +190,8 @@ namespace Checkers{
 					SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 				}*/
 			}
+
+
+			
 	}; //GUI_Ascii
 }

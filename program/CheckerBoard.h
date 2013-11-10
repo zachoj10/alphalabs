@@ -331,17 +331,27 @@ namespace Checkers{
 							continue;
 						}
 						checkerColor color = currentChecker->getColor();
-						bool kinged = currentChecker->kinged;
+						bool kinged = currentChecker->IsKinged();
+						bool special = currentChecker->IsSpecialAvailable();
 						char checkerSymbol[2] = {' ', ' '};
 
-						if(color == black){
+						if(color == black && special == true){
 							checkerSymbol[0]  = 'B';
 						}
-						else if(color == green){
+						else if(color == black && special == false){
+							checkerSymbol[0]  = 'b';
+						}
+						else if(color == green && special == true){
 							checkerSymbol[0] = 'G';
 						}
-						else if(color == red){
+						else if(color == green && special == false){
+							checkerSymbol[0] = 'g';
+						}
+						else if(color == red && special == true){
 							checkerSymbol[0] = 'R';
+						}
+						else if(color == red && special == false){
+							checkerSymbol[0] = 'r';
 						}
 						else {
 							checkerSymbol[0] = '_';

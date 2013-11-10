@@ -113,7 +113,7 @@ void PlayGame(int playerCount) {
 
 		// TODO: Check the sizeof part to make sure it is returning array size and not memory size 
 		//			Also, evaluate if the currentPlayer variable is necessary. If not, remove it.
-		currentPlayer = &playerList[numberOfTurns % sizeof(playerList)];
+		currentPlayer = & playerList[numberOfTurns % sizeof(playerList)];
 		ActivatePlayer(currentPlayer);
 	} //while
 
