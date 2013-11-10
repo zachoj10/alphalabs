@@ -99,24 +99,16 @@ void PlayGame(int playerCount) {
 	// Handle a full game until 1 or fewer players remain
 	while (numberOfActivePlayers > 1) {
 		// Selects current player by modding remaining players with turn number; i.e., turn 4 in 3 player game will select array[1] (2nd player)
-<<<<<<< HEAD
-		for (i = 0; i < playerCount; i++) {
-			// Delete player from active list
-			if (0 == playerList[i].getNumCheckers()) {
-				playerList[i].~PlayerObj();
-				numPlayers = numPlayers - 1;
-=======
 		currentPlayer = &playerList[numberOfTurns % playerCount];
 		
 		// Check if player is still in the game
 		if (currentPlayer->active) {
 			// Check if this is the player's first turn without any checkers 
-			if (0 == currentPlayer->GetNumCheckers()) {
+			if (0 == currentPlayer->getNumCheckers()) {
 				// Deactivate the player and skip turn
 				currentPlayer->active = false;
 				numberOfActivePlayers--;
 				continue;
->>>>>>> Implemented the player turn sequence and game end
 			} //if
 
 			ActivatePlayer(currentPlayer);
@@ -127,7 +119,7 @@ void PlayGame(int playerCount) {
 	// Final player check to handle black's special power. Bring out 'yer dead!
 	for (i = 0; i < playerCount; i++) {
 		if (playerList[i].active) {
-			if (0 == playerList[i].GetNumCheckers()) {
+			if (0 == playerList[i].getNumCheckers()) {
 				// This one died before their time...
 				currentPlayer->active = false;
 				numberOfActivePlayers = numberOfActivePlayers - 1;
@@ -141,7 +133,7 @@ void PlayGame(int playerCount) {
 	// Display game outcome and winner
 	if (1 == numberOfActivePlayers) {
 		// Last remaining player is the winner
-		guiObj->DisplayGameOver_Winner(checkerColorStrings[winningPlayer->GetColor()]);
+		guiObj->DisplayGameOver_Winner(checkerColorStrings[winningPlayer->getColor()]);
 	} else {
 		// Black's special power resulted in no one surviving; Draw!
 		guiObj->DisplayGameOver_Draw();
@@ -252,6 +244,7 @@ int DeletePlayer(PlayerObj list[], int arrayLocation){
 	return 0;
 } //DeletePlayer
 
+
 void StartGame(int players, PlayerObj list[]){
 	CheckerObj *temp;
 	int BlackXCoords[7] = {1, 2, 3, 4, 5, 6, 7};
@@ -260,20 +253,18 @@ void StartGame(int players, PlayerObj list[]){
 	int RedYCoords[7] = {0, 1, 0, 1, 0, 1, 0};
 	int GreenXCoords[7] = {8, 7, 8, 7, 8, 7, 8};
 	int GreenYCoords[7] = {1, 2, 3, 4, 5, 6, 7};
-	if(players == 2){
+
+	if (players == 2) {
 		temp = list[black].GetHead();
 		checkerBoardObj->AddPlayersCheckers(BlackXCoords, BlackYCoords, temp);
 		temp = list[red].GetHead();
 		checkerBoardObj->AddPlayersCheckers(RedXCoords, RedYCoords, temp);
-	}
-	else {
+	} else {
 		temp = list[black].GetHead();
 		checkerBoardObj->AddPlayersCheckers(BlackXCoords, BlackYCoords, temp);
 		temp = list[red].GetHead();
 		checkerBoardObj->AddPlayersCheckers(RedXCoords, RedYCoords, temp);
 		temp = list[green].GetHead();
 		checkerBoardObj->AddPlayersCheckers(GreenXCoords, GreenYCoords, temp);
-	}
-
-}
-
+	} //if-else
+} //StartGame
