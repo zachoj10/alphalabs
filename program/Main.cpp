@@ -11,7 +11,7 @@ using namespace Checkers;
 // Forward Declarations
 int main();
 void PlayGame(int playerCount);
-void ActivatePlayer(PlayerObj *currentPlayer,  PlayerObj *playerList);
+void ActivatePlayer(PlayerObj *currentPlayer,  PlayerObj *playerList, int playerCount);
 CheckerObj *CreateNewPlayer();
 CheckerBoardObj* checkerBoardObj;
 void StartGame(int players, PlayerObj list[]);
@@ -110,7 +110,7 @@ void PlayGame(int playerCount) {
 				continue;
 			} //if
 
-			ActivatePlayer(currentPlayer, playerList);
+			ActivatePlayer(currentPlayer, playerList, playerCount);
 			checkerBoardObj->DisplayChecker();
 			numberOfTurns++;
 		} //if
@@ -144,7 +144,7 @@ void PlayGame(int playerCount) {
 } //PlayGame
 
 
-void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList) {
+void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerCount) {
 	int numberOfOptions = 0, checkerOptions[14];
 	checkerColor playerColor = currentPlayer->getColor();
 	CheckerObj *currentChecker = currentPlayer->GetHead();
@@ -197,9 +197,7 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList) {
 		}
 		destination_X = moveDestination[1];
 		destination_Y = moveDestination[0];
-		std::cout << moveDestination[2];
 		if(moveDestination[2] == 1){
-			std::cout << moveDestination[2];
 			isJump = true;
 		}
 	} catch(int e){
@@ -213,24 +211,26 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList) {
 
 	if(isJump){
 		// Jump another checker
-		int i = 0;
+		int counter;
 		
 		int piecesToKill[4];
 		int *kills = checkerBoardObj->JumpChecker(origin_X, origin_Y, destination_X, destination_Y);
-		while(i < 3){
+		counter = 0 ;
+		for(counter = 0; counter < 3; counter += 2){
 			piecesToKill[0] = kills[0];
 			piecesToKill[1] = kills[1];
 			piecesToKill[2] = kills[2];
 			piecesToKill[3] = kills[3];
 
-			if(piecesToKill[i] != -1){
-				playerList[black].KillChecker(piecesToKill[i]);
-				playerList[red].KillChecker(piecesToKill[i]);
-				playerList[green].KillChecker(piecesToKill[i]);
+			if(piecesToKill[counter] != -1){
+				playerList[black].KillChecker(piecesToKill[counter]);
+				playerList[red].KillChecker(piecesToKill[counter]);
+				playerList[green].KillChecker(piecesToKill[counter]);
+				//counter = (counter + 2);
 			}
-			i = i + 2;
 		}
-	} else {
+	}
+	else {
 		// Move checker to a blank space
 		bool greenSpecial = checkerBoardObj->MoveChecker(origin_X, origin_Y, destination_X, destination_Y);
 		if (greenSpecial) {

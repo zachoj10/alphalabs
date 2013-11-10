@@ -42,7 +42,7 @@ namespace Checkers {
 				CheckerObj *current = head;
 				if (current == NULL) {
 					return;
-				} else if (current->GetID() == id) {
+				} else if (current != NULL && current->GetID() == id) {
 					temp = head;
 					head = head->next;
 					free(temp);
@@ -135,6 +135,10 @@ namespace Checkers {
 
 			checkerColor getColor(){
 				return pieceColor;
+			}
+
+			bool getActive(){
+				return active;
 			}
 
 
