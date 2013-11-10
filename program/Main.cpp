@@ -153,8 +153,9 @@ int ActivatePlayer(PlayerObj *currentPlayer) {
 	origin_Y = CordY;
 	destination_X = 3;
 	destination_Y = 4;
-	int *options = checkerBoardObj->checkerMoveOptions(origin_X - 1, origin_Y - 1);
-	guiObj->DisplayMoveOptions(options);
+	//int options[24];
+	//options = ;
+	guiObj->DisplayMoveOptions(checkerBoardObj->checkerMoveOptions((origin_X - 1), (origin_Y - 1)));
 
 	guiObj->DisplayPlayerMoveMenu();
 	guiObj->HandlePlayerMoveMenuResponse();
