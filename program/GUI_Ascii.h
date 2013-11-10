@@ -213,5 +213,33 @@ namespace Checkers{
 
 				DisplayString(0, 23 + i, "--> ");
 			} //DisplayPlayerCheckerOptionsMenu
+
+
+			void DisplayGameOver_Winner(char winningColor[]) {
+				char *displayPointer;
+				std::string outputString;
+
+				// Format the display string
+				std::stringstream streamBuffer;
+				streamBuffer << "The " << winningColor << " player has won!";
+				outputString = streamBuffer.str();
+				displayPointer = (char*)outputString.c_str();
+
+				DisplayString(0, 21, displayPointer);
+			} //DisplayGameOver_Winner
+
+
+			void DisplayGameOver_Draw() {
+				char *displayPointer;
+				std::string outputString;
+
+				// Format the display string
+				std::stringstream streamBuffer;
+				streamBuffer << "The Black player has blown up the last checker on the board, resulting in a draw!";
+				outputString = streamBuffer.str();
+				displayPointer = (char*)outputString.c_str();
+
+				DisplayString(0, 21, displayPointer);
+			} //DisplayGameOver_Winner
 	}; //GUI_Ascii
 }

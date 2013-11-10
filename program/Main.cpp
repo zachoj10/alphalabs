@@ -71,10 +71,11 @@ void PlayGame(int playerCount) {
 	int numberOfTurns = 0;
 	char key_pressed = ' ';
 	int x, y, i;
-	int numPlayers = playerCount;
+	int numberOfActivePlayers = playerCount;
 
 	// Instantiate class objects
-	PlayerObj *currentPlayer;
+	PlayerObj *currentPlayer = NULL;
+	PlayerObj *winningPlayer = NULL;
 	PlayerObj *playerList;
 	playerList = new PlayerObj[playerCount];
 
@@ -90,37 +91,60 @@ void PlayGame(int playerCount) {
 	
 	// Prepare game elements
 	checkerBoardObj = new CheckerBoardObj();
-	StartGame(numPlayers, playerList);
+	StartGame(numberOfActivePlayers, playerList);
 	console_activate();
 	checkerBoardObj->DisplayBoard();
 	checkerBoardObj->DisplayChecker();
 
 	// Handle a full game until 1 or fewer players remain
-	while (numPlayers > 1) {
+	while (numberOfActivePlayers > 1) {
 		// Selects current player by modding remaining players with turn number; i.e., turn 4 in 3 player game will select array[1] (2nd player)
+<<<<<<< HEAD
 		for (i = 0; i < playerCount; i++) {
 			// Delete player from active list
 			if (0 == playerList[i].getNumCheckers()) {
 				playerList[i].~PlayerObj();
 				numPlayers = numPlayers - 1;
+=======
+		currentPlayer = &playerList[numberOfTurns % playerCount];
+		
+		// Check if player is still in the game
+		if (currentPlayer->active) {
+			// Check if this is the player's first turn without any checkers 
+			if (0 == currentPlayer->GetNumCheckers()) {
+				// Deactivate the player and skip turn
+				currentPlayer->active = false;
+				numberOfActivePlayers--;
+				continue;
+>>>>>>> Implemented the player turn sequence and game end
 			} //if
-		} //for
 
-		// TODO: Check the sizeof part to make sure it is returning array size and not memory size 
-		//			Also, evaluate if the currentPlayer variable is necessary. If not, remove it.
-		currentPlayer = & playerList[numberOfTurns % sizeof(playerList)];
-		ActivatePlayer(currentPlayer);
+			ActivatePlayer(currentPlayer);
+			numberOfTurns++;
+		} //if
 	} //while
 
 	// Final player check to handle black's special power. Bring out 'yer dead!
-	// TODO: check all player's for death
+	for (i = 0; i < playerCount; i++) {
+		if (playerList[i].active) {
+			if (0 == playerList[i].GetNumCheckers()) {
+				// This one died before their time...
+				currentPlayer->active = false;
+				numberOfActivePlayers = numberOfActivePlayers - 1;
+			} else {
+				// We have a winner!
+				winningPlayer = &playerList[i];
+			} //if-else
+		} //if
+	} //for
 
-	if (1 == numPlayers) {
+	// Display game outcome and winner
+	if (1 == numberOfActivePlayers) {
 		// Last remaining player is the winner
-		//CheckerObj winner = playerList[0];
-		//checkerBoardObj->DisplayWinner(winner);
+		guiObj->DisplayGameOver_Winner(checkerColorStrings[winningPlayer->GetColor()]);
 	} else {
-		// Black's special power resulted in no one surviving; Game Over!
+		// Black's special power resulted in no one surviving; Draw!
+		guiObj->DisplayGameOver_Draw();
 	} //if-else
 } //PlayGame
 

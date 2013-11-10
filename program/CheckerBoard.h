@@ -352,12 +352,6 @@ namespace Checkers{
 				guiObj->DisplayBoard();
 			} //DisplayBoard
 
-			void DisplayWinner(CheckerObj winner){
-				// TODO: Get and display winner color
-				char str[50] = "The winner is %s";
-				guiObj->DisplayString(0, 20, str);
-			}
-
 			void DisplayChecker(){
 				int x, y;
 				int realX, realY;

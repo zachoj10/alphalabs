@@ -9,14 +9,16 @@ namespace Checkers {
 		
 		//=============== Public Methods/Members ===============//
 		public:
-			PlayerObj(){
+			PlayerObj() {
 				numCheckers = 0;
+				active = false;
 			};
 
 
 			PlayerObj(checkerColor color) {
 				 numCheckers = 0;
 				 pieceColor = color;
+				 active = true;
 				 generatePieces();
 			};  //__constructor
 
@@ -127,6 +129,7 @@ namespace Checkers {
 
 
 			CheckerObj *head;
+			bool active;
 
 		//=============== Private Methods/Members ===============//
 		private: 
