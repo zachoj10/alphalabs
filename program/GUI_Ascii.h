@@ -170,7 +170,6 @@ namespace Checkers{
 				int l = 0;
 				int optionNumber = 1;
 				int i = 0;
-				char option;
 				int x = 1, y = 20;
 				for (k = 0; k < 8; k++) {
 					for (j = 0; j < 3; j++) {
@@ -212,7 +211,6 @@ namespace Checkers{
 				int i;
 				char *displayPointer;
 				std::string outputString;
-				int options;
 
 				DisplayString(0, 21, "Which checker would you like to move?");
 
@@ -270,7 +268,7 @@ namespace Checkers{
 
 			void clearConsole(){
 				int i;
-				for(i = 0; i < 20; i++){
+				for(i = 0; i < 21; i++){
 					DisplayString(0, 20 + i, "                                                                                       ");
 				}
 			}

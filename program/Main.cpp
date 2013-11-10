@@ -69,7 +69,7 @@ void PlayGame(int playerCount) {
 	// Initialize variables
 	int numberOfTurns = 0;
 	char key_pressed = ' ';
-	int x, y, i;
+	int i;
 	int numberOfActivePlayers = playerCount;
 
 	// Instantiate class objects
@@ -145,8 +145,6 @@ void PlayGame(int playerCount) {
 
 
 void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList) {
-	int CordX, CordY;
-	int *pieceToMove;
 	int numberOfOptions = 0, checkerOptions[14];
 	checkerColor playerColor = currentPlayer->getColor();
 	CheckerObj *currentChecker = currentPlayer->GetHead();
@@ -174,9 +172,6 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList) {
 	origin_X = coords[1];
 
 
-
-	int id;
-	int killCheckerId[2];
 	
 	bool isJump = false;
 	
@@ -216,21 +211,22 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList) {
 	
 
 
-	//guiObj->DisplayPlayerMoveMenu();
-	//guiObj->HandlePlayerMoveMenuResponse() ;
-	//std::cout << moveLocation[0];
 	if(isJump){
 		// Jump another checker
 		int i = 0;
 		
-		int piecesToKill[2];
+		int piecesToKill[4];
 		int *kills = checkerBoardObj->JumpChecker(origin_X, origin_Y, destination_X, destination_Y);
-		while(i < 2){
-			//piecesToKill[0] = kills[0];
-			//piecesToKill[1] = kills[1];
+		while(i < 3){
+			piecesToKill[0] = kills[0];
+			piecesToKill[1] = kills[1];
+			piecesToKill[2] = kills[2];
+			piecesToKill[3] = kills[3];
 
-			if(kills[i] != -1){
-				playerList[(i+1)].KillChecker(kills[i]);
+			if(piecesToKill[i] != -1){
+				playerList[black].KillChecker(piecesToKill[i]);
+				playerList[red].KillChecker(piecesToKill[i]);
+				playerList[green].KillChecker(piecesToKill[i]);
 			}
 			i = i + 2;
 		}
@@ -243,6 +239,9 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList) {
 			checkerBoardObj->AddChecker(origin_X, origin_Y, currentPlayer->GetHead()); 
 		}
 	} //if-else
+
+	checkerBoardObj->CheckKings();
+
 	checkerBoardObj->DisplayChecker();
 } //ActivatePlayer
 

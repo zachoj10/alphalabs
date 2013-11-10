@@ -40,7 +40,6 @@ namespace Checkers {
 			void KillChecker(int id) {
 				CheckerObj *temp;
 				CheckerObj *current = head;
-
 				if (current == NULL) {
 					return;
 				} else if (current->GetID() == id) {
@@ -51,9 +50,11 @@ namespace Checkers {
 				} else {
 					temp = current->next;
 					while (temp->next != NULL) {
-						if (current->GetID() == id) {	
-							current = temp->next;
+						int nextID = temp->GetID();
+						if (nextID == id) {	
+							current->next = current->next->next;
 							free(temp);
+							break;
 						} //if
 
 						current = temp;
@@ -123,7 +124,7 @@ namespace Checkers {
 
 
 			void AddPieceToList(){
-				int i;
+				
 				CheckerObj *temp = head;
 				//nextID++;
 

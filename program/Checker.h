@@ -19,12 +19,12 @@ namespace Checkers {
 				currentY = destinationY;
 			}*/
 
-			bool Move(){
+			bool virtual Move(){
 				return false;
 			}
 			
 			
-			bool Delete() {
+			bool virtual Delete() {
                 //TODO:Remove from linked list
 				return false;
 			}
@@ -67,8 +67,9 @@ namespace Checkers {
 			} //IsSpecialAvailable
 
 
-			void UseSpecial() {
+			bool virtual UseSpecial() {
 				specialAbilityAvailable = false;
+				return specialAbilityAvailable;
 			} //SpecialUsed
 
 
@@ -118,6 +119,7 @@ namespace Checkers {
 
 
 			bool Delete() {
+				CheckerObj::Delete();
 				// Always try to use self-destruct special power
 
 				// Blow up the other checker
@@ -142,6 +144,7 @@ namespace Checkers {
 
 
 			bool Delete() {
+				CheckerObj::Delete();
 				if (this->IsSpecialAvailable()) {
 					// Always try to use special sheild power if it is available
 					this->UseSpecial();
@@ -165,6 +168,7 @@ namespace Checkers {
 
 
 			bool Move() {
+				CheckerObj::Move();
 				char useSpecial;
 				// Prompt user to use special power if it is available
 				if (this->IsSpecialAvailable()) {
