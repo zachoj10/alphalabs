@@ -9,20 +9,31 @@ namespace Checkers {
 		
 		//=============== Public Methods/Members ===============//
 		public:
-			PlayerObj(){
+			PlayerObj() {
 				numCheckers = 0;
+				active = false;
 			};
 
 
 			PlayerObj(checkerColor color) {
 				 numCheckers = 0;
 				 pieceColor = color;
+				 active = true;
 				 generatePieces();
 			};  //__constructor
 
 
 			~PlayerObj() {
-				// TODO: Add memory freeing commands
+				// Delete all checkers in a player's linked list
+				CheckerObj *current = head;
+
+				while (current != 0) {
+					CheckerObj* next = current->next;
+					delete current;
+					current = next;
+				} //while
+
+				head = NULL;
 			} //__destructor
 
 
@@ -127,6 +138,7 @@ namespace Checkers {
 
 
 			CheckerObj *head;
+			bool active;
 
 		//=============== Private Methods/Members ===============//
 		private: 

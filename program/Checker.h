@@ -12,11 +12,6 @@ namespace Checkers {
 				kinged = false;
 				next = NULL;
 			} //__constructor
-
-
-			~CheckerObj() {
-				// TODO: Add memory freeing commands
-			} //__destructor
 			
 			
 			/*void Move(int destinationX, int destinationY) {
@@ -107,11 +102,6 @@ namespace Checkers {
 			} //__constructor
 
 
-			~BlackCheckerObj() {
-
-			} //__destructor
-
-
 			bool UseSpecial() {
 				// Call parent method
 				CheckerObj::UseSpecial();
@@ -151,11 +141,6 @@ namespace Checkers {
 			} //__constructor
 
 
-			~RedCheckerObj() {
-
-			} //__constructor
-
-
 			bool Delete() {
 				if (this->IsSpecialAvailable()) {
 					// Always try to use special sheild power if it is available
@@ -177,11 +162,6 @@ namespace Checkers {
 				directions[0] = NW;
 				directions[1] = SW;
 			} //__constructor
-
-
-			~GreenCheckerObj() {
-				// TODO: Add memory cleanup if neccessary
-			} //__destructor
 
 
 			bool Move() {
