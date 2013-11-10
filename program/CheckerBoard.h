@@ -9,14 +9,13 @@ namespace Checkers{
 		//=============== Public Methods/Members ===============//
 		public: 
 			CheckerBoardObj() {		
-				// Instantiate class objects
-				guiObj = new GUI_Ascii();
+				// Set all empty spaces to NULL
 				memset((void *) checkerBoard, 0, sizeof(checkerBoard));
 			} //__constructor
 
 
 			~CheckerBoardObj() {
-				// TODO: Add memory freeing commands
+				delete checkerBoard;
 			} //__destructor
 
 
@@ -209,7 +208,7 @@ namespace Checkers{
 				//Special Checking
 				if(checkerBoard[killY][killX]->getColor() == black){
 					result[0] = checkerBoard[killY][killX]->GetID();
-					if(checkerBoard[killY][killX]->Delete()){
+					if (checkerBoard[killY][killX]->Delete()){
 						if(checkerBoard[originY][originX]->getColor() == red && checkerBoard[originY][originX]->IsSpecialAvailable() == true){
 							checkerBoard[originX][originY]->UseSpecial();
 							result[1] = -1;
@@ -411,24 +410,9 @@ namespace Checkers{
 
 			}
 
-			void setBoardNull(){
-				int i, j;
-				for(i = 0; i < 8; i ++){
-					for(j = 0; j < 8; j++){
-						checkerBoard[i][j] = NULL;
-					}
-				}
-			}
-
-
 
 		//=============== Private Methods/Members ===============//
 		private:
-			CheckerObj *checkerBoard[9][9];
-
-			//checkerBoard = new CheckerObj*[9][9];
-			//CheckerObj *checkerBoard[9][9];
-			GUI_Ascii *guiObj;
-			 
+			CheckerObj *checkerBoard[9][9]; 
 	}; //CheckerBoardObj
 }

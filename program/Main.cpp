@@ -17,7 +17,6 @@ CheckerBoardObj* checkerBoardObj;
 void StartGame(int players, PlayerObj list[]);
 
 
-
 int main() {
 	// Initialize variables
 	int numberOfTurns = 0;
@@ -138,6 +137,9 @@ void PlayGame(int playerCount) {
 		// Black's special power resulted in no one surviving; Draw!
 		guiObj->DisplayGameOver_Draw();
 	} //if-else
+
+	// Clean up after the current game
+	delete playerList;
 } //PlayGame
 
 
@@ -174,7 +176,6 @@ void ActivatePlayer(PlayerObj *currentPlayer) {
 	CordY = pieceToMove[1];
 
 	//moveOptions[0][0] = checkerMoveOptions(CordX, CordY);
-	
 
 	int id;
 	int killCheckerId[2];
@@ -223,7 +224,8 @@ void ActivatePlayer(PlayerObj *currentPlayer) {
 		}
 	} else {
 		// Move checker to a blank space
-		if(checkerBoardObj->MoveChecker(origin_X, origin_Y, destination_X, destination_Y)){
+		if (checkerBoardObj->MoveChecker(origin_X, origin_Y, destination_X, destination_Y)) {
+			// Activate Green's special power
 			currentPlayer->AddPieceToList();
 			checkerBoardObj->AddChecker(origin_X, origin_Y, currentPlayer->GetHead()); 
 		}

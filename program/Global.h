@@ -1,9 +1,6 @@
 #pragma once
 #include "GUI_Ascii.h"
 
-// Macro
-#define stringify( name ) # name
-
 namespace Checkers {
 	enum checkerColor {black, red, green, NUM_OF_COLORS};
 	char *checkerColorStrings[] = {"black", "red", "green"};

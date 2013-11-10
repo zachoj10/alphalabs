@@ -24,7 +24,16 @@ namespace Checkers {
 
 
 			~PlayerObj() {
-				// TODO: Add memory freeing commands
+				// Delete all checkers in a player's linked list
+				CheckerObj *current = head;
+
+				while (current != 0) {
+					CheckerObj* next = current->next;
+					delete current;
+					current = next;
+				} //while
+
+				head = NULL;
 			} //__destructor
 
 
