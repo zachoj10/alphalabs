@@ -163,8 +163,8 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerC
 			numberOfOptions++;
 			currentChecker = currentChecker->next;
 		} //while
-		checkerOptions[numberOfOptions] = currentChecker->GetID();
-		numberOfOptions++;
+		//checkerOptions[numberOfOptions] = currentChecker->GetID();
+		//numberOfOptions++;
 	} //if-else
 
 	// Display all checker options
