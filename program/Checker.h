@@ -108,9 +108,9 @@ namespace Checkers {
 				CheckerObj::UseSpecial();
 
 				// Give 50% chance to self-destruct
-				int boom = rand() % 2;
+				int boom = rand() % 9;
 
-				if (1 == boom) {
+				if (boom < 5) {
 					return true;
 				} else {
 					return false;
