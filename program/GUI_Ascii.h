@@ -295,6 +295,9 @@ namespace Checkers{
 				//Retrieve checker seletion
 
 				do{
+					optionSelected[0] = -1;
+					optionSelected[1] = -1;
+					optionSelected[2] = -1;
 					if(count == -1){
 						std::cout << "Invalid input, please try again. ---> ";
 					}
@@ -324,7 +327,7 @@ namespace Checkers{
 
 					}
 					count = -1;
-				} while((optionSelected[0] == NULL && optionSelected[1] == NULL && optionSelected[2] == NULL));
+				} while((optionSelected[0] == -1 && optionSelected[1] == -1 && optionSelected[2] == -1));
 
 
 				return optionSelected;
