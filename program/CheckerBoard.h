@@ -248,7 +248,7 @@ namespace Checkers{
 					result[1] = checkerBoard[killY][killX]->getColor();
 					if (checkerBoard[killY][killX]->Delete()){
 						if(checkerBoard[originY][originX]->getColor() == red && checkerBoard[originY][originX]->IsSpecialAvailable() == true){
-							checkerBoard[originX][originY]->UseSpecial();
+							checkerBoard[originY][originX]->UseSpecial();
 							result[2] = -1;
 							result[3] = -1;
 						}

@@ -165,21 +165,14 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerC
 
 	// Display all checker options
 	int origin_X, origin_Y, destination_X, destination_Y;
-	guiObj->DisplayPlayerCheckerOptionsMenu(checkerOptions, numberOfOptions);
+	guiObj->DisplayPlayerCheckerOptionsMenu(checkerOptions, numberOfOptions, checkerColorStrings[currentPlayer->getColor()]);
 	int moveOption = guiObj->HandlePlayerCheckerOptions(checkerOptions);
 	int *coords = checkerBoardObj->convertToCoords(moveOption);
 	origin_Y = coords[0];
 	origin_X = coords[1];
 
-
-	
-	bool isJump = false;
-	
-	//GOOOOEY!?! Get origX, origY, destX, destY, isJump
-
-
-	
-		int *moveLocation;
+	bool isJump = false;	
+	int *moveLocation;
 
 	try {
 		int i;
@@ -187,61 +180,63 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerC
 
 		int moveStuff[24];
 		int moveDestination[3];
-		for(i = 0; i < 25; i++){
+		
+		for (i = 0; i < 24; i++) {
 			moveStuff[i] = options[i];
-		}
+		} //for
+
 		guiObj->DisplayMoveOptions(moveStuff);
 		moveLocation = guiObj->HandlePlayerMoveOptions(moveStuff);
-		for(i = 0; i < 3; i++){
+		
+		for(i = 0; i < 3; i++) {
 			moveDestination[i] = moveLocation[i];
-		}
+		} //for
+
 		destination_X = moveDestination[1];
 		destination_Y = moveDestination[0];
-		if(moveDestination[2] == 1){
+
+		if (moveDestination[2] == 1) {
 			isJump = true;
-		}
-	} catch(int e){
+		} //if
+	} catch (int e) {
 		if (e == UnknownDirection) {
 			std::cerr<<("Unknown Direction Error");
 		} //if
-	} //try-catch*/
+	} //try-catch
 
-	
-
-
-	if(isJump){
+	if (isJump) {
 		// Jump another checker
 		int counter;
 		
 		int piecesToKill[4];
 		int *kills = checkerBoardObj->JumpChecker(origin_X, origin_Y, destination_X, destination_Y);
-		counter = 0 ;
-		for(counter = 0; counter < 3; counter += 2){
+		counter = 0;
+		
+		for (counter = 0; counter < 3; counter += 2) {
 			piecesToKill[0] = kills[0];
 			piecesToKill[1] = kills[1];
 			piecesToKill[2] = kills[2];
 			piecesToKill[3] = kills[3];
 
-			if(piecesToKill[counter] != -1){
+			if (piecesToKill[counter] != -1) {
 				playerList[black].KillChecker(piecesToKill[counter]);
 				playerList[red].KillChecker(piecesToKill[counter]);
 				playerList[green].KillChecker(piecesToKill[counter]);
 				//counter = (counter + 2);
-			}
-		}
-	}
-	else {
+			} //if
+		} //for
+	} else {
 		// Move checker to a blank space
 		bool greenSpecial = checkerBoardObj->MoveChecker(origin_X, origin_Y, destination_X, destination_Y);
+
 		if (greenSpecial) {
 			// Activate Green's special power
 			currentPlayer->AddPieceToList();
 			checkerBoardObj->AddChecker(origin_X, origin_Y, currentPlayer->GetHead()); 
-		}
+		} //if
 	} //if-else
 
 	checkerBoardObj->CheckKings();
-
 	checkerBoardObj->DisplayChecker();
 } //ActivatePlayer
 

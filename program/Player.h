@@ -27,7 +27,7 @@ namespace Checkers {
 				// Delete all checkers in a player's linked list
 				CheckerObj *current = head;
 
-				while (current != 0) {
+				while (current != NULL) {
 					CheckerObj* next = current->next;
 					delete current;
 					current = next;

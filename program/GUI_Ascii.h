@@ -206,13 +206,36 @@ namespace Checkers{
 			}
 
 
-			void DisplayPlayerCheckerOptionsMenu(int checkerOptions[], int numberOfOptions) {
+			void DisplayActivePlayerColor(char activeColor[]) {
+
+				int startingDisplayRow = 21;
+				char *displayPointer;
+				std::string outputString;
+			
+				// Format the option display string
+				std::stringstream streamBuffer;
+				streamBuffer << activeColor << " Player's Turn:";
+				outputString = streamBuffer.str();
+				displayPointer = (char*)outputString.c_str();
+
+				DisplayString(0, startingDisplayRow, displayPointer);
+			} //DisplayActivePlayerColor
+
+
+			void DisplayPlayerCheckerOptionsMenu(int checkerOptions[], int numberOfOptions, char activeColor[]) {
 				clearConsole();
-				int i;
+				int i, startingDisplayRow = 21;
 				char *displayPointer;
 				std::string outputString;
 
-				DisplayString(0, 21, "Which checker would you like to move?");
+				// Display active player's color
+				std::stringstream streamBuffer;
+				streamBuffer << activeColor << " Player's Turn:";
+				outputString = streamBuffer.str();
+				displayPointer = (char*)outputString.c_str();
+
+				DisplayString(0, startingDisplayRow, displayPointer);
+				DisplayString(0, startingDisplayRow + 1, "Which checker would you like to move?");
 
 				//Convert ID to Coordinates
 			
@@ -223,10 +246,10 @@ namespace Checkers{
 					outputString = streamBuffer.str();
 					displayPointer = (char*)outputString.c_str();
 
-					DisplayString(0, 22 + i, displayPointer);
+					DisplayString(0, startingDisplayRow + 2 + i, displayPointer);
 				} //for
 
-				DisplayString(0, 23 + i, "--> ");
+				DisplayString(0, startingDisplayRow + 3 + i, "--> ");
 			} //DisplayPlayerCheckerOptionsMenu
 
 			int HandlePlayerCheckerOptions(int checkerOptions[]) {
