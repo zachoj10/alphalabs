@@ -180,8 +180,13 @@ namespace Checkers{
 				int optionNumber = 1;
 				int i = 0;
 				int x = 1, y = 20;
+				bool isEmpty = true;
 				for (k = 0; k < 8; k++) {
 					for (j = 0; j < 3; j++) {
+						if (options[l] != -1) {
+							isEmpty = false; 
+							//Will only be false if there is a valid move. This helps when a player selects a checker with no moves.
+						}
 						moveOptions[k][j] = options[l];
 						l++;
 					}
@@ -192,26 +197,29 @@ namespace Checkers{
 
 				//std::cout << sizeof(options);
 				//std::cout << optionNumber << ". Move to " << options[0] << "," << options[1];
-
-				j = 0;
-				for(j = 0; j < 24; j+=3){
-					//if(moveOptions[j][0] != -858993460){
-					if(options[j] > -1) {
-						if(options[(j + 2)] == 1){
-							std::cout << optionNumber << ". Jump to " << (options[(j + 1)] + 1)<< "," << (options[j] + 1);
+				if (isEmpty) {
+					std::cout << "No move options available, enter 0 to select another.";
+				}
+				else {
+					j = 0;
+					for(j = 0; j < 24; j+=3){
+						//if(moveOptions[j][0] != -858993460){
+						if(options[j] > -1) {
+							if(options[(j + 2)] == 1){
+								std::cout << optionNumber << ". Jump to " << (options[(j + 1)] + 1)<< "," << (options[j] + 1);
+							}
+							else{
+							//else if(moveOptions[2][i] == 0){
+								std::cout << optionNumber << ". Move to " << (options[(j + 1)] + 1)<< "," << (options[j] + 1);
+							}
+							//j++;
+							optionNumber++;
+							y = y++;
+							COORD pos = {0 , y};
+							SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 						}
-						else{
-						//else if(moveOptions[2][i] == 0){
-							std::cout << optionNumber << ". Move to " << (options[(j + 1)] + 1)<< "," << (options[j] + 1);
-						}
-						//j++;
-						optionNumber++;
-						y = y++;
-						COORD pos = {0 , y};
-						SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 					}
 				}
-				
 			}
 
 
@@ -287,23 +295,24 @@ namespace Checkers{
 				std::cin.ignore();
 				std::cin >> checkerSelectionBuffer;
 				checkerSelectionBuffer = checkerSelectionBuffer;
-				int optionSelected[3];
-				for(i = 0; i < 24; i = i + 3){
-					if(moveOptions[i] != -1){
-						++count;
+				if (checkerSelectionBuffer == 0) {
+					return NULL;
+				} else {
+					int optionSelected[3];
+					for(i = 0; i < 24; i = i + 3){
+						if(moveOptions[i] != -1){
+							++count;
+						}
+						if(count == checkerSelectionBuffer){
+							optionSelected[0] = moveOptions[i];
+							optionSelected[1] = moveOptions[i + 1];
+							optionSelected[2] = moveOptions[i + 2];
+							break;
+						}
+
 					}
-					if(count == checkerSelectionBuffer){
-						optionSelected[0] = moveOptions[i];
-						optionSelected[1] = moveOptions[i + 1];
-						optionSelected[2] = moveOptions[i + 2];
-						break;
-					}
-
-				}
-
-				
-
-				return optionSelected;
+					return optionSelected;
+				}	
 			} 
 
 			void clearConsole(){
