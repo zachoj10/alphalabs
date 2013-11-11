@@ -171,8 +171,6 @@ namespace Checkers{
 
 			void DisplayMoveOptions(int options[]){
 				clearConsole();
-				std::cout << options[3];
-				//int realOptions[24] = options;
 				int moveOptions[8][3];
 				int k, j;
 				int l = 0;
@@ -194,8 +192,6 @@ namespace Checkers{
 				COORD pos = {0 , y};
 				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 
-				//std::cout << sizeof(options);
-				//std::cout << optionNumber << ". Move to " << options[0] << "," << options[1];
 				if (isEmpty) {
 					std::cout << "No move options available, enter 0 to select another ";
 				}

@@ -88,8 +88,6 @@ namespace Checkers {
 		//=============== Protected Methods/Members ===============//
 		protected:	
 			int checkerID;
-			int currentX;
-			int currentY;
 	}; //CheckerObj
 
 
