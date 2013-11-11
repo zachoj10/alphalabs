@@ -70,8 +70,9 @@ namespace Checkers {
 					CheckerObj *temp = head;
 				
 					head = CreateChecker();
+					numCheckers++;
 					//nextID++;
-					for(i = 0; i < 7; i++){
+					for(i = 0; i < 6; i++){
 						temp = CreateChecker();
 						temp->next = head;
 						head = temp;
