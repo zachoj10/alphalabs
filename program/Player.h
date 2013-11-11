@@ -54,6 +54,7 @@ namespace Checkers {
 						if (nextID == id) {	
 							current->next = current->next->next;
 							free(temp);
+							numCheckers--;
 							break;
 						} //if
 
@@ -129,6 +130,7 @@ namespace Checkers {
 				//nextID++;
 
 				temp = CreateChecker();
+				temp->UseSpecial();
 				temp->next = head;
 				head = temp;
 			}

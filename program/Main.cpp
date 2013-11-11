@@ -14,7 +14,8 @@ void PlayGame(int playerCount);
 void ActivatePlayer(PlayerObj *currentPlayer,  PlayerObj *playerList, int playerCount);
 CheckerObj *CreateNewPlayer();
 CheckerBoardObj* checkerBoardObj;
-void StartGame(int players, PlayerObj list[]);
+void StartGame(int players, PlayerObj piecesToKill[]);
+void RemoveCheckers(PlayerObj *playerList, int kills[]);
 
 
 int main() {
@@ -212,16 +213,20 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerC
 		int piecesToKill[4];
 		int *kills = checkerBoardObj->JumpChecker(origin_X, origin_Y, destination_X, destination_Y);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		counter = 0 ;
 
 		PlayerObj tempPlayerList[3];
 		tempPlayerList[0] = playerList[0];
 		tempPlayerList[1] = playerList[1];
 		tempPlayerList[2] = playerList[2];
+=======
+>>>>>>> master
 		piecesToKill[0] = kills[0];
 		piecesToKill[1] = kills[1];
 		piecesToKill[2] = kills[2];
 		piecesToKill[3] = kills[3];
+<<<<<<< HEAD
 		for(counter = 0; counter < 3; counter += 2){
 			if(piecesToKill[counter] != -1){
 				int color = piecesToKill[counter + 1] + 1;
@@ -246,6 +251,11 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerC
 				//counter = (counter + 2);
 			} //if
 		} //for
+=======
+
+		RemoveCheckers(playerList, piecesToKill);
+		
+>>>>>>> master
 	} else {
 		// Move checker to a blank space
 		bool greenSpecial = checkerBoardObj->MoveChecker(origin_X, origin_Y, destination_X, destination_Y);
@@ -276,7 +286,7 @@ int DeletePlayer(PlayerObj list[], int arrayLocation){
 } //DeletePlayer
 
 
-void StartGame(int players, PlayerObj list[]){
+void StartGame(int players, PlayerObj *list){
 	CheckerObj *temp;
 	int BlackXCoords[7] = {1, 2, 3, 4, 5, 6, 7};
 	int BlackYCoords[7] = {8, 7, 8, 7, 8, 7, 8};
@@ -299,3 +309,27 @@ void StartGame(int players, PlayerObj list[]){
 		checkerBoardObj->AddPlayersCheckers(GreenXCoords, GreenYCoords, temp);
 	} //if-else
 } //StartGame
+
+void RemoveCheckers(PlayerObj *playerList, int piecesToKill[]){
+	int i;
+	int killList[4];
+	killList[0] = piecesToKill[0];
+	killList[1] = piecesToKill[1];
+	killList[2] = piecesToKill[2];
+	killList[3] = piecesToKill[3];
+	for (i= 0; i < 3; i += 2) {
+		int color = killList[(i+1)];
+		int id = killList[i];
+		if(killList[i] == -1) {
+		} //if
+		else if(color == 0){
+			playerList[black].KillChecker(id);
+		}
+		else if(color == 1){
+			playerList[red].KillChecker(id);
+		}
+		else if(color == 2){
+			playerList[green].KillChecker(id);
+		}
+	} //for
+}
