@@ -146,6 +146,7 @@ void PlayGame(int playerCount) {
 
 
 void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerCount) {
+	try {
 	int numberOfOptions = 0, checkerOptions[14];
 	checkerColor playerColor = currentPlayer->getColor();
 	CheckerObj *currentChecker = currentPlayer->GetHead();
@@ -165,29 +166,30 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerC
 	} //if-else
 
 	// Display all checker options
-	int origin_X, origin_Y, destination_X, destination_Y;
-	guiObj->DisplayPlayerCheckerOptionsMenu(checkerOptions, numberOfOptions, checkerColorStrings[currentPlayer->getColor()]);
-	int moveOption = guiObj->HandlePlayerCheckerOptions(checkerOptions);
-	int *coords = checkerBoardObj->convertToCoords(moveOption);
-	origin_Y = coords[0];
-	origin_X = coords[1];
-
-	bool isJump = false;	
-	int *moveLocation;
-
-	try {
-		int i;
-		int *options = checkerBoardObj->checkerMoveOptions(origin_X, origin_Y);
-
-		int moveStuff[24];
-		int moveDestination[3];
+	
 		
-		for (i = 0; i < 24; i++) {
-			moveStuff[i] = options[i];
-		} //for
+			int origin_X, origin_Y, destination_X, destination_Y;
+			int moveStuff[24];
+			int moveDestination[3];
+			bool isJump = false;	
+			int *moveLocation;
+			int i;
+		do {
+			guiObj->DisplayPlayerCheckerOptionsMenu(checkerOptions, numberOfOptions, checkerColorStrings[currentPlayer->getColor()]);
+			int moveOption = guiObj->HandlePlayerCheckerOptions(checkerOptions);
+			int *coords = checkerBoardObj->convertToCoords(moveOption);
+			origin_Y = coords[0];
+			origin_X = coords[1];
 
-		guiObj->DisplayMoveOptions(moveStuff);
-		moveLocation = guiObj->HandlePlayerMoveOptions(moveStuff);
+			int *options = checkerBoardObj->checkerMoveOptions(origin_X, origin_Y);
+
+			for (i = 0; i < 24; i++) {
+				moveStuff[i] = options[i];
+			} //for
+
+			guiObj->DisplayMoveOptions(moveStuff);
+			moveLocation = guiObj->HandlePlayerMoveOptions(moveStuff);
+		} while (moveLocation == NULL);
 		
 		for(i = 0; i < 3; i++) {
 			moveDestination[i] = moveLocation[i];
@@ -199,11 +201,7 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerC
 		if (moveDestination[2] == 1) {
 			isJump = true;
 		} //if
-	} catch (int e) {
-		if (e == UnknownDirection) {
-			std::cerr<<("Unknown Direction Error");
-		} //if
-	} //try-catch
+	
 
 	if (isJump) {
 		// Jump another checker
@@ -231,6 +229,11 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerC
 
 	checkerBoardObj->CheckKings();
 	checkerBoardObj->DisplayChecker();
+	} catch (int e) {
+		if (e == UnknownDirection) {
+			std::cerr<<("Unknown Direction Error");
+		} //if
+	} //try-catch
 } //ActivatePlayer
 
 
