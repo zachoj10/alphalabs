@@ -268,7 +268,7 @@ namespace Checkers{
 				//Retrieve checker seletion
 				do{
 					if(selection != ' '){
-						std::cout << "Invalid input, please try again. --->";
+						std::cout << "Invalid input, please try again. ---> ";
 					}
 					std::cin.ignore();
 					std::cin >> selection;
@@ -281,25 +281,37 @@ namespace Checkers{
 
 			int * HandlePlayerMoveOptions(int moveOptions[]) {
 				int checkerSelectionBuffer;
+				char selection;
 				int i, count = 0;
+				int optionSelected[3];
 				
 				//Retrieve checker seletion
-				std::cin.ignore();
-				std::cin >> checkerSelectionBuffer;
-				checkerSelectionBuffer = checkerSelectionBuffer;
-				int optionSelected[3];
-				for(i = 0; i < 24; i = i + 3){
-					if(moveOptions[i] != -1){
-						++count;
+				do{
+					if(count == -1){
+						std::cout << "Invalid input, please try again. ---> ";
 					}
-					if(count == checkerSelectionBuffer){
-						optionSelected[0] = moveOptions[i];
-						optionSelected[1] = moveOptions[i + 1];
-						optionSelected[2] = moveOptions[i + 2];
-						break;
+					else{
+						std::cout << "---> ";
 					}
+					count = 0;
+					std::cin.ignore();
+					std::cin >> selection;
+					checkerSelectionBuffer = static_cast<int>(selection);
+					checkerSelectionBuffer = checkerSelectionBuffer - 48;
+					for(i = 0; i < 24; i = i + 3){
+						if(moveOptions[i] != -1){
+							++count;
+						}
+						if(count == checkerSelectionBuffer){
+							optionSelected[0] = moveOptions[i];
+							optionSelected[1] = moveOptions[i + 1];
+							optionSelected[2] = moveOptions[i + 2];
+							break;
+						}
 
-				}
+					}
+					count = -1;
+				} while(optionSelected[0] != NULL && optionSelected[1] != NULL && optionSelected[2] != NULL);
 
 				
 
