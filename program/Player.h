@@ -93,7 +93,7 @@ namespace Checkers {
 
 			static int getNextID(){
 				int result;
-				static int nextID = 0;
+				static int nextID = 1;
 				result = nextID;
 				nextID++;
 				return result;

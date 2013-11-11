@@ -197,7 +197,7 @@ namespace Checkers{
 				//std::cout << sizeof(options);
 				//std::cout << optionNumber << ". Move to " << options[0] << "," << options[1];
 				if (isEmpty) {
-					std::cout << "No move options available, enter 0 to select another.";
+					std::cout << "No move options available, enter 0 to select another --> ";
 				}
 				else {
 					j = 0;

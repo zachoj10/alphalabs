@@ -158,7 +158,7 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerC
 		numberOfOptions++;
 	} else {
 		// Handle case of multiple checkers
-		while (NULL != currentChecker->next) {
+		while (NULL != currentChecker) {
 			checkerOptions[numberOfOptions] = currentChecker->GetID();
 			numberOfOptions++;
 			currentChecker = currentChecker->next;
