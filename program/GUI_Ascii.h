@@ -100,24 +100,6 @@ namespace Checkers{
 				// TODO: Prompt user for which checker to move
 			} //DisplayPlayerMoveMenu
 
-			/*int* PieceCoordMenu(){
-				int CordX, CordY;
-				int result[2];
-				DisplayString(0, 20, "What is the X Coordinate of the piece you want to move?");
-				do {
-					CordX = GetIntInput();
-				}
-				while(CordX < 1 || CordX > 9); 
-				result[0] = CordX;
-				DisplayString(0, 21, "\nWhat is the Y Coordinate of the piece you want to move?");
-				do {
-					CordY = GetIntInput();
-				}
-				while(CordY < 1 || CordY > 9); 
-				result[1] = CordY;
-				return result;
-			}*/
-
 
 			// TODO: Adjust return type as needed depending on how the menu is implemented
 			char HandlePlayerMoveMenuResponse() {

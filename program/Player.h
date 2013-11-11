@@ -45,21 +45,21 @@ namespace Checkers {
 				} else if (current != NULL && current->GetID() == id) {
 					temp = head;
 					head = head->next;
-					free(temp);
+					delete temp;
 					return;
 				} else {
-					temp = current->next;
-					while (temp->next != NULL) {
-						int nextID = temp->GetID();
+					temp = head;
+					while (current != NULL) {
+						int nextID = current->GetID();
 						if (nextID == id) {	
-							current->next = current->next->next;
-							free(temp);
+							temp->next = current->next;
+							delete current;
 							numCheckers--;
 							break;
 						} //if
 
-						current = temp;
-						temp = temp->next;
+						temp = current;
+						current = current->next;
 					} //while
 				} //if-elseif-else
 			} //KillChecker
@@ -153,8 +153,3 @@ namespace Checkers {
 			checkerColor pieceColor;
 	}; //PlayerObj
 }
-
-/*
-The IDs are not unique for each color. Do we want to develop a new ID system to uniquely identify a piece by checking only one condition?
-	The way we have it set up we need to use two conditions to identify a checker (i.e. Red 1) 
-*/

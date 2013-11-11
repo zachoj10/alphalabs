@@ -12,12 +12,7 @@ namespace Checkers {
 				kinged = false;
 				next = NULL;
 			} //__constructor
-			
-			
-			/*void Move(int destinationX, int destinationY) {
-				currentX = destinationX;
-				currentY = destinationY;
-			}*/
+
 
 			bool virtual Move(){
 				return false;

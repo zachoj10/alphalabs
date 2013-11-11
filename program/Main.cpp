@@ -237,20 +237,6 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerC
 } //ActivatePlayer
 
 
-// TODO: Discern what this function should be doing
-int DeletePlayer(PlayerObj list[], int arrayLocation){
-	PlayerObj player = list[0]; //TODO:PLEASE FIX
-	int numCheckers = player.getNumCheckers();
-
-	if (numCheckers == 0) {
-
-	} //if
-
-	// TODO: Replace dummy return value with actual return
-	return 0;
-} //DeletePlayer
-
-
 void StartGame(int players, PlayerObj *list){
 	CheckerObj *temp;
 	int BlackXCoords[7] = {1, 2, 3, 4, 5, 6, 7};
