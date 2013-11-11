@@ -167,7 +167,7 @@ void ActivatePlayer(PlayerObj *currentPlayer, PlayerObj *playerList, int playerC
 	// Display all checker options
 	int origin_X, origin_Y, destination_X, destination_Y;
 	guiObj->DisplayPlayerCheckerOptionsMenu(checkerOptions, numberOfOptions, checkerColorStrings[currentPlayer->getColor()]);
-	int moveOption = guiObj->HandlePlayerCheckerOptions(checkerOptions);
+	int moveOption = guiObj->HandlePlayerCheckerOptions(checkerOptions, numberOfOptions);
 	int *coords = checkerBoardObj->convertToCoords(moveOption);
 	origin_Y = coords[0];
 	origin_X = coords[1];

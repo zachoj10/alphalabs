@@ -54,7 +54,7 @@ namespace Checkers{
 
 
 			void DisplayPlayerCountMenu() {
-				std::cout << "\nHow many players? (2-3) ---> ";
+				std::cout << "\nHow many players? (2-3)  ";
 			} //DisplayPlayerCountMenu
 
 
@@ -78,12 +78,21 @@ namespace Checkers{
 
 
 			int HandlePlayerCountMenuResponse() {
-				int playerCount;
+				char playerCount;
+				int realCount;
 
 				// Retrieve player count
-				std::cin.ignore();
-				std::cin >> playerCount;
-				return playerCount;
+				do {std::cout << "---> ";
+					std::cin.ignore();
+					std::cin >> playerCount;}
+				while(playerCount != 50 && playerCount != 51);
+				if(playerCount == 50){
+					realCount = 2;
+				}
+				else {
+					realCount = 3;
+				}
+				return realCount;
 			} //HandlePlayerCountMenuResponse
 
 
@@ -252,12 +261,20 @@ namespace Checkers{
 				DisplayString(0, startingDisplayRow + 3 + i, "--> ");
 			} //DisplayPlayerCheckerOptionsMenu
 
-			int HandlePlayerCheckerOptions(int checkerOptions[]) {
+			int HandlePlayerCheckerOptions(int checkerOptions[], int numberOfOptions) {
+				char selection = ' ';
 				int checkerSelectionBuffer;
 				
 				//Retrieve checker seletion
-				std::cin.ignore();
-				std::cin >> checkerSelectionBuffer;
+				do{
+					if(selection != ' '){
+						std::cout << "Invalid input, please try again. --->";
+					}
+					std::cin.ignore();
+					std::cin >> selection;
+					checkerSelectionBuffer = static_cast<int>(selection);
+					checkerSelectionBuffer = checkerSelectionBuffer - 48;
+				} while(checkerSelectionBuffer < 1 || checkerSelectionBuffer > numberOfOptions);
 				int checkerID = checkerOptions[checkerSelectionBuffer - 1];
 				return checkerID;
 			} 
