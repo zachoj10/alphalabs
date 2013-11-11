@@ -100,6 +100,7 @@ void PlayGame(int playerCount) {
 	while (numberOfActivePlayers > 1) {
 		// Selects current player by modding remaining players with turn number; i.e., turn 4 in 3 player game will select array[1] (2nd player)
 		currentPlayer = &playerList[numberOfTurns % playerCount];
+		numberOfTurns++;
 		
 		// Check if player is still in the game
 		if (currentPlayer->active) {
@@ -113,7 +114,6 @@ void PlayGame(int playerCount) {
 
 			ActivatePlayer(currentPlayer, playerList, playerCount);
 			checkerBoardObj->DisplayChecker();
-			numberOfTurns++;
 		} //if
 	} //while
 
