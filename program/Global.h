@@ -3,7 +3,7 @@
 
 namespace Checkers {
 	enum checkerColor {black, red, green, NUM_OF_COLORS};
-	char *checkerColorStrings[] = {"black", "red", "green"};
+	char *checkerColorStrings[] = {"Black", "Red", "Green"};
 
 	enum checkerDirection {SE, SW, NE, NW, N, S, E, W, NUM_OF_DIRECTIONS};
 	checkerDirection dArray[8] = {SE, SW, NE, NW, N, S, E, W};
