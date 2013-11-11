@@ -389,20 +389,19 @@ namespace Checkers{
 
 
 			void AddPlayersCheckers(int xCords[], int yCords[], CheckerObj *ptr){
-				int i;
+				int i=0;
 				CheckerObj *temp = ptr;
-				for(i = 0; i < 7; i++){
+
+				while (temp != NULL) {
 					AddChecker(xCords[i], yCords[i], temp);
-					if(temp->next != NULL){
-						temp = temp->next;
-					}
+					i++;
+					temp = temp->next;
+				} //while
 
+				COORD pos = {0, 30};
+				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+			} //AddPlayersCheckers
 
-					COORD pos = {0, 30};
-					SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-					//temp = temp->next;
-				}
-			}
 
 			void DisplayBoard() {
 				// TODO: Update this method to draw each current checker
