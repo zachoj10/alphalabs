@@ -324,7 +324,7 @@ namespace Checkers{
 
 					}
 					count = -1;
-				} while((optionSelected[0] != NULL && optionSelected[1] != NULL && optionSelected[2] != NULL));
+				} while((optionSelected[0] == NULL && optionSelected[1] == NULL && optionSelected[2] == NULL));
 
 
 				return optionSelected;
