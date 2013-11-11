@@ -309,7 +309,7 @@ namespace Checkers{
 					if (checkerSelectionBuffer == 0) {
 						return NULL;
 					}else {
-						int optionSelected[3];
+						optionSelected[3];
 						for(i = 0; i < 24; i = i + 3){
 							if(moveOptions[i] != -1){
 								++count;
@@ -324,7 +324,7 @@ namespace Checkers{
 
 					}
 					count = -1;
-				} while(checkerSelectionBuffer != NULL || optionSelected[0] != NULL && optionSelected[1] != NULL && optionSelected[2] != NULL);
+				} while((optionSelected[0] != NULL && optionSelected[1] != NULL && optionSelected[2] != NULL));
 
 
 				return optionSelected;
