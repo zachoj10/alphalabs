@@ -125,15 +125,14 @@ namespace Checkers {
 
 
 			void AddPieceToList(){
-				
 				CheckerObj *temp = head;
-				//nextID++;
 
 				temp = CreateChecker();
 				temp->UseSpecial();
 				temp->next = head;
 				head = temp;
-			}
+			} //AddPieceToList
+
 
 			checkerColor getColor(){
 				return pieceColor;

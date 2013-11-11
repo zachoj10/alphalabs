@@ -141,7 +141,7 @@ void PlayGame(int playerCount) {
 	} //if-else
 
 	// Clean up after the current game
-	delete playerList;
+	delete[] playerList;
 } //PlayGame
 
 
